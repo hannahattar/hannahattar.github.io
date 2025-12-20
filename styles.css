@@ -168,3 +168,56 @@ hr{
     height:140px;
   }
 }
+
+/* Writing: book feature block */
+.book-feature{
+  display:grid;
+  grid-template-columns: 1fr 280px;
+  gap:36px;
+  align-items:start;
+}
+
+.book-cover img{
+  width:100%;
+  height:auto;
+  display:block;
+  border:1px solid var(--rule);
+  border-radius:6px;
+  background:#fff;
+}
+
+.manuscript-note{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:14px;
+}
+
+.book-links{
+  margin-top:14px;
+}
+
+.btn{
+  display:inline-block;
+  padding:9px 12px;
+  border:1px solid var(--rule);
+  border-radius:6px;
+  font-size:14px;
+  color:var(--text);
+  background:#f9fafb;
+}
+
+.btn:hover{
+  border-color:var(--accent);
+  text-decoration:none;
+}
+
+/* Mobile */
+@media (max-width: 900px){
+  .book-feature{
+    grid-template-columns: 1fr;
+  }
+  .book-cover{
+    order: -1;
+    max-width: 340px;
+  }
+}
