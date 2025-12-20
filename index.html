@@ -8,6 +8,7 @@
 </head>
 <body>
   <div class="container">
+
     <div class="nav">
       <div class="nav-left">
         <a class="brand" href="index.html">Hannah Attar</a>
@@ -23,99 +24,41 @@
       </div>
     </div>
 
-    <div class="hero">
+    <div class="hero" style="display:grid; grid-template-columns: 1fr 220px; gap:28px; align-items:start;">
       <div>
         <h1>Hannah Attar</h1>
         <p class="lede">
-          Financial Engineering (USC) focused on stochastic processes, ML, and MBS analytics.
-        </p>
-        <p class="kicker">
-          I build models and writeups that connect probability to real financial behavior,
-          then turn that into code, simulations, and interpretable results.
+          Master’s student in Financial Engineering at the University of Southern California.
         </p>
       </div>
 
-      <div class="photo">
-        Photo placeholder (add later)
+      <!-- Photo block (replace placeholder later) -->
+      <div style="border:1px solid var(--rule); border-radius:8px; overflow:hidden; width:220px; height:220px; display:flex; align-items:center; justify-content:center; color:var(--muted);">
+        Photo (add later)
+        <!-- When ready, replace the line above with:
+        <img src="photo.jpg" alt="Hannah Attar" style="width:100%; height:100%; object-fit:cover;" />
+        -->
       </div>
     </div>
 
     <div class="section">
-      <h2>Featured Projects</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Predicting Reversal Windows in High-Momentum Stocks (ML)</h3>
-          <p>Personal project using behavioral + market features to detect momentum exhaustion.</p>
-          <div class="tags">
-            <span class="tag">Python</span>
-            <span class="tag">ML</span>
-            <span class="tag">Feature Engineering</span>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>Mortgage / MBS Cash-Flow Modeling</h3>
-          <p>Built cash-flow and scenario models to study prepayment, default, and tranche behavior.</p>
-          <div class="tags">
-            <span class="tag">Fixed Income</span>
-            <span class="tag">MBS</span>
-            <span class="tag">Modeling</span>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>Stochastic Process Visualization</h3>
-          <p>Created explanatory visuals for discrete- and continuous-time processes for a book chapter.</p>
-          <div class="tags">
-            <span class="tag">Stochastic Processes</span>
-            <span class="tag">Monte Carlo</span>
-            <span class="tag">Visualization</span>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>Options Pricing and Greeks (Binomial + Black–Scholes)</h3>
-          <p>Implemented pricing and sensitivity analysis with clear derivations and numerical checks.</p>
-          <div class="tags">
-            <span class="tag">Derivatives</span>
-            <span class="tag">Greeks</span>
-            <span class="tag">Numerical Methods</span>
-          </div>
-        </div>
-      </div>
+      <h2>About</h2>
+      <p class="lede">
+        I am a Master’s student in Financial Engineering at the University of Southern California with a strong interest in quantitative modeling at the intersection of probability, finance, and real economic systems. My work is driven by a desire to understand how abstract mathematical structures such as stochastic processes and statistical models translate into observable financial behavior in markets and real assets. I am particularly motivated by problems where uncertainty, dynamics, and human behavior interact, and I enjoy building models that are not only technically sound but also interpretable and grounded in economic intuition.
+      </p>
     </div>
 
     <div class="section">
-      <h2>Writing / Notes</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Book: Stochastic Processes & Probability (in progress)</h3>
-          <p>A structured, intuitive, and mathematical reference with simulations and visuals.</p>
-          <div class="tags">
-            <span class="tag">Probability</span>
-            <span class="tag">Random Processes</span>
-            <span class="tag">LaTeX</span>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>Short Notes (coming soon)</h3>
-          <p>Compact writeups on key ideas: Brownian motion, Markov chains, prepayment option risk, and more.</p>
-          <div class="tags">
-            <span class="tag">Explanations</span>
-            <span class="tag">Intuition</span>
-            <span class="tag">Proof Sketches</span>
-          </div>
-        </div>
-      </div>
+      <h2>Research Interests</h2>
+      <p class="lede">
+        My research interests center on stochastic processes, machine learning, and applied econometrics as tools for analyzing complex financial and economic systems. I am especially interested in Monte Carlo simulation, probabilistic modeling, and data-driven methods for understanding asset dynamics, market regimes, and risk. In parallel, I am drawn to housing and mortgage markets, including mortgage-backed securities and prepayment behavior, where structural modeling and empirical analysis play a critical role. More broadly, I am interested in probability theory as a unifying language for modeling uncertainty across financial markets and real-world economic phenomena.
+      </p>
     </div>
 
     <div class="footer">
       <div>© <span id="y"></span> Hannah Attar</div>
-      <div>
-        <a href="mailto:YOUR_EMAIL_HERE">YOUR_EMAIL_HERE</a>
-      </div>
     </div>
+
   </div>
 
   <script>
