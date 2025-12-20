@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Writing | Hannah Attar</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Top navigation -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="site-title" href="index.html">Hannah Attar</a>
+      <div class="topnav">
+        <a href="projects.html">Projects</a>
+        <a href="experience.html">Experience</a>
+        <a href="writing.html">Writing</a>
+        <a href="resume.html">Resume</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="avatar">
+        <img src="photo.jpg" alt="Hannah Attar"
+             style="width:100%; height:100%; object-fit:cover; transform:scale(1.06);" />
+      </div>
+
+      <div class="sidebar-name">Hannah Attar</div>
+      <p class="sidebar-bio">
+        Master’s student in Financial Engineering (USC). Interests in stochastic processes,
+        machine learning, and housing and mortgage markets.
+      </p>
+
+      <div class="sidebar-links">
+        <div>📍 Los Angeles, CA</div>
+        <div>🏫 University of Southern California</div>
+        <div><a href="mailto:hmattar@usc.edu">✉️ hmattar@usc.edu</a></div>
+        <div><a href="https://github.com/hannahattar">🔗 GitHub</a></div>
+        <div><a href="https://www.linkedin.com/in/hannahattar/">🔗 LinkedIn</a></div>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main>
+
+      <section class="book-feature">
+        <div class="book-text">
+          <h1>Writing</h1>
+
+          <h2>Probability and Stochastic Processes</h2>
+
+          <p class="lede">
+            <strong>Probability and Stochastic Processes</strong> is a foundations text that develops a rigorous and conceptually unified treatment of probabilistic modeling and random dynamical systems. The book progresses from core principles of probability to stochastic processes and continuous-time models, with an emphasis on internal consistency, mathematical structure, and intuitive interpretation. By highlighting how uncertainty and information propagate over time, the text establishes a framework suitable for advanced quantitative modeling, including applications encountered in financial engineering and related disciplines.
+          </p>
+
+          <p class="manuscript-note"><em>Manuscript in preparation.</em></p>
+
+          <div class="book-links">
+            <a class="btn" href="">PDF (coming soon)</a>
+            <!-- Later, set href to your PDF filename, e.g. href="probability-stochastic-processes.pdf" -->
+          </div>
+        </div>
+
+        <div class="book-cover">
+          <img src="book-cover.png" alt="Cover of Probability and Stochastic Processes" />
+        </div>
+      </section>
+
+      <div class="footer">
+        © <span id="y"></span> Hannah Attar
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
