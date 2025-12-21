@@ -170,12 +170,14 @@ hr{
 }
 
 /* Writing: book feature block */
-.book-feature{
-  display:grid;
+.book-feature {
+  display: grid;
   grid-template-columns: 1fr 280px;
-  gap:36px;
-  align-items:start;
+  gap: 3rem;
+  margin-top: 2rem;
+  align-items: flex-start;
 }
+
 
 .book-cover img{
   width:100%;
