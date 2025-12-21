@@ -5,8 +5,8 @@
   --accent:#2563eb;
   --rule:#e5e7eb;
 
-  --sidebar: 260px;
-  --max: 920px;
+  --sidebar:260px;
+  --max:920px;
 }
 
 *{ box-sizing:border-box; }
@@ -81,10 +81,6 @@ a:hover{ text-decoration:underline; }
   height:180px;
   border-radius:999px;
   border:1px solid var(--rule);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--muted);
   background:#f9fafb;
   overflow:hidden;
 }
@@ -118,9 +114,7 @@ a:hover{ text-decoration:underline; }
 }
 
 /* Main content */
-main{
-  max-width:var(--max);
-}
+main{ max-width:var(--max); }
 
 h1{
   font-size:30px;
@@ -134,9 +128,7 @@ h2{
   font-weight:650;
 }
 
-p{
-  margin:0 0 14px;
-}
+p{ margin:0 0 14px; }
 
 .lede{
   color:var(--muted);
@@ -157,45 +149,11 @@ hr{
   font-size:14px;
 }
 
-/* Mobile */
-@media (max-width: 900px){
-  .page{
-    grid-template-columns: 1fr;
-    gap:22px;
-  }
-  .avatar{
-    width:140px;
-    height:140px;
-  }
-}
-
-/* Writing: book feature block */
-.book-feature {
-  display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: 3rem;
-  margin-top: 2rem;
-  align-items: flex-start;
-}
-
-
-.book-cover img{
-  width:100%;
-  height:auto;
-  display:block;
-  border:1px solid var(--rule);
-  border-radius:6px;
-  background:#fff;
-}
-
+/* Shared UI */
 .manuscript-note{
   margin-top:10px;
   color:var(--muted);
   font-size:14px;
-}
-
-.book-links{
-  margin-top:14px;
 }
 
 .btn{
@@ -207,35 +165,13 @@ hr{
   color:var(--text);
   background:#f9fafb;
 }
-
 .btn:hover{
   border-color:var(--accent);
   text-decoration:none;
 }
 
-/* Mobile */
-@media (max-width: 900px){
-  .book-feature{
-    grid-template-columns: 1fr;
-  }
-  .book-cover{
-    order: -1;
-    max-width: 340px;
-  }
-}
-
-/* Projects: featured manuscript layout */
-.proj-feature{
-  display:grid;
-  grid-template-columns: 1fr 220px;
-  gap:28px;
-  align-items:flex-start;
-}
-
-.proj-cover{
-  align-self:flex-start;
-}
-
+/* Shared cover image styling */
+.book-cover img,
 .proj-cover img{
   width:100%;
   height:auto;
@@ -245,15 +181,61 @@ hr{
   background:#fff;
 }
 
-.proj-links{
-  margin-top:14px;
+/* Writing: book feature block (safe to keep even if page removed) */
+.book-feature{
+  display:grid;
+  grid-template-columns: 1fr 280px;
+  gap:48px;
+  margin-top:20px;
+  align-items:flex-start;
 }
 
+.book-links{ margin-top:14px; }
+
+/* Projects: featured manuscript layout */
+.proj-feature{
+  display:grid;
+  grid-template-columns: 1fr 220px;
+  gap:28px;
+  align-items:flex-start;
+}
+
+/* This is the real alignment fix: remove top margin from the title inside the featured project */
+.proj-feature h2{
+  margin-top:0;
+}
+
+/* Ensure the cover column also sits at the top */
+.proj-cover{
+  align-self:flex-start;
+}
+
+.proj-links{ margin-top:14px; }
+
+/* Mobile */
 @media (max-width: 900px){
+  .page{
+    grid-template-columns: 1fr;
+    gap:22px;
+  }
+
+  .avatar{
+    width:140px;
+    height:140px;
+  }
+
+  .book-feature{
+    grid-template-columns: 1fr;
+  }
+  .book-cover{
+    order:-1;
+    max-width:340px;
+  }
+
   .proj-feature{
     grid-template-columns: 1fr;
   }
   .proj-cover{
-    max-width: 320px;
+    max-width:320px;
   }
 }
