@@ -106,11 +106,12 @@ a:hover{ text-decoration:underline; }
 }
 
 .sidebar-links a{
-  color:var(--muted);
-}
-.sidebar-links a:hover{
   color:var(--accent);
   text-decoration:none;
+}
+
+.sidebar-links a:hover{
+  text-decoration:underline;
 }
 
 /* Main content */
