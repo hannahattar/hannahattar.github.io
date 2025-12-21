@@ -239,3 +239,23 @@ hr{
     max-width:320px;
   }
 }
+
+/* Research Interests list */
+.ri{
+  margin: 10px 0 0;
+  padding-left: 18px;
+  color: var(--text);
+}
+
+.ri li{
+  margin: 0 0 14px;
+}
+
+.ri li strong{
+  color: var(--text);
+  font-weight: 650;
+}
+
+.ri li span{
+  color: var(--muted);
+}
