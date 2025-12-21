@@ -223,3 +223,33 @@ hr{
     max-width: 340px;
   }
 }
+
+/* Projects: featured manuscript layout */
+.proj-feature{
+  display:grid;
+  grid-template-columns: 1fr 220px;
+  gap:28px;
+  align-items:flex-start;
+}
+
+.proj-cover img{
+  width:100%;
+  height:auto;
+  display:block;
+  border:1px solid var(--rule);
+  border-radius:6px;
+  background:#fff;
+}
+
+.proj-links{
+  margin-top:14px;
+}
+
+@media (max-width: 900px){
+  .proj-feature{
+    grid-template-columns: 1fr;
+  }
+  .proj-cover{
+    max-width: 320px;
+  }
+}
