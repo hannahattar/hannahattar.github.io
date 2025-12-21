@@ -7,142 +7,118 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="container">
 
-    <div class="nav">
-      <div class="nav-left">
-        <a class="brand" href="index.html">Hannah Attar</a>
+  <!-- Top navigation -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="site-title" href="index.html">Hannah Attar</a>
+      <div class="topnav">
         <a href="projects.html">Projects</a>
         <a href="experience.html">Experience</a>
         <a href="writing.html">Writing</a>
         <a href="resume.html">Resume</a>
       </div>
-      <div class="nav-right">
-        <a href="mailto:YOUR_EMAIL_HERE">Email</a>
-        <a href="https://github.com/hannahattar">GitHub</a>
-        <a href="https://www.linkedin.com/in/YOUR_LINKEDIN_HERE">LinkedIn</a>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="avatar">
+        <img src="photo.jpg" alt="Hannah Attar"
+             style="width:100%; height:100%; object-fit:cover; transform:scale(1.06);" />
       </div>
-    </div>
 
-    <h1>Projects</h1>
-    <p class="lede">
-      Selected work in machine learning, stochastic modeling, and financial engineering.
-    </p>
+      <div class="sidebar-name">Hannah Attar</div>
+      <p class="sidebar-bio">
+        Master’s student in Financial Engineering (USC)
+      </p>
 
-    <!-- Project 1 -->
-    <div class="section">
-      <div class="card">
-        <h3>Predicting Reversal Windows in High-Momentum Stocks</h3>
-        <p>
-          Personal machine learning project studying momentum exhaustion by combining
-          behavioral indicators with market-based features.
-        </p>
-        <ul>
-          <li>Engineered features from price dynamics, volume, and behavioral signals</li>
-          <li>Trained supervised learning models with careful validation</li>
-          <li>Focused on interpretability and regime-dependent behavior</li>
-        </ul>
-        <div class="tags">
-          <span class="tag">Python</span>
-          <span class="tag">Machine Learning</span>
-          <span class="tag">Markets</span>
-        </div>
+      <div class="sidebar-links">
+        <div>📍 Los Angeles, CA</div>
+        <div>🏫 University of Southern California</div>
+        <div><a href="mailto:hmattar@usc.edu">✉️ hmattar@usc.edu</a></div>
+        <div><a href="https://github.com/hannahattar">🔗 GitHub</a></div>
+        <div><a href="https://www.linkedin.com/in/hannahattar/">🔗 LinkedIn</a></div>
       </div>
-    </div>
+    </aside>
 
-    <!-- Project 2 -->
-    <div class="section">
-      <div class="card">
-        <h3>Mortgage and MBS Cash-Flow Modeling</h3>
-        <p>
-          Built cash-flow and scenario models to analyze mortgage-backed securities,
-          focusing on prepayment, default risk, and tranche behavior.
-        </p>
-        <ul>
-          <li>Modeled mortgage amortization, prepayments, and defaults</li>
-          <li>Analyzed tranche-level cash flows and sensitivity to interest rates</li>
-          <li>Studied embedded prepayment option effects</li>
-        </ul>
-        <div class="tags">
-          <span class="tag">Fixed Income</span>
-          <span class="tag">MBS</span>
-          <span class="tag">Modeling</span>
-        </div>
+    <!-- Main content -->
+    <main>
+
+      <h1>Projects</h1>
+      <p class="lede">
+        A small selection of projects focused on quantitative modeling, housing and mortgage markets,
+        and stochastic methods for finance.
+      </p>
+
+      <hr />
+
+      <h2>Spatial Econometric Modeling of Housing Market Dynamics</h2>
+      <p class="lede">
+        January 2024 – May 2024
+      </p>
+      <ul>
+        <li>
+          Built spatial econometric models in Stata and Python to study housing prices using geographically
+          clustered datasets, spatial lags, and regional interaction effects
+        </li>
+        <li>
+          Achieved an R² of 89.1%, indicating strong predictive performance for regional housing market dynamics
+        </li>
+        <li>
+          Interpreted spatial spillovers and model diagnostics to evaluate how local price changes propagate across neighboring areas
+        </li>
+      </ul>
+
+      <hr />
+
+      <h2>Mortgage and MBS Cash-Flow Modeling</h2>
+      <p class="lede">
+        Project work · Ongoing
+      </p>
+      <ul>
+        <li>
+          Built mortgage and MBS cash-flow models to analyze amortization, prepayment behavior, default scenarios, and tranche-level exposure
+        </li>
+        <li>
+          Evaluated how prepayment option risk affects IO/PO valuation intuition and interest-rate sensitivity under different rate environments
+        </li>
+        <li>
+          Designed scenario tables and simulations to stress cash flows under varying CPR/PSA and loss-severity assumptions
+        </li>
+      </ul>
+
+      <hr />
+
+      <h2>Stochastic Processes for Finance: Simulation of Asset Paths and Risk Measures</h2>
+      <p class="lede">
+        Selected modeling work · Ongoing
+      </p>
+      <ul>
+        <li>
+          Simulated discrete- and continuous-time stochastic processes to model asset-path uncertainty and distributional outcomes
+        </li>
+        <li>
+          Implemented Monte Carlo experiments to estimate tail risk metrics and compare path-dependent quantities under different assumptions
+        </li>
+        <li>
+          Developed visualizations to communicate intuition around randomness over time and its implications for financial decision-making
+        </li>
+      </ul>
+
+      <div class="footer">
+        © <span id="y"></span> Hannah Attar
       </div>
-    </div>
 
-    <!-- Project 3 -->
-    <div class="section">
-      <div class="card">
-        <h3>Stochastic Process Visualization and Simulation</h3>
-        <p>
-          Created explanatory simulations and visuals for discrete- and continuous-time
-          stochastic processes as part of a larger educational project.
-        </p>
-        <ul>
-          <li>Simulated random walks, Brownian motion, and related processes</li>
-          <li>Used Monte Carlo methods to study path behavior and distributions</li>
-          <li>Designed visuals for intuitive understanding of randomness over time</li>
-        </ul>
-        <div class="tags">
-          <span class="tag">Stochastic Processes</span>
-          <span class="tag">Monte Carlo</span>
-          <span class="tag">Visualization</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Project 4 -->
-    <div class="section">
-      <div class="card">
-        <h3>Options Pricing and Greeks</h3>
-        <p>
-          Implemented option pricing models and sensitivity analysis using both
-          discrete-time and continuous-time frameworks.
-        </p>
-        <ul>
-          <li>Priced European options using binomial lattices and Black–Scholes</li>
-          <li>Computed Greeks and analyzed hedging implications</li>
-          <li>Verified numerical results against analytical benchmarks</li>
-        </ul>
-        <div class="tags">
-          <span class="tag">Derivatives</span>
-          <span class="tag">Greeks</span>
-          <span class="tag">Numerical Methods</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Project 5 -->
-    <div class="section">
-      <div class="card">
-        <h3>Spatial Econometric Modeling of Housing Market Dynamics</h3>
-        <p>
-          Developed spatial econometric models to study regional housing price dynamics
-          using geographically clustered data and spatial dependence structures.
-        </p>
-        <ul>
-          <li>Implemented spatial lag and spatial error models in Stata and Python</li>
-          <li>Modeled geographic spillovers in housing prices across regions</li>
-          <li>Achieved an in-sample R² of 89.1% after accounting for spatial dependence</li>
-        </ul>
-        <div class="tags">
-          <span class="tag">Spatial Econometrics</span>
-          <span class="tag">Housing Markets</span>
-          <span class="tag">Stata</span>
-          <span class="tag">Python</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer">
-      <div>© <span id="y"></span> Hannah Attar</div>
-    </div>
+    </main>
 
   </div>
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
   </script>
+
 </body>
 </html>
