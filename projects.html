@@ -41,8 +41,8 @@
         <div>Los Angeles, CA</div>
         <div>University of Southern California</div>
         <div><a href="mailto:hmattar@usc.edu">hmattar@usc.edu</a></div>
-        <div><a href="https://github.com/hannahattar">GitHub</a></div>
-        <div><a href="https://www.linkedin.com/in/hannahattar/">LinkedIn</a></div>
+        <div><a href="https://github.com/hannahattar" target="_blank" rel="noopener">GitHub</a></div>
+        <div><a href="https://www.linkedin.com/in/hannahattar/" target="_blank" rel="noopener">LinkedIn</a></div>
       </div>
     </aside>
 
@@ -51,122 +51,210 @@
 
       <h1>Projects</h1>
       <p class="lede">
-        Selected projects spanning econometrics, housing and mortgage markets, and stochastic modeling.
+        Selected projects spanning econometrics, housing and mortgage markets, stochastic processes, and applied machine learning.
       </p>
 
       <hr />
 
-      <!-- Book project -->
-      <section class="proj-feature">
-        <div class="proj-text">
-          <h2>Probability and Stochastic Processes (Book Manuscript)</h2>
+      <!-- Project Card: Book Manuscript -->
+      <section class="project-card project-card--with-cover">
+        <div class="project-top">
+          <div class="project-top-left">
+            <h2 class="project-title">Probability and Stochastic Processes (Book Manuscript)</h2>
+            <div class="project-tags">
+              <span>LaTeX</span>
+              <span>Probability</span>
+              <span>Stochastic Processes</span>
+              <span>Quant Reference</span>
+              <span>Visual Explanations</span>
+            </div>
+          </div>
 
-          <p>
-            Probability and Stochastic Processes is a structured and concept-driven reference that develops the core ideas of probability theory and stochastic processes within a single, coherent framework. The text emphasizes clarity of structure and continuity across topics, combining rigorous definitions with intuitive explanations and original computational visualizations. Rather than serving as a formula compendium, it is designed to support deep understanding and reliable recall, providing a solid foundation for applied work in financial engineering, quantitative finance, and related fields.
-          </p>
-
-          <p class="manuscript-note"><em>Manuscript in preparation.</em></p>
-
-          <div class="proj-links">
-            <a class="btn"
-               href="probability-stochastic-processes-preview.pdf"
-               target="_blank" rel="noopener">
-              Preview chapters (PDF)
-            </a>
+          <div class="project-top-right">
+            <a class="proj-link" href="probability-stochastic-processes-preview.pdf" target="_blank" rel="noopener">Preview (PDF) →</a>
           </div>
         </div>
 
-        <div class="proj-cover">
-          <img src="book-cover.jpg" alt="Cover of Probability and Stochastic Processes" />
+        <div class="project-two-col">
+          <div>
+            <p class="project-desc">
+              A structured, concept-driven reference that develops core probability and stochastic process ideas within a single coherent framework.
+              Emphasizes clarity of structure and continuity across topics, combining rigorous definitions with concise intuition and original computational visualizations.
+              Designed as a refresher and applied reference for quantitative finance and financial engineering.
+            </p>
+
+            <p class="manuscript-note"><em>Manuscript in preparation.</em></p>
+
+            <div class="project-divider"></div>
+
+            <div class="project-metrics">
+              <div class="metric">
+                <div class="metric-value">Book</div>
+                <div class="metric-label">Reference Format</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">LaTeX</div>
+                <div class="metric-label">Production Pipeline</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">Visual</div>
+                <div class="metric-label">Concept Graphics</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-cover">
+            <img src="book-cover.jpg" alt="Cover of Probability and Stochastic Processes" />
+          </div>
         </div>
       </section>
 
       <hr />
 
-      <h2>Spatial Econometric Modeling of Housing Market Dynamics</h2>
-      <p class="lede">January 2024 – May 2024</p>
-      <ul>
-        <li>
-          Built econometric models in Stata and Python to evaluate housing prices using geographically clustered datasets and spatial lags
-        </li>
-        <li>
-          Achieved an R² of 89.1%, indicating high model accuracy in predicting regional housing market dynamics
-        </li>
-      </ul>
-
-      <div class="proj-links">
-        <a class="btn"
-           href="https://arxiv.org/pdf/2412.03583"
-           target="_blank" rel="noopener">
-          View paper (arXiv)
-        </a>
-      </div>
-
-      <hr />
-
-      <h2>Mortgage and MBS Cash-Flow Modeling</h2>
-      <p class="lede">Ongoing</p>
-      <ul>
-        <li>
-          Built mortgage and MBS cash-flow models to analyze amortization, prepayment behavior, default scenarios, and cash-flow sensitivity
-        </li>
-        <li>
-          Studied how borrower prepayment option risk affects tranche exposure and interest-rate sensitivity under different scenarios
-        </li>
-      </ul>
-
-      <hr />
-
+      <!-- Project Card: Spatial Econometrics -->
       <section class="project-card">
-  <div class="project-top">
-    <div class="project-top-left">
-      <h2 class="project-title">State-Aware Model Risk Visualization</h2>
-      <div class="project-tags">
-        <span>Python</span>
-        <span>scikit-learn</span>
-        <span>Logistic Regression</span>
-        <span>Volatility States</span>
-        <span>Calibration</span>
+        <div class="project-top">
+          <div class="project-top-left">
+            <h2 class="project-title">Spatial Econometric Modeling of Housing Market Dynamics</h2>
+            <div class="project-tags">
+              <span>Stata</span>
+              <span>Python</span>
+              <span>Spatial Lags</span>
+              <span>Housing Markets</span>
+              <span>Econometrics</span>
+            </div>
+          </div>
+
+          <div class="project-top-right">
+            <a class="proj-link" href="https://arxiv.org/pdf/2412.03583" target="_blank" rel="noopener">View Paper (arXiv) →</a>
+          </div>
+        </div>
+
+        <p class="project-desc">
+          Built spatial econometric models to evaluate housing prices using geographically clustered datasets and spatial lags,
+          combining Stata and Python workflows for estimation, diagnostics, and validation.
+        </p>
+
+        <div class="project-divider"></div>
+
+        <div class="project-metrics">
+          <div class="metric">
+            <div class="metric-value">Jan–May</div>
+            <div class="metric-label">2024</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">R² 0.891</div>
+            <div class="metric-label">Predictive Fit</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">Spatial</div>
+            <div class="metric-label">Lag Structure</div>
+          </div>
+        </div>
+      </section>
+
+      <hr />
+
+      <!-- Project Card: Mortgage + MBS Cash Flows -->
+      <section class="project-card">
+        <div class="project-top">
+          <div class="project-top-left">
+            <h2 class="project-title">Mortgage and MBS Cash-Flow Modeling</h2>
+            <div class="project-tags">
+              <span>Excel</span>
+              <span>Amortization</span>
+              <span>Prepayment</span>
+              <span>Default / Severity</span>
+              <span>Tranche Exposure</span>
+            </div>
+          </div>
+
+          <div class="project-top-right">
+            <a class="proj-link" href="#" target="_blank" rel="noopener">See Details →</a>
+          </div>
+        </div>
+
+        <p class="project-desc">
+          Built mortgage and MBS cash-flow models to analyze amortization, prepayment behavior, default scenarios,
+          and cash-flow sensitivity. Studied how the borrower prepayment option affects tranche exposure and
+          interest-rate sensitivity under different assumptions.
+        </p>
+
+        <div class="project-divider"></div>
+
+        <div class="project-metrics">
+          <div class="metric">
+            <div class="metric-value">Ongoing</div>
+            <div class="metric-label">Project Status</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">CF</div>
+            <div class="metric-label">Cash-Flow Engine</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">Option</div>
+            <div class="metric-label">Prepay Risk Lens</div>
+          </div>
+        </div>
+      </section>
+
+      <hr />
+
+      <!-- Project Card: State-Aware Model Risk -->
+      <section class="project-card">
+        <div class="project-top">
+          <div class="project-top-left">
+            <h2 class="project-title">State-Aware Model Risk Visualization</h2>
+            <div class="project-tags">
+              <span>Python</span>
+              <span>scikit-learn</span>
+              <span>Logistic Regression</span>
+              <span>Volatility States</span>
+              <span>Calibration</span>
+            </div>
+          </div>
+
+          <div class="project-top-right">
+            <a class="proj-link" href="https://github.com/hannahattar" target="_blank" rel="noopener">GitHub →</a>
+            <a class="proj-link" href="#" target="_blank" rel="noopener">See Details →</a>
+          </div>
+        </div>
+
+        <p class="project-desc">
+          Visualization-first diagnostic study of how a simple classifier’s decision geometry and confidence reliability
+          shift across low- vs high-volatility market conditions (SPY, daily). Highlights where state-specific models
+          disagree most and where the global model becomes confidently wrong under stress.
+        </p>
+
+        <div class="project-divider"></div>
+
+        <div class="project-metrics">
+          <div class="metric">
+            <div class="metric-value">Global</div>
+            <div class="metric-label">Baseline Model</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">Low/High</div>
+            <div class="metric-label">Volatility States</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value">3</div>
+            <div class="metric-label">Diagnostic Figures</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer">
+        © <span id="y"></span> Hannah Attar
       </div>
-    </div>
-
-    <div class="project-top-right">
-      <a class="proj-link" href="https://github.com/hannahattar" target="_blank" rel="noopener">GitHub →</a>
-      <a class="proj-link" href="#" target="_blank" rel="noopener">See Details →</a>
-    </div>
-  </div>
-
-  <p class="project-desc">
-    Visualization-first diagnostic study of how a simple classifier’s decision geometry and confidence reliability
-    shift across low- vs high-volatility market conditions (SPY, daily). Highlights where state-specific models
-    disagree most and where the global model becomes confidently wrong under stress.
-  </p>
-
-  <div class="project-divider"></div>
-
-  <div class="project-metrics">
-    <div class="metric">
-      <div class="metric-value">Global</div>
-      <div class="metric-label">Baseline Model</div>
-    </div>
-    <div class="metric">
-      <div class="metric-value">Low/High</div>
-      <div class="metric-label">Volatility States</div>
-    </div>
-    <div class="metric">
-      <div class="metric-value">3</div>
-      <div class="metric-label">Diagnostic Figures</div>
-    </div>
-  </div>
-</section>
-
 
     </main>
 
   </div>
 
   <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
+    const y = document.getElementById("y");
+    if (y) y.textContent = new Date().getFullYear();
   </script>
 
 </body>
