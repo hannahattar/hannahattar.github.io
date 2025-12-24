@@ -401,6 +401,154 @@ hr{
   font-weight: 650;
 }
 
+/* =========================
+   Project detail page
+   ========================= */
+.detail{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 26px 20px 80px;
+}
+
+.detail-back{
+  display:inline-block;
+  margin: 6px 0 18px;
+  font-weight:650;
+}
+
+.detail-hero{
+  border-bottom:1px solid var(--rule);
+  padding-bottom:18px;
+  margin-bottom:22px;
+}
+
+.detail-kicker{
+  color: var(--muted);
+  font-size:13px;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+
+.detail-title{
+  font-size:40px;
+  line-height:1.08;
+  margin: 0 0 10px;
+  font-weight:800;
+}
+
+.detail-subtitle{
+  color: var(--muted);
+  font-size:16px;
+  margin: 0 0 14px;
+  max-width: 70ch;
+}
+
+.detail-meta{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 18px;
+  color: var(--text);
+  font-size:14px;
+  margin: 10px 0 16px;
+}
+
+.detail-meta span{
+  color: var(--muted);
+  font-weight:650;
+}
+
+.detail-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top: 8px;
+}
+
+.detail-section{
+  margin: 22px 0 0;
+}
+
+.detail-section h2{
+  margin: 0 0 10px;
+  font-size:22px;
+}
+
+.muted{ color: var(--muted); }
+
+.grid-2{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.card{
+  border:1px solid var(--rule);
+  border-radius:14px;
+  padding:14px 14px 12px;
+  background:#fff;
+}
+
+.card-title{
+  font-weight:800;
+  margin: 0 0 8px;
+}
+
+.tight{
+  margin:0;
+  padding-left: 18px;
+}
+
+.tight li{ margin: 0 0 6px; }
+
+.callout{
+  margin-top: 16px;
+  border:1px solid #dbeafe;
+  background:#eff6ff;
+  border-left:4px solid var(--accent);
+  border-radius:14px;
+  padding:14px 14px 12px;
+}
+
+.callout-title{
+  font-weight:800;
+  margin:0 0 8px;
+}
+
+.figure{
+  margin: 16px 0 18px;
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  background:#fff;
+  overflow:hidden;
+}
+
+.figcap{
+  padding: 12px 14px;
+  border-bottom:1px solid var(--rule);
+  color: var(--text);
+  font-size:14px;
+}
+
+.figimg{
+  display:block;
+  width:100%;
+  height:auto;
+}
+
+@media (max-width: 860px){
+  .detail-meta{
+    grid-template-columns: 1fr;
+  }
+  .grid-2{
+    grid-template-columns: 1fr;
+  }
+  .detail-title{
+    font-size:32px;
+  }
+}
+
+
 .ri li span{
   color: var(--muted);
 }
