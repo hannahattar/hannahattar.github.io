@@ -154,7 +154,7 @@ hr{
 .manuscript-note{
   margin-top:10px;
   color:var(--muted);
-  font-size:14px;
+  font-size:13px;
 }
 
 .btn{
@@ -171,7 +171,7 @@ hr{
   text-decoration:none;
 }
 
-/* Shared cover image styling */
+/* Shared cover image styling (legacy) */
 .book-cover img,
 .proj-cover img{
   width:100%;
@@ -193,7 +193,7 @@ hr{
 
 .book-links{ margin-top:14px; }
 
-/* Projects: featured manuscript layout */
+/* Projects: featured manuscript layout (legacy) */
 .proj-feature{
   display:grid;
   grid-template-columns: 1fr 220px;
@@ -201,51 +201,56 @@ hr{
   align-items:flex-start;
 }
 
-/* This is the real alignment fix: remove top margin from the title inside the featured project */
 .proj-feature h2{
   margin-top:0;
 }
 
-/* Ensure the cover column also sits at the top */
 .proj-cover{
   align-self:flex-start;
 }
 
 .proj-links{ margin-top:14px; }
 
-/* Projects: card layout (screenshot-style) */
+/* =========================
+   Projects: card layout
+   ========================= */
 .project-card{
   background:#fff;
-  border:1px solid var(--rule);
+  border:1px solid #eef0f3;
   border-radius:14px;
-  padding:22px 22px 18px;
+  padding:18px 18px 14px;
   margin:18px 0;
+  box-shadow: 0 1px 0 rgba(17,24,39,0.02);
 }
 
 .project-top{
   display:flex;
   justify-content:space-between;
-  gap:18px;
+  gap:16px;
   align-items:flex-start;
 }
 
 .project-title{
-  margin:0 0 10px 0;
-  font-size:26px;
-  line-height:1.15;
+  margin:0;
+  font-size:20px;
+  line-height:1.2;
   font-weight:650;
 }
 
 .project-tags{
+  margin-top:8px;
   display:flex;
   flex-wrap:wrap;
-  gap:10px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size:13px;
+  gap:8px;
+  font-size:12px;
 }
 
 .project-tags span{
-  color:var(--accent);
+  color:#374151;
+  background:#f3f4f6;
+  border:1px solid #e5e7eb;
+  padding:3px 8px;
+  border-radius:999px;
 }
 
 .project-top-right{
@@ -257,19 +262,29 @@ hr{
 }
 
 .proj-link{
-  font-weight:650;
+  font-size:13px;
+  color:var(--accent);
   text-decoration:none;
+  padding:6px 10px;
+  border:1px solid var(--rule);
+  border-radius:8px;
+  background:#f9fafb;
+  display:inline-block;
+  font-weight:650;
 }
 
 .proj-link:hover{
-  text-decoration:underline;
+  border-color:var(--accent);
+  text-decoration:none;
 }
 
+/* Keep body text readable and not too wide */
 .project-desc{
-  margin:14px 0 14px;
-  font-size:16px;
-  line-height:1.55;
+  margin:14px 0 0;
+  font-size:15px;
+  line-height:1.6;
   color:var(--text);
+  max-width:56ch;
 }
 
 .project-divider{
@@ -284,7 +299,7 @@ hr{
 }
 
 .metric-value{
-  font-size:32px;
+  font-size:28px;
   font-weight:800;
   color:var(--accent);
   line-height:1;
@@ -296,26 +311,31 @@ hr{
   font-size:13px;
 }
 
-/* FIX: Two-column layout for the book card + constrain cover size */
+/* =========================
+   Book card: two-column + cover constraints
+   ========================= */
 .project-two-col{
+  margin-top:12px;
   display:grid;
-  grid-template-columns: 1fr 320px;
-  gap:32px;
+  grid-template-columns: 1fr 280px; /* fixed cover column */
+  gap:22px;
   align-items:start;
 }
 
 .project-cover{
-  display:flex;
-  align-items:flex-start;
+  justify-self:end;
+  align-self:start;
 }
 
 .project-cover img{
   width:100%;
-  max-height:420px;
-  object-fit:cover;
-  border-radius:6px;
+  max-width:280px;
+  height:320px;         /* key: fixed height so it stops being huge */
+  object-fit:cover;     /* crop nicely */
+  border-radius:10px;
   border:1px solid var(--rule);
   background:#fff;
+  display:block;
 }
 
 /* Mobile */
@@ -347,6 +367,8 @@ hr{
 
   .project-top-right{
     text-align:left;
+    flex-direction:row;
+    flex-wrap:wrap;
   }
 
   .project-two-col{
@@ -354,11 +376,12 @@ hr{
   }
 
   .project-cover{
-    max-width:360px;
+    justify-self:start;
   }
 
   .project-cover img{
-    max-height:360px;
+    max-width:340px;
+    height:auto; /* don’t force cropping on mobile */
   }
 }
 
