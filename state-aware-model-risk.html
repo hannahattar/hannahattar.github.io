@@ -43,8 +43,11 @@
       </div>
 
       <div class="detail-actions">
-        <a class="btn" href="#" target="_blank" rel="noopener">GitHub →</a>
-        <a class="btn" href="project_state_aware/state_aware_model_risk_report.pdf" target="_blank" rel="noopener">Download PDF →</a>
+        <!-- FIX: replace # with your actual repo link (or delete button) -->
+        <a class="btn" href="https://github.com/hannahattar" target="_blank" rel="noopener">GitHub →</a>
+
+        <!-- FIX: make PDF path absolute -->
+        <a class="btn" href="/project_state_aware/state_aware_model_risk_report.pdf" target="_blank" rel="noopener">Download PDF →</a>
       </div>
     </header>
 
@@ -60,7 +63,7 @@
       </p>
 
       <div class="callout">
-        <div class="callout-title">TL;DR Highlights</div>
+        <div class="callout-title">Highlights</div>
         <ul>
           <li>Trained a global model + two state-specific models (low-vol vs high-vol) using identical model class.</li>
           <li>Visualized how decision boundaries shift across market conditions in the (ret5, vol20) plane.</li>
@@ -145,14 +148,16 @@
           <strong>Figure 1.</strong> Decision boundary shift across market conditions (global vs low-vol vs high-vol).
           Same model class, different learned geometry.
         </figcaption>
-        <img class="figimg" src="project_state_aware/figs/fig_1_decision_boundaries.png" alt="Decision boundaries across market conditions">
+        <!-- FIX: absolute path -->
+        <img class="figimg" src="/project_state_aware/figs/fig_1_decision_boundaries.png" alt="Decision boundaries across market conditions">
       </figure>
 
       <figure class="figure">
         <figcaption class="figcap">
           <strong>Figure 2.</strong> Where state-specific models disagree most: heatmap of |P(high) − P(low)|.
         </figcaption>
-        <img class="figimg" src="project_state_aware/figs/fig_2_regime_disagreement.png" alt="State model disagreement heatmap">
+        <!-- FIX: absolute path -->
+        <img class="figimg" src="/project_state_aware/figs/fig_2_regime_disagreement.png" alt="State model disagreement heatmap">
       </figure>
 
       <figure class="figure">
@@ -160,7 +165,8 @@
           <strong>Figure 3.</strong> Confidence vs accuracy for the global model, split by state.
           Confidence is less reliable in high-vol conditions.
         </figcaption>
-        <img class="figimg" src="project_state_aware/figs/fig_3_confidence_vs_accuracy.png" alt="Accuracy vs confidence by state">
+        <!-- FIX: absolute path -->
+        <img class="figimg" src="/project_state_aware/figs/fig_3_confidence_vs_accuracy.png" alt="Accuracy vs confidence by state">
       </figure>
 
       <div class="callout">
@@ -170,21 +176,6 @@
           <li><strong>Disagreement concentrates:</strong> the largest belief differences occur in regions associated with stress conditions.</li>
           <li><strong>Confidence breaks:</strong> high confidence does not consistently imply high accuracy in high-vol periods.</li>
         </ul>
-      </div>
-    </section>
-
-    <section class="detail-section">
-      <h2>Reproducibility</h2>
-      <div class="card">
-        <div class="card-title">How to run</div>
-        <ol class="tight">
-          <li>Install requirements (scikit-learn, pandas, numpy, matplotlib).</li>
-          <li>Run training script to fit global / low-vol / high-vol pipelines.</li>
-          <li>Run plotting script to generate the three diagnostic figures.</li>
-        </ol>
-        <p class="muted" style="margin:10px 0 0;">
-          If you want this section to be exact, paste your repo file names (train script + plot script) and I’ll lock it to your structure.
-        </p>
       </div>
     </section>
 
