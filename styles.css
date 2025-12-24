@@ -260,3 +260,94 @@ hr{
 .ri li span{
   color: var(--muted);
 }
+
+/* Projects: card layout (screenshot-style) */
+.project-card{
+  background:#fff;
+  border:1px solid var(--rule);
+  border-radius:14px;
+  padding:22px 22px 18px;
+  margin:18px 0;
+}
+
+.project-top{
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  align-items:flex-start;
+}
+
+.project-title{
+  margin:0 0 10px 0;
+  font-size:26px;
+  line-height:1.15;
+  font-weight:650;
+}
+
+.project-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size:13px;
+}
+
+.project-tags span{
+  color:var(--accent);
+}
+
+.project-top-right{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  text-align:right;
+  white-space:nowrap;
+}
+
+.proj-link{
+  font-weight:650;
+  text-decoration:none;
+}
+
+.proj-link:hover{
+  text-decoration:underline;
+}
+
+.project-desc{
+  margin:14px 0 14px;
+  font-size:16px;
+  line-height:1.55;
+  color:var(--text);
+}
+
+.project-divider{
+  border-top:1px solid var(--rule);
+  margin:14px 0 14px;
+}
+
+.project-metrics{
+  display:flex;
+  gap:34px;
+  flex-wrap:wrap;
+}
+
+.metric-value{
+  font-size:32px;
+  font-weight:800;
+  color:var(--accent);
+  line-height:1;
+}
+
+.metric-label{
+  margin-top:6px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* Mobile: keep the card layout readable */
+@media (max-width: 900px){
+  .project-top-right{
+    text-align:left;
+  }
+}
+
