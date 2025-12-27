@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>State-Aware Model Risk Visualization | Hannah Attar</title>
+  <title>Regime-Aware Model Risk Visualization | Hannah Attar</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,73 +30,107 @@
 
     <header class="detail-hero">
       <div class="detail-kicker">Project Report</div>
-      <h1 class="detail-title">State-Aware Model Risk Visualization</h1>
+      <h1 class="detail-title">Regime-Aware Model Risk Visualization</h1>
       <p class="detail-subtitle">
-        Diagnosing how decision geometry and confidence reliability shift across volatility-driven market conditions (SPY, daily).
+        Diagnosing how predictive reliability and decision behavior shift across volatility-driven market regimes (SPY, daily).
       </p>
 
       <div class="detail-meta">
         <div><span>Author:</span> Hannah Attar</div>
-        <div><span>Model:</span> Logistic Regression (global vs state-specific)</div>
-        <div><span>States:</span> Low-vol (bottom 20%), High-vol (top 20%) by 20-day realized volatility</div>
-        <div><span>Task:</span> Predict next-day direction (return &gt; 0)</div>
+        <div><span>Asset:</span> SPY (daily, 2006–2025)</div>
+        <div><span>Regimes:</span> Gaussian Mixture Model (ret5, vol10, vol20)</div>
+        <div><span>Predictor:</span> Logistic Regression (ret5, vol20)</div>
+        <div><span>Focus:</span> Confidence reliability + regime-conditional deployment</div>
       </div>
 
       <div class="detail-actions">
-        <!-- FIX: replace # with your actual repo link (or delete button) -->
         <a class="btn" href="https://github.com/hannahattar" target="_blank" rel="noopener">GitHub →</a>
 
-        <!-- FIX: make PDF path absolute -->
-        <a class="btn" href="/project_state_aware/state_aware_model_risk_report.pdf" target="_blank" rel="noopener">Download PDF →</a>
+        <!-- IMPORTANT: Update this to the actual PDF filename/path once uploaded -->
+        <a class="btn" href="Regime_Aware_Model_Risk_Visualization.pdf" target="_blank" rel="noopener">Download PDF →</a>
       </div>
     </header>
 
     <section class="detail-section">
       <h2>Abstract</h2>
       <p>
-        Financial time series are nonstationary, and models trained on pooled data can appear stable on average while failing in specific
-        market conditions. This project is a visualization-first diagnostic study of model risk across volatility-defined states.
-        Using daily SPY features, we train a global logistic regression model and two state-specific models, then compare
-        (i) decision boundaries in the feature plane, (ii) where state-specific models disagree most, and (iii) whether confidence remains
-        informative when volatility is elevated. The goal is not alpha, but identifying where a “reasonable-looking” model becomes
-        confidently wrong.
+        Short-horizon equity return prediction is noisy, and models trained on pooled data can appear stable on average while behaving
+        differently across market conditions. This project studies how predictive confidence and decision behavior vary across inferred
+        market regimes and what that implies for deployment. Using daily SPY data, regimes are identified endogenously with a Gaussian
+        Mixture Model (GMM) based on recent returns and realized volatility. A probabilistic logistic classifier is then evaluated
+        out-of-sample by stratifying accuracy by confidence and regime. Finally, an illustrative strategy uses confidence filtering and
+        regime-based deactivation to examine how selective deployment can alter drawdown and risk profiles, even when raw predictive
+        performance is limited.
       </p>
 
       <div class="callout">
         <div class="callout-title">Highlights</div>
         <ul>
-          <li>Trained a global model + two state-specific models (low-vol vs high-vol) using identical model class.</li>
-          <li>Visualized how decision boundaries shift across market conditions in the (ret5, vol20) plane.</li>
-          <li>Mapped where state-specific probability predictions disagree most.</li>
-          <li>Evaluated confidence reliability by comparing accuracy vs confidence deciles across states.</li>
+          <li>Inferred market regimes via GMM using <strong>(ret5, vol10, vol20)</strong> and summarized their volatility/return profiles.</li>
+          <li>Evaluated a global probabilistic classifier and defined confidence as <strong>|p − 0.5|</strong>.</li>
+          <li>Measured regime-conditional accuracy patterns and visualized regime separation in feature space.</li>
+          <li>Constructed an out-of-sample deployment rule using confidence filtering and deactivation in a high-volatility regime.</li>
+          <li>Included calibration diagnostics (probability distribution and Brier score) to avoid over-interpreting probabilities.</li>
         </ul>
       </div>
     </section>
 
     <section class="detail-section">
-      <h2>Overview</h2>
+      <h2>Motivation</h2>
       <p>
-        This project treats volatility as a proxy for market “condition” and asks a simple question:
-        does the same model behave the same way when volatility is low versus high?
-        If not, the mismatch shows up as boundary shifts, disagreement regions, and confidence breakdown.
+        At the daily horizon, broad equity direction is a weak-signal problem. In that setting, small differences in predictive performance
+        often do not map cleanly into economic outcomes. A more practical question is whether model outputs become more or less reliable under
+        different market conditions, and whether deployment rules can respond to that variation.
       </p>
+      <p>
+        This project adopts a regime-aware view of model risk. If regimes occupy different regions of feature space, then a single global
+        decision rule can operate under meaningfully different state distributions. The goal is to diagnose this heterogeneity and connect it
+        to confidence reliability and deployment behavior.
+      </p>
+    </section>
+
+    <section class="detail-section">
+      <h2>Data and Setup</h2>
 
       <div class="grid-2">
         <div class="card">
-          <div class="card-title">Inputs</div>
+          <div class="card-title">Dataset</div>
           <ul class="tight">
-            <li><strong>ret1</strong>: 1-day return</li>
-            <li><strong>ret5</strong>: 5-day cumulative return</li>
-            <li><strong>vol20</strong>: 20-day realized volatility (rolling std of returns)</li>
+            <li><strong>Asset:</strong> SPY</li>
+            <li><strong>Frequency:</strong> daily close-to-close</li>
+            <li><strong>Sample:</strong> 2006–2025</li>
+            <li><strong>Split:</strong> chronological train/test (70/30)</li>
           </ul>
         </div>
 
         <div class="card">
-          <div class="card-title">Output</div>
+          <div class="card-title">Prediction target</div>
           <ul class="tight">
-            <li><strong>y<sub>t</sub> = 1</strong> if next-day return &gt; 0</li>
-            <li>Logistic probability <strong>P(y=1 | x)</strong></li>
-            <li>Decision boundary at <strong>P=0.5</strong></li>
+            <li><strong>Label:</strong> y<sub>t</sub> = 1 if next-day return &gt; 0</li>
+            <li><strong>Output:</strong> p<sub>t</sub> = P(y<sub>t</sub>=1 | x<sub>t</sub>)</li>
+            <li><strong>Confidence:</strong> |p<sub>t</sub> − 0.5|</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top:14px;">
+        <div class="card">
+          <div class="card-title">Regime features (GMM)</div>
+          <ul class="tight">
+            <li><strong>ret5:</strong> 5-day cumulative return</li>
+            <li><strong>vol10:</strong> 10-day realized volatility</li>
+            <li><strong>vol20:</strong> 20-day realized volatility</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Classifier features</div>
+          <p class="muted">
+            The classifier is intentionally restricted to a low-dimensional input for interpretability and decision geometry visualization.
+          </p>
+          <ul class="tight">
+            <li><strong>ret5</strong></li>
+            <li><strong>vol20</strong></li>
           </ul>
         </div>
       </div>
@@ -104,38 +138,39 @@
 
     <section class="detail-section">
       <h2>Method</h2>
+
       <div class="grid-2">
         <div class="card">
-          <div class="card-title">State definition</div>
+          <div class="card-title">Regime identification</div>
           <p class="muted">
-            Use empirical quantiles of vol20.
+            A Gaussian Mixture Model partitions observations into statistically distinct regimes using recent returns and volatility.
           </p>
           <ul class="tight">
-            <li><strong>Low-vol state:</strong> bottom 20% of vol20</li>
-            <li><strong>High-vol state:</strong> top 20% of vol20</li>
-            <li><strong>Middle 60%:</strong> treated as neutral (not used in extreme comparisons)</li>
+            <li><strong>Model:</strong> Gaussian Mixture Model</li>
+            <li><strong>Inputs:</strong> (ret5, vol10, vol20)</li>
+            <li><strong>Output:</strong> regime label per day</li>
           </ul>
         </div>
 
         <div class="card">
-          <div class="card-title">Models</div>
+          <div class="card-title">Prediction + confidence</div>
           <p class="muted">
-            Same model class everywhere to isolate data differences.
+            A global logistic model outputs next-day direction probabilities and a confidence score based on distance from 0.5.
           </p>
           <ul class="tight">
-            <li><strong>Global:</strong> trained on all data</li>
-            <li><strong>Low-vol:</strong> trained only on low-vol observations</li>
-            <li><strong>High-vol:</strong> trained only on high-vol observations</li>
+            <li><strong>Model:</strong> logistic regression</li>
+            <li><strong>Inputs:</strong> (ret5, vol20)</li>
+            <li><strong>Confidence:</strong> |p − 0.5|</li>
           </ul>
         </div>
       </div>
 
       <div class="card" style="margin-top:14px;">
-        <div class="card-title">What “model risk” means here</div>
+        <div class="card-title">Deployment rule (illustrative)</div>
         <p class="muted" style="margin:0;">
-          If the model’s probability beliefs and boundary geometry depend on state, then a single global model can be a compromise that looks
-          fine on average but behaves inconsistently in the conditions you care about most (stress). Confidence can also become unreliable,
-          producing overconfident errors exactly when stakes are higher.
+          To connect diagnostics to economic outcomes, an out-of-sample strategy is constructed by (i) trading only when confidence exceeds
+          a fixed threshold and (ii) deactivating the strategy in the highest-volatility regime. Transaction costs and financing constraints
+          are omitted; results should be interpreted as gross-of-costs.
         </p>
       </div>
     </section>
@@ -145,38 +180,72 @@
 
       <figure class="figure">
         <figcaption class="figcap">
-          <strong>Figure 1.</strong> Decision boundary shift across market conditions (global vs low-vol vs high-vol).
-          Same model class, different learned geometry.
+          <strong>Figure 1.</strong> Inferred market regimes over time. The highest-volatility regime clusters around stress periods and is
+          treated as a high-risk state for deployment.
         </figcaption>
-        <!-- FIX: absolute path -->
-        <img class="figimg" src="/project_state_aware/figs/fig_1_decision_boundaries.png" alt="Decision boundaries across market conditions">
+        <img class="figimg" src="1.png" alt="Regime timeline">
       </figure>
 
       <figure class="figure">
         <figcaption class="figcap">
-          <strong>Figure 2.</strong> Where state-specific models disagree most: heatmap of |P(high) − P(low)|.
+          <strong>Figure 2.</strong> Out-of-sample accuracy versus confidence decile, computed separately within each inferred regime.
+          Accuracy patterns are regime-dependent, and bin-level variability is largest in the high-volatility regime.
         </figcaption>
-        <!-- FIX: absolute path -->
-        <img class="figimg" src="/project_state_aware/figs/fig_2_regime_disagreement.png" alt="State model disagreement heatmap">
+        <img class="figimg" src="2.png" alt="Accuracy vs confidence by regime">
       </figure>
 
       <figure class="figure">
         <figcaption class="figcap">
-          <strong>Figure 3.</strong> Confidence vs accuracy for the global model, split by state.
-          Confidence is less reliable in high-vol conditions.
+          <strong>Figure 3.</strong> Out-of-sample strategy equity curve under confidence filtering and regime-based deactivation.
+          The objective is not to claim persistent alpha, but to illustrate how selective deployment changes drawdown and volatility profiles.
         </figcaption>
-        <!-- FIX: absolute path -->
-        <img class="figimg" src="/project_state_aware/figs/fig_3_confidence_vs_accuracy.png" alt="Accuracy vs confidence by state">
+        <img class="figimg" src="3.png" alt="Strategy equity curve">
+      </figure>
+
+      <figure class="figure">
+        <figcaption class="figcap">
+          <strong>Figure 4.</strong> Logistic probability field in (ret5, vol20) space with inferred regimes overlaid. Regimes occupy distinct
+          regions of feature space, implying the same global decision rule operates under different state distributions.
+        </figcaption>
+        <img class="figimg" src="4.png" alt="Decision boundary with regimes">
+      </figure>
+
+      <figure class="figure">
+        <figcaption class="figcap">
+          <strong>Figure 5.</strong> Distribution of out-of-sample predicted probabilities. Probabilities are concentrated near the unconditional
+          mean, consistent with probability compression at the daily horizon.
+        </figcaption>
+        <img class="figimg" src="5.png" alt="Predicted probability distribution">
       </figure>
 
       <div class="callout">
         <div class="callout-title">Key takeaways</div>
         <ul>
-          <li><strong>Geometry shifts:</strong> the boundary changes across market conditions, meaning the feature tradeoff changes with volatility.</li>
-          <li><strong>Disagreement concentrates:</strong> the largest belief differences occur in regions associated with stress conditions.</li>
-          <li><strong>Confidence breaks:</strong> high confidence does not consistently imply high accuracy in high-vol periods.</li>
+          <li><strong>Regime dependence:</strong> predictive reliability and outcomes vary across inferred market states.</li>
+          <li><strong>Confidence as a filter:</strong> probabilities are compressed near 0.5, so thresholds are more defensible than probability ranking.</li>
+          <li><strong>Deployment matters:</strong> regime-aware controls primarily alter drawdown and volatility profiles rather than improving raw accuracy.</li>
+          <li><strong>Interpretation discipline:</strong> calibration diagnostics support conservative use of probabilistic outputs at the daily horizon.</li>
         </ul>
       </div>
+    </section>
+
+    <section class="detail-section">
+      <h2>Calibration and Probability Compression</h2>
+      <p>
+        Predicted probabilities are tightly concentrated near the unconditional mean, consistent with probability compression when signal-to-noise
+        is low. The out-of-sample Brier score is approximately 0.247, close to an uninformative baseline. These diagnostics suggest that the
+        model’s probabilities are best interpreted as low-amplitude signals, reinforcing the use of confidence thresholds rather than
+        probability ranking.
+      </p>
+    </section>
+
+    <section class="detail-section">
+      <h2>Notes on Interpretation</h2>
+      <p>
+        This project is intentionally conservative in its claims. Daily index direction is difficult to predict, and reliability varies across
+        inferred regimes. The primary contribution is diagnostic: identifying regime-conditional patterns in confidence and illustrating how
+        regime-aware deployment rules can meaningfully change the risk profile of model-driven decisions.
+      </p>
     </section>
 
     <div class="footer">
