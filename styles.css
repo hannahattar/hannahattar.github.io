@@ -278,12 +278,19 @@ hr{
   text-decoration:none;
 }
 
-/* Keep body text readable and not too wide */
+/* Descriptions:
+   - Default: full width (fixes the "cut short + blank RHS" issue)
+   - Book manuscript: capped for readability next to cover
+*/
 .project-desc{
   margin:14px 0 0;
   font-size:15px;
   line-height:1.6;
   color:var(--text);
+  max-width:none;
+}
+
+.project-card--with-cover .project-desc{
   max-width:56ch;
 }
 
@@ -315,17 +322,17 @@ hr{
    Book card: two-column + cover constraints
    ========================= */
 /* Default: single-column layout */
-.project-two-col {
-  margin-top: 12px;
-  display: block;
+.project-two-col{
+  margin-top:12px;
+  display:block;
 }
 
 /* Only projects with a cover get two columns */
-.project-card--with-cover .project-two-col {
-  display: grid;
+.project-card--with-cover .project-two-col{
+  display:grid;
   grid-template-columns: 1fr 280px; /* fixed cover column */
-  gap: 22px;
-  align-items: start;
+  gap:22px;
+  align-items:start;
 }
 
 .project-cover{
@@ -336,8 +343,8 @@ hr{
 .project-cover img{
   width:100%;
   max-width:280px;
-  height:320px;         /* key: fixed height so it stops being huge */
-  object-fit:cover;     /* crop nicely */
+  height:320px;
+  object-fit:cover;
   border-radius:10px;
   border:1px solid var(--rule);
   background:#fff;
@@ -377,7 +384,9 @@ hr{
     flex-wrap:wrap;
   }
 
-  .project-two-col{
+  /* On mobile: collapse the book cover grid to one column */
+  .project-card--with-cover .project-two-col{
+    display:grid;
     grid-template-columns: 1fr;
   }
 
@@ -387,7 +396,8 @@ hr{
 
   .project-cover img{
     max-width:340px;
-    height:auto; /* don’t force cropping on mobile */
+    height:auto;
+    object-fit:contain;
   }
 }
 
@@ -405,6 +415,10 @@ hr{
 .ri li strong{
   color: var(--text);
   font-weight: 650;
+}
+
+.ri li span{
+  color: var(--muted);
 }
 
 /* =========================
@@ -552,9 +566,4 @@ hr{
   .detail-title{
     font-size:32px;
   }
-}
-
-
-.ri li span{
-  color: var(--muted);
 }
