@@ -1,33 +1,38 @@
 :root{
   /* =========================
-     Mature palette (ink/slate + deep indigo)
+     Color system (charcoal + cream - mature minimal)
      ========================= */
-  --bg: #f3f5f9;                 /* slightly warmer + less “blue-gray app” */
-  --surface: #ffffff;
-  --surface-2: rgba(2,6,23,.02); /* slate tint */
-  --text: #0b1220;               /* ink */
-  --muted: #5b6776;              /* slate */
-  --muted-2:#7a8796;
+  --bg: #f7f5f2;                /* warm off-white cream */
+  --surface: #ffffff;           /* pure white cards */
+  --surface-2: rgba(24,24,27,.02);
+  --text: #18181b;              /* charcoal black */
+  --muted: #71717a;             /* warm grey */
+  --accent: #1f2937;            /* deep charcoal accent */
+  --accent-2: #374151;          /* lighter charcoal */
+  --rule: rgba(15,15,20,.08);   /* warm subtle dividers */
+  --ring: rgba(31,41,55,.15);
 
-  --accent: #1d4ed8;             /* deep indigo */
-  --accent-ink: #0b1f5c;         /* darker for text on tinted backgrounds */
-  --rule: rgba(2,6,23,.10);
-  --ring: rgba(29,78,216,.18);
+  /* =========================
+     Layout
+     ========================= */
+  --sidebar: 220px;             /* more compact sidebar */
+  --max: 980px;
+  --gutter: 24px;
+  --container-padding: 32px;
 
-  /* Layout */
-  --sidebar: 240px;              /* slimmer */
-  --max: 1000px;
-  --gutter: 22px;
-
-  /* Rounding */
+  /* =========================
+     Sizing + typography
+     ========================= */
   --radius: 18px;
   --radius-sm: 12px;
   --radius-xs: 10px;
 
-  /* Shadows (more “designed”) */
-  --shadow: 0 1px 2px rgba(0,0,0,.05), 0 14px 38px rgba(2,6,23,.10);
-  --shadow-soft: 0 1px 2px rgba(0,0,0,.04), 0 10px 26px rgba(2,6,23,.08);
-  --shadow-hover: 0 2px 10px rgba(0,0,0,.07), 0 22px 60px rgba(2,6,23,.14);
+  /* =========================
+     Shadows (minimal - professional)
+     ========================= */
+  --shadow-subtle: 0 1px 2px rgba(0,0,0,.04);
+  --shadow: 0 1px 3px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
+  --shadow-hover: 0 2px 4px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.06);
 
   --focus: 0 0 0 3px var(--ring);
 }
@@ -47,78 +52,92 @@ html, body{
   -moz-osx-font-smoothing: grayscale;
 }
 
-::selection{ background: rgba(29,78,216,.16); }
+::selection{
+  background: rgba(31,41,55,.12);
+}
 
-a{ color: var(--accent); text-decoration: none; }
+a{
+  color: var(--accent);
+  text-decoration: none;
+}
 a:hover{ text-decoration: underline; }
 
 img{ max-width:100%; height:auto; display:block; }
 
 /* =========================
-   Top nav (more premium)
+   Top nav (enhanced professional)
    ========================= */
 .topbar{
   position: sticky;
   top: 0;
   z-index: 10;
-
-  background: rgba(243,245,249,.82);
-  backdrop-filter: saturate(180%) blur(14px);
+  background: rgba(255,255,255,.98);
+  backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid var(--rule);
-  box-shadow: 0 10px 30px rgba(2,6,23,.05);
+  box-shadow: 0 1px 2px rgba(0,0,0,.03);
 }
 
 .topbar-inner{
   max-width: calc(var(--max) + var(--sidebar));
   margin: 0 auto;
-  padding: 14px var(--gutter);
+  padding: 16px var(--gutter);
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap: 18px;
+  gap: 24px;
 }
 
 .site-title{
-  font-weight: 950;
+  font-weight: 700;
+  font-size: 18px;
   color: var(--text);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.01em;
   text-decoration: none;
-  line-height: 1;
 }
 
-.site-title:hover{ text-decoration:none; }
+.site-title:hover{
+  text-decoration:none;
+  color: var(--accent);
+}
 
 .topnav{
   display:flex;
   flex-wrap:wrap;
-  gap: 8px;
-  font-size: 14px;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .topnav a{
   color: var(--muted);
-  padding: 9px 12px;
-  border-radius: 999px;
+  padding: 8px 12px;
+  border-radius: 4px;
   border: 1px solid transparent;
-  background: transparent;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  transition: background .15s ease, border-color .15s ease, color .15s ease, transform .15s ease;
+  transition: color .2s ease, background .2s ease;
+  position: relative;
 }
 
 .topnav a:hover{
-  background: rgba(29,78,216,.06);
-  border-color: rgba(29,78,216,.14);
-  text-decoration:none;
   color: var(--text);
-  transform: translateY(-1px);
+  background: rgba(24,24,27,.04);
+  text-decoration:none;
 }
 
-/* Optional: add class="active" to the current page link */
 .topnav a.active{
-  color: var(--accent-ink);
-  background: rgba(29,78,216,.10);
-  border-color: rgba(29,78,216,.18);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.topnav a.active::after{
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  background: var(--accent);
 }
 
 /* =========================
@@ -127,114 +146,95 @@ img{ max-width:100%; height:auto; display:block; }
 .page{
   max-width: calc(var(--max) + var(--sidebar));
   margin: 0 auto;
-  padding: 32px var(--gutter) 92px;
+  padding: 40px var(--gutter) 80px;
   display:grid;
   grid-template-columns: var(--sidebar) 1fr;
-  gap: 40px;
+  gap: 48px;
+  align-items: start;
 }
 
 /* =========================
-   Sidebar (smaller portrait + more separation)
+   Sidebar (compact professional)
    ========================= */
 .sidebar{
-  padding-top: 2px;
-  position: sticky;     /* feels “pro” */
-  top: 82px;            /* below topbar */
-  align-self: start;
-}
-
-.sidebar-card{
-  background: var(--surface);
-  border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-soft);
-  padding: 16px 14px;
-}
-
-/* If you don’t have .sidebar-card wrapper in HTML, this still improves things */
-.sidebar > *:first-child{
-  border-top-left-radius: var(--radius);
-  border-top-right-radius: var(--radius);
+  padding: 0;
+  background: transparent;
+  border: none;
+  height: fit-content;
+  position: sticky;
+  top: calc(60px + 40px);
 }
 
 .avatar{
-  width: 120px;                 /* smaller */
+  width: 120px;
   height: 120px;
   border-radius: 999px;
   border: 1px solid var(--rule);
   background: var(--surface);
   overflow:hidden;
-  box-shadow: 0 1px 2px rgba(2,6,23,.06);
-  margin: 0 auto;               /* centered */
+  box-shadow: var(--shadow-subtle);
+  margin: 0 auto 24px;
+  display: block;
 }
 
 .sidebar-name{
-  margin: 12px 0 4px;
-  font-weight: 950;
-  letter-spacing: -0.02em;
+  margin: 0 0 6px;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.01em;
   text-align: center;
+  color: var(--text);
 }
 
 .sidebar-bio{
-  margin: 0 0 12px;
+  margin: 0 0 24px;
   color: var(--muted);
-  font-size: 13.5px;
-  line-height: 1.55;
+  font-size: 13px;
+  line-height: 1.5;
   text-align: center;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--rule);
 }
 
-/* Divider inside sidebar */
-.sidebar hr{
-  margin: 12px 0;
-  border: none;
-  border-top: 1px solid var(--rule);
-}
-
-/* Links in sidebar as “clean pills” */
 .sidebar-links{
   display:flex;
   flex-direction:column;
-  gap: 10px;
-  margin-top: 10px;
-  font-size: 13.5px;
+  gap: 12px;
+  margin-top: 0;
+  font-size: 13px;
+  text-align: left;
+}
+
+.sidebar-links > div{
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.sidebar-links > div:not(:last-child){
+  margin-bottom: 4px;
 }
 
 .sidebar-links a{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap: 10px;
-
-  padding: 10px 10px;
-  border-radius: 12px;
-  border: 1px solid rgba(2,6,23,.08);
-  background: rgba(2,6,23,.02);
-
-  color: var(--text);
-  font-weight: 850;
-  text-decoration:none;
-
-  transition: transform .15s ease, border-color .15s ease, background .15s ease, box-shadow .15s ease;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color .2s ease;
+  display: inline-block;
 }
 
 .sidebar-links a:hover{
-  background: rgba(29,78,216,.06);
-  border-color: rgba(29,78,216,.18);
-  transform: translateY(-1px);
-  box-shadow: 0 10px 24px rgba(2,6,23,.08);
-  text-decoration:none;
-}
-
-.sidebar-links a span,
-.sidebar-links a small{
-  color: var(--muted);
-  font-weight: 800;
+  color: var(--text);
+  text-decoration: none;
 }
 
 /* =========================
    Main content
    ========================= */
-main{ max-width: var(--max); }
+main{
+  max-width: var(--max);
+  background: transparent;
+  border: none;
+  padding: 0;
+}
 
 h1, h2, h3{
   letter-spacing: -0.02em;
@@ -243,24 +243,30 @@ h1, h2, h3{
 }
 
 h1{
-  font-size: 36px;
-  margin: 0 0 12px;
-  font-weight: 950;
+  font-size: 32px;
+  margin: 0 0 16px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 h2{
-  font-size: 21px;
-  margin: 30px 0 12px;
-  font-weight: 950;
+  font-size: 20px;
+  margin: 40px 0 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+h2:first-of-type{
+  margin-top: 0;
 }
 
 h3{
   font-size: 16px;
   margin: 18px 0 8px;
-  font-weight: 950;
+  font-weight: 900;
 }
 
-p{ margin: 0 0 14px; }
+p{ margin: 0 0 18px; line-height: 1.7; }
 
 .lede{
   color: var(--muted);
@@ -269,14 +275,14 @@ p{ margin: 0 0 14px; }
 }
 
 hr{
-  border:none;
+  border: none;
   border-top: 1px solid var(--rule);
-  margin: 28px 0;
+  margin: 48px 0;
 }
 
 .footer{
-  margin-top: 44px;
-  padding-top: 18px;
+  margin-top: 48px;
+  padding-top: 24px;
   border-top: 1px solid var(--rule);
   color: var(--muted);
   font-size: 14px;
@@ -291,48 +297,47 @@ hr{
   font-size: 13px;
 }
 
-/* Button */
+/* Button (keep .btn) */
 .btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
   gap: 8px;
 
-  padding: 10px 13px;
+  padding: 10px 20px;
   border: 1px solid var(--rule);
-  border-radius: 999px;
+  border-radius: 6px;
 
   font-size: 14px;
-  font-weight: 950;
+  font-weight: 500;
   color: var(--text);
   background: var(--surface);
 
-  box-shadow: 0 1px 2px rgba(2,6,23,.06);
+  box-shadow: none;
   text-decoration:none;
 
-  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease, background .15s ease;
+  transition: border-color .2s ease, background .2s ease, color .2s ease;
 }
 
 .btn:hover{
-  border-color: rgba(29,78,216,.20);
-  background: rgba(29,78,216,.06);
-  box-shadow: 0 14px 36px rgba(2,6,23,.10);
-  transform: translateY(-1px);
+  border-color: var(--accent);
+  background: var(--bg);
+  color: var(--accent);
   text-decoration:none;
 }
 
 .btn:focus{
-  outline:none;
+  outline: none;
   box-shadow: var(--focus);
 }
 
 .btn.primary{
-  border-color: rgba(29,78,216,.18);
-  background: rgba(29,78,216,.12);
-  color: var(--accent-ink);
+  border-color: rgba(30,64,175,.18);
+  background: rgba(30,64,175,.10);
+  color: #0b1f5c;
 }
 
-/* Images (legacy) */
+/* Shared cover images (legacy) */
 .book-cover img,
 .proj-cover img{
   width:100%;
@@ -340,7 +345,7 @@ hr{
   border: 1px solid var(--rule);
   border-radius: var(--radius-sm);
   background: var(--surface);
-  box-shadow: 0 1px 2px rgba(2,6,23,.06);
+  box-shadow: 0 1px 2px rgba(15,23,42,.06);
 }
 
 /* =========================
@@ -368,30 +373,34 @@ hr{
 .proj-links{ margin-top: 14px; }
 
 /* =========================
-   Projects
+   Projects (structure upgrades)
    ========================= */
+
+/* Optional: if you add <div class="projects-grid"> around cards,
+   this will auto-grid on desktop without breaking current layout. */
 .projects-grid{
   display:grid;
   grid-template-columns: 1fr;
   gap: 14px;
 }
 
+/* Card */
 .project-card{
   background: var(--surface);
   border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  padding: 18px 18px 16px;
-  margin: 16px 0;
-  box-shadow: var(--shadow);
-  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  border-radius: var(--radius-sm);
+  padding: 28px;
+  margin: 24px 0;
+  box-shadow: var(--shadow-subtle);
+  transition: box-shadow .2s ease, border-color .2s ease;
 }
 
 .project-card:hover{
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-hover);
-  border-color: rgba(29,78,216,.18);
+  box-shadow: var(--shadow);
+  border-color: rgba(24,24,27,.15);
 }
 
+/* Top row */
 .project-top{
   display:flex;
   justify-content:space-between;
@@ -402,10 +411,11 @@ hr{
 .project-title{
   margin:0;
   font-size: 20px;
-  line-height: 1.2;
+  line-height:1.2;
   font-weight: 950;
 }
 
+/* Tags */
 .project-tags{
   margin-top: 10px;
   display:flex;
@@ -415,15 +425,15 @@ hr{
 }
 
 .project-tags span{
-  color: rgba(11,18,32,.86);
-  background: rgba(2,6,23,.03);
-  border: 1px solid rgba(2,6,23,.08);
+  color: rgba(11,18,32,.84);
+  background: rgba(30,64,175,.06);
+  border: 1px solid rgba(30,64,175,.14);
   padding: 4px 10px;
   border-radius: 999px;
-  font-weight: 900;
+  font-weight: 800;
 }
 
-/* Links on the right */
+/* Right-side links */
 .project-top-right{
   display:flex;
   flex-direction:column;
@@ -432,29 +442,29 @@ hr{
   white-space:nowrap;
 }
 
+/* Keep .proj-link but elevate */
 .proj-link{
   font-size: 13px;
   color: var(--text);
   text-decoration:none;
-  padding: 9px 12px;
+  padding: 8px 14px;
   border: 1px solid var(--rule);
-  border-radius: 999px;
+  border-radius: 6px;
   background: var(--surface);
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  gap: 8px;
-  font-weight: 950;
-  box-shadow: 0 1px 2px rgba(2,6,23,.06);
-  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease, background .15s ease;
+  gap: 6px;
+  font-weight: 500;
+  box-shadow: none;
+  transition: border-color .2s ease, background .2s ease, color .2s ease;
 }
 
 .proj-link:hover{
-  border-color: rgba(29,78,216,.20);
-  background: rgba(29,78,216,.06);
+  border-color: var(--accent);
+  background: var(--bg);
+  color: var(--accent);
   text-decoration:none;
-  transform: translateY(-1px);
-  box-shadow: 0 14px 36px rgba(2,6,23,.10);
 }
 
 /* Description */
@@ -470,9 +480,10 @@ hr{
   max-width: 62ch;
 }
 
+/* Divider */
 .project-divider{
   border-top: 1px solid var(--rule);
-  margin: 14px 0;
+  margin: 20px 0;
 }
 
 /* Metrics */
@@ -483,10 +494,11 @@ hr{
 }
 
 .project-metrics > div{
-  border: 1px solid rgba(2,6,23,.08);
-  border-radius: 14px;
-  padding: 11px 12px;
-  background: var(--surface-2);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 16px 14px;
+  background: var(--bg);
+  box-shadow: none;
 }
 
 .metric-value{
@@ -501,7 +513,7 @@ hr{
   margin-top: 6px;
   color: var(--muted);
   font-size: 12px;
-  font-weight: 900;
+  font-weight: 800;
 }
 
 /* Cover layout */
@@ -527,29 +539,98 @@ hr{
   max-width:300px;
   height:340px;
   object-fit:cover;
-  border-radius: 14px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--rule);
   background: var(--surface);
-  box-shadow: 0 1px 2px rgba(2,6,23,.06);
+  box-shadow: var(--shadow-subtle);
+  transition: box-shadow .2s ease;
+}
+
+.project-cover img:hover{
+  box-shadow: var(--shadow);
 }
 
 /* =========================
    Research Interests list
    ========================= */
 .ri{
-  margin: 10px 0 0;
-  padding-left: 18px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 20px;
   color: var(--text);
 }
 
-.ri li{ margin: 0 0 14px; }
+.ri li{
+  margin: 0;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-subtle);
+  transition: box-shadow .2s ease, border-color .2s ease;
+}
+
+.ri li:hover{
+  box-shadow: var(--shadow);
+  border-color: rgba(24,24,27,.12);
+}
 
 .ri li strong{
   color: var(--text);
-  font-weight: 950;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  letter-spacing: -0.01em;
 }
 
-.ri li span{ color: var(--muted); }
+.ri li span{
+  color: var(--muted);
+  display: block;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+/* =========================
+   Experience cards
+   ========================= */
+.experience-item{
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  padding: 28px;
+  margin: 28px 0;
+  box-shadow: var(--shadow-subtle);
+  transition: box-shadow .2s ease, border-color .2s ease;
+}
+
+.experience-item:hover{
+  box-shadow: var(--shadow);
+  border-color: rgba(24,24,27,.12);
+}
+
+.experience-item h2{
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.experience-item .lede{
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.experience-item ul{
+  margin: 0;
+  padding-left: 20px;
+}
+
+.experience-item li{
+  margin-bottom: 12px;
+  line-height: 1.7;
+}
 
 /* =========================
    Detail pages
@@ -560,16 +641,36 @@ hr{
   padding: 28px var(--gutter) 84px;
 }
 
+.detail-content{
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: var(--container-padding);
+  box-shadow: var(--shadow);
+  margin-top: 20px;
+}
+
 .detail-back{
   display:inline-block;
-  margin: 6px 0 18px;
-  font-weight: 950;
+  margin: 0 0 32px;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--muted);
+  padding: 6px 0;
+  transition: color .2s ease;
+}
+
+.detail-back:hover{
+  color: var(--text);
 }
 
 .detail-hero{
-  border-bottom: 1px solid var(--rule);
-  padding-bottom: 18px;
-  margin-bottom: 22px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  padding: 36px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-subtle);
 }
 
 .detail-kicker{
@@ -578,15 +679,15 @@ hr{
   letter-spacing: 0.10em;
   text-transform: uppercase;
   margin-bottom: 10px;
-  font-weight: 950;
+  font-weight: 900;
 }
 
 .detail-title{
-  font-size: 42px;
-  line-height: 1.06;
-  margin: 0 0 10px;
-  font-weight: 950;
-  letter-spacing: -0.03em;
+  font-size: 36px;
+  line-height: 1.1;
+  margin: 0 0 12px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .detail-subtitle{
@@ -607,7 +708,7 @@ hr{
 
 .detail-meta span{
   color: var(--muted);
-  font-weight: 950;
+  font-weight: 500;
 }
 
 .detail-actions{
@@ -617,12 +718,24 @@ hr{
   margin-top: 8px;
 }
 
-.detail-section{ margin: 22px 0 0; }
+.detail-section{
+  margin: 32px 0 0;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  padding: 32px;
+  box-shadow: var(--shadow-subtle);
+}
+
+.detail-section:first-of-type{
+  margin-top: 0;
+}
 
 .detail-section h2{
-  margin: 0 0 10px;
-  font-size: 22px;
-  font-weight: 950;
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .muted{ color: var(--muted); }
@@ -635,10 +748,15 @@ hr{
 
 .card{
   border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  padding: 14px 14px 12px;
+  border-radius: var(--radius-sm);
+  padding: 24px;
   background: var(--surface);
-  box-shadow: 0 1px 2px rgba(2,6,23,.06);
+  box-shadow: var(--shadow-subtle);
+  transition: box-shadow .2s ease;
+}
+
+.card:hover{
+  box-shadow: var(--shadow);
 }
 
 .card-title{
@@ -654,12 +772,13 @@ hr{
 .tight li{ margin: 0 0 6px; }
 
 .callout{
-  margin-top: 16px;
-  border: 1px solid rgba(29,78,216,.18);
-  background: rgba(29,78,216,.06);
-  border-left: 4px solid var(--accent);
-  border-radius: var(--radius);
-  padding: 14px 14px 12px;
+  margin-top: 24px;
+  border: 1px solid var(--rule);
+  background: var(--bg);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+  padding: 20px 24px;
+  box-shadow: none;
 }
 
 .callout-title{
@@ -668,12 +787,12 @@ hr{
 }
 
 .figure{
-  margin: 16px 0 18px;
+  margin: 32px 0;
   border: 1px solid var(--rule);
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
   background: var(--surface);
   overflow:hidden;
-  box-shadow: 0 1px 2px rgba(2,6,23,.06);
+  box-shadow: var(--shadow-subtle);
 }
 
 .figcap{
@@ -681,7 +800,7 @@ hr{
   border-bottom: 1px solid var(--rule);
   color: var(--text);
   font-size: 14px;
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .figimg{
@@ -693,30 +812,53 @@ hr{
    Responsive
    ========================= */
 @media (min-width: 980px){
-  .projects-grid{ grid-template-columns: 1fr 1fr; }
-  .projects-grid .project-card{ margin: 0; }
+  /* If you wrap cards in .projects-grid, make it 2-up on wide screens */
+  .projects-grid{
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* When using grid, remove the vertical margins so spacing is consistent */
+  .projects-grid .project-card{
+    margin: 0;
+  }
 }
 
 @media (max-width: 900px){
   .page{
     grid-template-columns: 1fr;
-    gap: 22px;
+    gap: 40px;
+    padding: 32px var(--gutter) 60px;
   }
 
   .sidebar{
     position: static;
+    margin-bottom: 0;
+    text-align: center;
   }
 
   .avatar{
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
   }
 
-  .book-feature{ grid-template-columns: 1fr; }
-  .book-cover{ order:-1; max-width: 340px; }
+  .sidebar-links{
+    text-align: center;
+  }
 
-  .proj-feature{ grid-template-columns: 1fr; }
-  .proj-cover{ max-width: 320px; }
+  .book-feature{
+    grid-template-columns: 1fr;
+  }
+  .book-cover{
+    order:-1;
+    max-width: 340px;
+  }
+
+  .proj-feature{
+    grid-template-columns: 1fr;
+  }
+  .proj-cover{
+    max-width: 320px;
+  }
 
   .project-top-right{
     text-align:left;
@@ -724,7 +866,9 @@ hr{
     flex-wrap:wrap;
   }
 
-  .project-metrics{ grid-template-columns: 1fr; }
+  .project-metrics{
+    grid-template-columns: 1fr;
+  }
 
   .project-card--with-cover .project-two-col{
     grid-template-columns: 1fr;
@@ -742,7 +886,13 @@ hr{
 }
 
 @media (max-width: 860px){
-  .detail-meta{ grid-template-columns: 1fr; }
-  .grid-2{ grid-template-columns: 1fr; }
-  .detail-title{ font-size: 34px; }
+  .detail-meta{
+    grid-template-columns: 1fr;
+  }
+  .grid-2{
+    grid-template-columns: 1fr;
+  }
+  .detail-title{
+    font-size: 34px;
+  }
 }
