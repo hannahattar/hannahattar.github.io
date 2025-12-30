@@ -1,112 +1,232 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hannah Attar</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
+/* =========================
+   Home page revamp
+   ========================= */
 
-  <!-- Top navigation -->
-  <div class="topbar">
-    <div class="topbar-inner">
-      <a class="site-title" href="index.html">Hannah Attar</a>
-      <div class="topnav">
-        <a href="projects.html">Projects</a>
-        <a href="experience.html">Experience</a>
-        <a href="assets/pdfs/Attar_Resume_2025.pdf" target="_blank" rel="noopener">Resume</a>
-      </div>
-    </div>
-  </div>
+.sidebar-home .sidecard{
+  border: 1px solid rgba(17,24,39,0.10);
+  border-radius: 16px;
+  background: rgba(255,255,255,0.82);
+  padding: 14px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+  margin-bottom: 14px;
+}
 
-  <div class="page">
+.sidebar-home .sidecard-mini{
+  padding: 12px 14px;
+}
 
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <div class="avatar">
-        <img src="assets/images/photo.jpg" alt="Hannah Attar"
-             style="width:100%; height:100%; object-fit:cover; transform:scale(1.06);" />
-      </div>
+.sidebar-home .sidecard-title{
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: rgba(17,24,39,.66);
+  margin-bottom: 8px;
+}
 
+.avatar-home{
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(17,24,39,0.10);
+  background: #fff;
+  margin-bottom: 12px;
+}
+.avatar-home img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.04);
+  display: block;
+}
 
-      <div class="sidebar-name">Hannah Attar</div>
-      <p class="sidebar-bio">
-        Master’s student in Financial Engineering (USC)
-      </p>
+.side-actions{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 12px 0 10px;
+}
 
-      <div class="sidebar-links">
-        <div>Los Angeles, CA</div>
-        <div>University of Southern California</div>
-        <div><a href="mailto:hmattar@usc.edu">hmattar@usc.edu</a></div>
-        <div><a href="https://github.com/hannahattar">GitHub</a></div>
-        <div><a href="https://www.linkedin.com/in/hannahattar/">LinkedIn</a></div>
-      </div>
+.side-mini{
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(17,24,39,.76);
+  font-size: 13px;
+}
+.side-mini li{ margin: 6px 0; }
 
-    </aside>
+/* Buttons (reusable) */
+.btn-pro{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 13px;
+  border: 1px solid rgba(17,24,39,0.12);
+  background: rgba(255,255,255,.92);
+  color: rgba(17,24,39,.92);
+  text-decoration:none;
+  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+}
+.btn-pro:hover{
+  transform: translateY(-1px);
+  border-color: rgba(17,24,39,0.22);
+  box-shadow: 0 10px 26px rgba(0,0,0,.08);
+  text-decoration:none;
+}
+.btn-primary{
+  background: rgba(17,24,39,.92);
+  color: #fff;
+  border-color: rgba(17,24,39,.92);
+}
+.btn-primary:hover{ border-color: rgba(17,24,39,1); }
 
-    <!-- Main content -->
-    <main>
-      <h1>About</h1>
+/* Main content layout */
+.home-main{
+  padding-top: 6px;
+}
 
-      <p>
-        I am a Master’s student in Financial Engineering at the University of Southern California with a strong interest in quantitative modeling at the intersection of probability, economics, and real-world financial systems. My work is driven by a desire to understand how abstract mathematical structures, such as stochastic processes and statistical models, translate into observable financial behavior in markets and real assets, and how these tools can be used to reason rigorously about uncertainty, dynamics, and risk.
-      </p>
+/* Hero */
+.home-hero{
+  border: 1px solid rgba(17,24,39,0.10);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.82);
+  padding: 18px 18px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+}
+.home-kicker{
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  color: rgba(17,24,39,.60);
+}
+.home-title{
+  margin: 10px 0 10px;
+  font-size: 34px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: rgba(17,24,39,.94);
+}
+.home-subtitle{
+  margin: 0 0 14px;
+  max-width: 78ch;
+  color: rgba(17,24,39,.78);
+  font-size: 16px;
+  line-height: 1.65;
+}
+.home-cta{
+  display:flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0 14px;
+}
 
-      <p>
-        In my current graduate studies at USC, I have completed coursework in probability, stochastic processes, machine learning, and mathematical methods for financial engineering. I have also taken applied finance courses including corporate finance and mortgages and mortgage-backed securities, which have deepened my interest in housing markets, structured products, and the interaction between quantitative models and institutional market design.
-      </p>
+/* Badges */
+.home-badges{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+.badge{
+  border: 1px solid rgba(17,24,39,0.10);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.88);
+  padding: 10px 12px;
+  color: rgba(17,24,39,.82);
+  font-size: 13px;
+}
+.badge span{
+  display:block;
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(17,24,39,.60);
+  margin-bottom: 2px;
+  font-weight: 800;
+}
 
-      <p>
-        I completed my undergraduate studies in Economics, graduating with honors in three years, with a minor in English Literature. My academic focus was on econometrics and applied econometric analysis, including multiple advanced econometrics courses, one of which was at the graduate level. In parallel, I pursued graduate-level coursework in data science and machine learning, developing a strong foundation in empirical modeling and data-driven analysis.
-      </p>
+/* Sections */
+.home-section{
+  margin: 18px 0;
+}
+.home-h2{
+  font-size: 18px;
+  margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+.home-card{
+  border: 1px solid rgba(17,24,39,0.10);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.82);
+  padding: 14px 16px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+}
+.home-p{
+  margin: 0 0 12px;
+  color: rgba(17,24,39,.78);
+  max-width: 78ch;
+}
 
-      <p>
-        Outside of academics, I enjoy playing chess and studying strategic games that emphasize long-horizon reasoning, as well as creative writing and literature.
-      </p>
+/* Approach list */
+.approach{
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(17,24,39,.78);
+}
+.approach li{ margin: 8px 0; }
 
+/* Focus pills */
+.focus-row{
+  display:flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.focus-pill{
+  border: 1px solid rgba(17,24,39,0.10);
+  background: rgba(255,255,255,0.84);
+  color: rgba(17,24,39,.86);
+  border-radius: 999px;
+  padding: 10px 12px;
+  font-size: 13px;
+  font-weight: 700;
+}
 
-      <hr />
+/* Split mini-cards */
+.home-split{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.mini-card{
+  border: 1px solid rgba(17,24,39,0.10);
+  border-radius: 16px;
+  background: rgba(255,255,255,0.88);
+  padding: 12px 12px;
+}
+.mini-title{
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: rgba(17,24,39,.66);
+  margin-bottom: 8px;
+}
+.mini-list{
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(17,24,39,.76);
+  font-size: 13px;
+}
+.mini-list li{ margin: 6px 0; }
 
-      <h2>Research Interests</h2>
-
-      <ul class="ri">
-        <li>
-          <strong>Probability and Stochastic Processes</strong><br />
-          <span>Frameworks for understanding systems governed by uncertainty, with an emphasis on extracting structure and meaning from seemingly chaotic dynamics.</span>
-        </li>
-
-        <li>
-          <strong>Cross-Asset and Non-Obvious Correlations</strong><br />
-          <span>Exploration of subtle relationships between market behavior and external variables, such as weather patterns or broader environmental signals, and how these correlations form, decay, and re-emerge.</span>
-        </li>
-
-        <li>
-          <strong>Risk, Uncertainty, and Risk Mitigation</strong><br />
-          <span>Study of how risk propagates through financial systems, how tail events emerge, and how disciplined positioning and hedging can be used to manage exposure under stochastic dynamics.</span>
-        </li>
-
-        <li>
-          <strong>Macroeconomic Dynamics and Regime Shifts</strong><br />
-          <span>Examination of how macroeconomic forces and structural changes influence asset prices across time and market regimes.</span>
-        </li>
-        </ul>
-
-      
-
-      <div class="footer">
-        © <span id="y"></span> Hannah Attar
-      </div>
-    </main>
-
-  </div>
-
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
-
-</body>
-</html>
+/* Responsive */
+@media (max-width: 900px){
+  .home-title{ font-size: 30px; }
+  .home-badges{ grid-template-columns: 1fr; }
+  .home-split{ grid-template-columns: 1fr; }
+}
