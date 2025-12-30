@@ -153,6 +153,11 @@
       margin-top: 6px;
     }
 
+    /* New: results wrapper card should not add extra padding around inner cards */
+    .results-wrap{ padding: 12px; }
+    .results-wrap .card{ background: rgba(255,255,255,.82); }
+    .results-wrap .results-grid > div:first-child .card{ margin-bottom: 0; }
+
     /* --- Figures: smaller, consistent, professional --- */
     .fig{
       margin: 0 0 12px;
@@ -215,7 +220,7 @@
       letter-spacing: .06em;
     }
 
-    /* --- Pipeline card --- */
+    /* --- Pipeline --- */
     .pipe{
       list-style:none;
       margin: 0;
@@ -322,6 +327,7 @@
       .title{ font-size: 30px; }
       .meta-grid{ grid-template-columns: 1fr; }
       .kpis{ grid-template-columns: 1fr; }
+      .results-wrap{ padding: 10px; }
     }
   </style>
 </head>
@@ -426,155 +432,160 @@
         </div>
       </section>
 
+      <!-- METHODS -->
+      <section class="sec">
+        <h2>Methods (Pipeline)</h2>
+        <div class="card">
+          <ol class="pipe">
+            <li>
+              <span class="pipe-step">1</span>
+              <div>
+                <div class="pipe-title">Data</div>
+                <div class="pipe-text">SPY daily closes (2006–2025). Chronological split: 70% train, 30% test.</div>
+              </div>
+            </li>
+            <li>
+              <span class="pipe-step">2</span>
+              <div>
+                <div class="pipe-title">Features</div>
+                <div class="pipe-text">ret5, vol10, vol20 (standardized on train).</div>
+              </div>
+            </li>
+            <li>
+              <span class="pipe-step">3</span>
+              <div>
+                <div class="pipe-title">Regimes (Unsupervised)</div>
+                <div class="pipe-text">GMM on (ret5, vol10, vol20) fit on train, then applied forward.</div>
+              </div>
+            </li>
+            <li>
+              <span class="pipe-step">4</span>
+              <div>
+                <div class="pipe-title">Prediction (Supervised)</div>
+                <div class="pipe-text">Logistic regression predicts next-day direction using (ret5, vol20).</div>
+              </div>
+            </li>
+            <li>
+              <span class="pipe-step">5</span>
+              <div>
+                <div class="pipe-title">Confidence</div>
+                <div class="pipe-text">Use |p − 0.5| to stratify reliability and filter trades.</div>
+              </div>
+            </li>
+            <li>
+              <span class="pipe-step">6</span>
+              <div>
+                <div class="pipe-title">Deployment Rule</div>
+                <div class="pipe-text">Trade only if |p−0.5| &gt; 0.02 and deactivate execution in the high-risk regime.</div>
+              </div>
+            </li>
+            <li>
+              <span class="pipe-step">7</span>
+              <div>
+                <div class="pipe-title">Evaluation</div>
+                <div class="pipe-text">OOS accuracy by confidence/regime + strategy Sharpe & max drawdown (gross of costs).</div>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
       <!-- RESULTS -->
       <section class="sec">
         <h2>Results</h2>
 
-        <div class="results-grid">
+        <!-- Outer results card (so Results reads like one section, but still uses your inner cards/figures) -->
+        <div class="card results-wrap">
+          <div class="results-grid">
 
-          <!-- Left: narrative -->
-          <div class="card">
-            <h3>Findings</h3>
-            <ul class="bullets">
-              <li><strong>Regimes persist and cluster in stress periods.</strong> The inferred high-volatility state concentrates around extended market stress, consistent with volatility clustering.</li>
-              <li><strong>Reliability is regime-dependent.</strong> Accuracy patterns differ by regime; the high-volatility regime shows more erratic confidence-stratified behavior (small samples amplify variability).</li>
-              <li><strong>Feature-space separation explains it.</strong> Regimes occupy distinct regions in (ret5, vol20), so a single global decision rule effectively faces different operating conditions.</li>
-              <li><strong>Probabilities are compressed.</strong> Outputs stay near the unconditional mean; probabilities work better as low-amplitude signals than as literal calibrated forecasts.</li>
-              <li><strong>Deployment rules change the risk profile.</strong> Confidence filtering plus deactivating the high-risk regime primarily reduces drawdown depth and return volatility rather than magically increasing raw accuracy.</li>
-            </ul>
+            <!-- Left: narrative -->
+            <div class="card">
+              <h3>Findings</h3>
+              <ul class="bullets">
+                <li><strong>Regimes persist and cluster in stress periods.</strong> The inferred high-volatility state concentrates around extended market stress, consistent with volatility clustering.</li>
+                <li><strong>Reliability is regime-dependent.</strong> Accuracy patterns differ by regime; the high-volatility regime shows more erratic confidence-stratified behavior (small samples amplify variability).</li>
+                <li><strong>Feature-space separation explains it.</strong> Regimes occupy distinct regions in (ret5, vol20), so a single global decision rule effectively faces different operating conditions.</li>
+                <li><strong>Probabilities are compressed.</strong> Outputs stay near the unconditional mean; probabilities work better as low-amplitude signals than as literal calibrated forecasts.</li>
+                <li><strong>Deployment rules change the risk profile.</strong> Confidence filtering plus deactivating the high-risk regime primarily reduces drawdown depth and return volatility rather than magically increasing raw accuracy.</li>
+              </ul>
 
-            <h3 style="margin-top:14px;">Regime-level strategy Sharpe (OOS)</h3>
-            <table class="table" aria-label="Sharpe ratios by regime">
-              <thead>
-                <tr><th>Regime</th><th>Sharpe</th><th>Interpretation</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>0</td><td>1.38</td><td>Strongest contribution in this regime.</td></tr>
-                <tr><td>1</td><td>0.41</td><td>Positive but modest.</td></tr>
-                <tr><td>2</td><td>0.22</td><td>Low but positive.</td></tr>
-                <tr><td>3</td><td>NaN</td><td>Unstable / adverse high-volatility state.</td></tr>
-              </tbody>
-            </table>
+              <h3 style="margin-top:14px;">Regime-level strategy Sharpe (OOS)</h3>
+              <table class="table" aria-label="Sharpe ratios by regime">
+                <thead>
+                  <tr><th>Regime</th><th>Sharpe</th><th>Interpretation</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>0</td><td>1.38</td><td>Strongest contribution in this regime.</td></tr>
+                  <tr><td>1</td><td>0.41</td><td>Positive but modest.</td></tr>
+                  <tr><td>2</td><td>0.22</td><td>Low but positive.</td></tr>
+                  <tr><td>3</td><td>NaN</td><td>Unstable / adverse high-volatility state.</td></tr>
+                </tbody>
+              </table>
 
-            <p class="mini">
-              Confidence filter used in the strategy: trade only when <strong>|p−0.5| &gt; 0.02</strong>, and deactivate execution during the high-risk regime.
-            </p>
-
-            <!-- METHODS PIPELINE (fills the left-column whitespace) -->
-            <div class="card" style="margin-top:14px;">
-              <h3>Methods (Pipeline)</h3>
-              <ol class="pipe">
-                <li>
-                  <span class="pipe-step">1</span>
-                  <div>
-                    <div class="pipe-title">Data</div>
-                    <div class="pipe-text">SPY daily closes (2006–2025). Chronological split: 70% train, 30% test.</div>
-                  </div>
-                </li>
-                <li>
-                  <span class="pipe-step">2</span>
-                  <div>
-                    <div class="pipe-title">Features</div>
-                    <div class="pipe-text">ret5, vol10, vol20 (standardized on train).</div>
-                  </div>
-                </li>
-                <li>
-                  <span class="pipe-step">3</span>
-                  <div>
-                    <div class="pipe-title">Regimes (Unsupervised)</div>
-                    <div class="pipe-text">GMM on (ret5, vol10, vol20) fit on train, then applied forward.</div>
-                  </div>
-                </li>
-                <li>
-                  <span class="pipe-step">4</span>
-                  <div>
-                    <div class="pipe-title">Prediction (Supervised)</div>
-                    <div class="pipe-text">Logistic regression predicts next-day direction using (ret5, vol20).</div>
-                  </div>
-                </li>
-                <li>
-                  <span class="pipe-step">5</span>
-                  <div>
-                    <div class="pipe-title">Confidence</div>
-                    <div class="pipe-text">Use |p − 0.5| to stratify reliability and filter trades.</div>
-                  </div>
-                </li>
-                <li>
-                  <span class="pipe-step">6</span>
-                  <div>
-                    <div class="pipe-title">Deployment Rule</div>
-                    <div class="pipe-text">Trade only if |p−0.5| &gt; 0.02 and deactivate execution in the high-risk regime.</div>
-                  </div>
-                </li>
-                <li>
-                  <span class="pipe-step">7</span>
-                  <div>
-                    <div class="pipe-title">Evaluation</div>
-                    <div class="pipe-text">OOS accuracy by confidence/regime + strategy Sharpe & max drawdown (gross of costs).</div>
-                  </div>
-                </li>
-              </ol>
+              <p class="mini">
+                Confidence filter used in the strategy: trade only when <strong>|p−0.5| &gt; 0.02</strong>, and deactivate execution during the high-risk regime.
+              </p>
             </div>
+
+            <!-- Right: figures -->
+            <div>
+              <div class="fig">
+                <div class="fig-top">
+                  <div class="fig-title">Regime timeline</div>
+                  <div class="fig-cap">Figure 1</div>
+                </div>
+                <div class="fig-body">
+                  <img class="figimg" src="assets/images/1.png" alt="Inferred market regimes over time" data-zoom>
+                  <div class="fig-note">High-vol regime clusters around prolonged stress episodes, supporting interpretation as persistent market states.</div>
+                </div>
+              </div>
+
+              <div class="fig">
+                <div class="fig-top">
+                  <div class="fig-title">Accuracy vs confidence, by regime</div>
+                  <div class="fig-cap">Figure 2</div>
+                </div>
+                <div class="fig-body">
+                  <img class="figimg" src="assets/images/2.png" alt="Out-of-sample accuracy versus confidence by regime" data-zoom>
+                  <div class="fig-note">Confidence is not universally monotonic. High-vol regime shows degraded stability (and smaller bin counts).</div>
+                </div>
+              </div>
+
+              <div class="fig">
+                <div class="fig-top">
+                  <div class="fig-title">Equity curve (OOS)</div>
+                  <div class="fig-cap">Figure 3</div>
+                </div>
+                <div class="fig-body">
+                  <img class="figimg" src="assets/images/3.png" alt="Out-of-sample strategy equity curve" data-zoom>
+                  <div class="fig-note">Selective deployment changes drawdowns/volatility more than it changes raw predictive metrics. Gross of costs.</div>
+                </div>
+              </div>
+
+              <div class="fig">
+                <div class="fig-top">
+                  <div class="fig-title">Probability field + regimes</div>
+                  <div class="fig-cap">Figure 4</div>
+                </div>
+                <div class="fig-body">
+                  <img class="figimg" src="assets/images/4.png" alt="Logistic probability field with inferred regimes" data-zoom>
+                  <div class="fig-note">Regimes occupy distinct areas of (ret5, vol20), providing a geometric explanation for state-dependent behavior.</div>
+                </div>
+              </div>
+
+              <div class="fig">
+                <div class="fig-top">
+                  <div class="fig-title">Probability compression</div>
+                  <div class="fig-cap">Figure 5</div>
+                </div>
+                <div class="fig-body">
+                  <img class="figimg" src="assets/images/5.png" alt="Distribution of predicted probabilities" data-zoom>
+                  <div class="fig-note">Predicted probabilities concentrate near the unconditional mean, motivating thresholded deployment.</div>
+                </div>
+              </div>
+            </div>
+
           </div>
-
-          <!-- Right: figures -->
-          <div>
-            <div class="fig">
-              <div class="fig-top">
-                <div class="fig-title">Regime timeline</div>
-                <div class="fig-cap">Figure 1</div>
-              </div>
-              <div class="fig-body">
-                <img class="figimg" src="assets/images/1.png" alt="Inferred market regimes over time" data-zoom>
-                <div class="fig-note">High-vol regime clusters around prolonged stress episodes, supporting interpretation as persistent market states.</div>
-              </div>
-            </div>
-
-            <div class="fig">
-              <div class="fig-top">
-                <div class="fig-title">Accuracy vs confidence, by regime</div>
-                <div class="fig-cap">Figure 2</div>
-              </div>
-              <div class="fig-body">
-                <img class="figimg" src="assets/images/2.png" alt="Out-of-sample accuracy versus confidence by regime" data-zoom>
-                <div class="fig-note">Confidence is not universally monotonic. High-vol regime shows degraded stability (and smaller bin counts).</div>
-              </div>
-            </div>
-
-            <div class="fig">
-              <div class="fig-top">
-                <div class="fig-title">Equity curve (OOS)</div>
-                <div class="fig-cap">Figure 3</div>
-              </div>
-              <div class="fig-body">
-                <img class="figimg" src="assets/images/3.png" alt="Out-of-sample strategy equity curve" data-zoom>
-                <div class="fig-note">Selective deployment changes drawdowns/volatility more than it changes raw predictive metrics. Gross of costs.</div>
-              </div>
-            </div>
-
-            <div class="fig">
-              <div class="fig-top">
-                <div class="fig-title">Probability field + regimes</div>
-                <div class="fig-cap">Figure 4</div>
-              </div>
-              <div class="fig-body">
-                <img class="figimg" src="assets/images/4.png" alt="Logistic probability field with inferred regimes" data-zoom>
-                <div class="fig-note">Regimes occupy distinct areas of (ret5, vol20), providing a geometric explanation for state-dependent behavior.</div>
-              </div>
-            </div>
-
-            <div class="fig">
-              <div class="fig-top">
-                <div class="fig-title">Probability compression</div>
-                <div class="fig-cap">Figure 5</div>
-              </div>
-              <div class="fig-body">
-                <img class="figimg" src="assets/images/5.png" alt="Distribution of predicted probabilities" data-zoom>
-                <div class="fig-note">Predicted probabilities concentrate near the unconditional mean, motivating thresholded deployment.</div>
-              </div>
-            </div>
-          </div>
-
         </div>
       </section>
 
