@@ -1,232 +1,163 @@
-/* =========================
-   Home page revamp
-   ========================= */
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hannah Attar</title>
 
-.sidebar-home .sidecard{
-  border: 1px solid rgba(17,24,39,0.10);
-  border-radius: 16px;
-  background: rgba(255,255,255,0.82);
-  padding: 14px;
-  box-shadow: 0 1px 2px rgba(0,0,0,.04);
-  margin-bottom: 14px;
-}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
-.sidebar-home .sidecard-mini{
-  padding: 12px 14px;
-}
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
 
-.sidebar-home .sidecard-title{
-  font-size: 12px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  color: rgba(17,24,39,.66);
-  margin-bottom: 8px;
-}
+  <!-- Top navigation -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="site-title" href="index.html">Hannah Attar</a>
+      <div class="topnav">
+        <a href="projects.html">Projects</a>
+        <a href="experience.html">Experience</a>
+        <a href="assets/pdfs/Attar_Resume_2025.pdf" target="_blank" rel="noopener">Resume</a>
+      </div>
+    </div>
+  </div>
 
-.avatar-home{
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid rgba(17,24,39,0.10);
-  background: #fff;
-  margin-bottom: 12px;
-}
-.avatar-home img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.04);
-  display: block;
-}
+  <div class="page">
 
-.side-actions{
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 12px 0 10px;
-}
+    <!-- Sidebar -->
+    <aside class="sidebar sidebar-home">
 
-.side-mini{
-  margin: 0;
-  padding-left: 18px;
-  color: rgba(17,24,39,.76);
-  font-size: 13px;
-}
-.side-mini li{ margin: 6px 0; }
+      <div class="sidecard">
+        <div class="avatar avatar-home">
+          <img src="assets/images/photo.jpg" alt="Hannah Attar" />
+        </div>
 
-/* Buttons (reusable) */
-.btn-pro{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding: 10px 14px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 13px;
-  border: 1px solid rgba(17,24,39,0.12);
-  background: rgba(255,255,255,.92);
-  color: rgba(17,24,39,.92);
-  text-decoration:none;
-  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
-}
-.btn-pro:hover{
-  transform: translateY(-1px);
-  border-color: rgba(17,24,39,0.22);
-  box-shadow: 0 10px 26px rgba(0,0,0,.08);
-  text-decoration:none;
-}
-.btn-primary{
-  background: rgba(17,24,39,.92);
-  color: #fff;
-  border-color: rgba(17,24,39,.92);
-}
-.btn-primary:hover{ border-color: rgba(17,24,39,1); }
+        <div class="sidebar-name">Hannah Attar</div>
+        <p class="sidebar-bio">
+          MFE @ USC • Quant / Trading / HF-oriented research & modeling
+        </p>
 
-/* Main content layout */
-.home-main{
-  padding-top: 6px;
-}
+        <div class="side-actions">
+          <a class="btn-pro btn-primary" href="projects.html">View projects</a>
+          <a class="btn-pro" href="assets/pdfs/Attar_Resume_2025.pdf" target="_blank" rel="noopener">Resume PDF</a>
+        </div>
 
-/* Hero */
-.home-hero{
-  border: 1px solid rgba(17,24,39,0.10);
-  border-radius: 18px;
-  background: rgba(255,255,255,0.82);
-  padding: 18px 18px;
-  box-shadow: 0 1px 2px rgba(0,0,0,.04);
-}
-.home-kicker{
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .10em;
-  text-transform: uppercase;
-  color: rgba(17,24,39,.60);
-}
-.home-title{
-  margin: 10px 0 10px;
-  font-size: 34px;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  color: rgba(17,24,39,.94);
-}
-.home-subtitle{
-  margin: 0 0 14px;
-  max-width: 78ch;
-  color: rgba(17,24,39,.78);
-  font-size: 16px;
-  line-height: 1.65;
-}
-.home-cta{
-  display:flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 10px 0 14px;
-}
+        <div class="sidebar-links">
+          <div>Los Angeles, CA</div>
+          <div>University of Southern California</div>
+          <div><a href="mailto:hmattar@usc.edu">hmattar@usc.edu</a></div>
+          <div><a href="https://github.com/hannahattar" target="_blank" rel="noopener">GitHub</a></div>
+          <div><a href="https://www.linkedin.com/in/hannahattar/" target="_blank" rel="noopener">LinkedIn</a></div>
+        </div>
+      </div>
 
-/* Badges */
-.home-badges{
-  display:grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 10px;
-}
-.badge{
-  border: 1px solid rgba(17,24,39,0.10);
-  border-radius: 14px;
-  background: rgba(255,255,255,0.88);
-  padding: 10px 12px;
-  color: rgba(17,24,39,.82);
-  font-size: 13px;
-}
-.badge span{
-  display:block;
-  font-size: 11px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: rgba(17,24,39,.60);
-  margin-bottom: 2px;
-  font-weight: 800;
-}
+      <div class="sidecard sidecard-mini">
+        <div class="sidecard-title">Now</div>
+        <ul class="side-mini">
+          <li>Stochastic processes & regime dynamics</li>
+          <li>Probabilistic ML in low SNR settings</li>
+          <li>Diagnostics: calibration, reliability, failure modes</li>
+        </ul>
+      </div>
 
-/* Sections */
-.home-section{
-  margin: 18px 0;
-}
-.home-h2{
-  font-size: 18px;
-  margin: 0 0 10px;
-  letter-spacing: -0.01em;
-}
-.home-card{
-  border: 1px solid rgba(17,24,39,0.10);
-  border-radius: 18px;
-  background: rgba(255,255,255,0.82);
-  padding: 14px 16px;
-  box-shadow: 0 1px 2px rgba(0,0,0,.04);
-}
-.home-p{
-  margin: 0 0 12px;
-  color: rgba(17,24,39,.78);
-  max-width: 78ch;
-}
+    </aside>
 
-/* Approach list */
-.approach{
-  margin: 0;
-  padding-left: 18px;
-  color: rgba(17,24,39,.78);
-}
-.approach li{ margin: 8px 0; }
+    <!-- Main content -->
+    <main class="home-main">
 
-/* Focus pills */
-.focus-row{
-  display:flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.focus-pill{
-  border: 1px solid rgba(17,24,39,0.10);
-  background: rgba(255,255,255,0.84);
-  color: rgba(17,24,39,.86);
-  border-radius: 999px;
-  padding: 10px 12px;
-  font-size: 13px;
-  font-weight: 700;
-}
+      <!-- HERO -->
+      <section class="home-hero">
+        <div class="home-kicker">Quantitative Finance • Machine Learning • Stochastic Systems</div>
+        <h1 class="home-title">Quantitative systems under uncertainty, noise, and structural constraints.</h1>
 
-/* Split mini-cards */
-.home-split{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-.mini-card{
-  border: 1px solid rgba(17,24,39,0.10);
-  border-radius: 16px;
-  background: rgba(255,255,255,0.88);
-  padding: 12px 12px;
-}
-.mini-title{
-  font-size: 12px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  color: rgba(17,24,39,.66);
-  margin-bottom: 8px;
-}
-.mini-list{
-  margin: 0;
-  padding-left: 18px;
-  color: rgba(17,24,39,.76);
-  font-size: 13px;
-}
-.mini-list li{ margin: 6px 0; }
+        <p class="home-subtitle">
+          I work across stochastic processes, machine learning, and financial modeling with an emphasis on
+          <strong>structure, robustness, and decision relevance</strong>. The goal is not optimizing metrics in isolation,
+          but building models and diagnostics that hold up when assumptions degrade and regimes shift.
+        </p>
 
-/* Responsive */
-@media (max-width: 900px){
-  .home-title{ font-size: 30px; }
-  .home-badges{ grid-template-columns: 1fr; }
-  .home-split{ grid-template-columns: 1fr; }
-}
+        <div class="home-cta">
+          <a class="btn-pro btn-primary" href="projects.html">Projects</a>
+          <a class="btn-pro" href="state-aware-model-risk.html">Featured case study</a>
+          <a class="btn-pro" href="assets/pdfs/Regime_Aware_Model_Risk_Visualization.pdf" target="_blank" rel="noopener">Read paper</a>
+        </div>
+
+        <div class="home-badges" aria-label="Quick facts">
+          <div class="badge"><span>Program</span> USC MFE</div>
+          <div class="badge"><span>Interests</span> Trading / HF research</div>
+          <div class="badge"><span>Strength</span> Model risk + diagnostics</div>
+          <div class="badge"><span>Tooling</span> Python (research-grade)</div>
+        </div>
+      </section>
+
+      <section class="home-section">
+        <h2 class="home-h2">How I think about quant problems</h2>
+        <div class="home-card">
+          <ul class="approach">
+            <li><strong>Separate prediction from deployment.</strong> Outcomes depend heavily on when to act, not only what a model outputs.</li>
+            <li><strong>Assume regimes exist.</strong> If behavior shifts across states, pooled averages hide failure modes.</li>
+            <li><strong>Prefer diagnostics over marginal accuracy.</strong> Calibration, reliability, and error anatomy matter.</li>
+            <li><strong>Be conservative with probabilities.</strong> Low SNR compresses forecasts toward 0.5 and demands restraint.</li>
+            <li><strong>Optimize for robustness.</strong> Stress-test assumptions and treat uncertainty as part of the system.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="home-section">
+        <h2 class="home-h2">Current focus</h2>
+        <div class="focus-row">
+          <div class="focus-pill">Model risk & regime dependence</div>
+          <div class="focus-pill">Stochastic processes & diffusion intuition</div>
+          <div class="focus-pill">Probabilistic ML for noisy financial signals</div>
+          <div class="focus-pill">Calibration & confidence reliability</div>
+        </div>
+      </section>
+
+      <section class="home-section">
+        <h2 class="home-h2">Background</h2>
+        <div class="home-card">
+          <p class="home-p">
+            I’m a Master’s student in Financial Engineering at USC with a foundation in econometrics and empirical modeling
+            from my undergraduate degree in Economics (honors). My graduate work centers on probabilistic reasoning,
+            stochastic dynamics, and machine learning, with applied interests spanning markets, structured products,
+            and system-level risk behavior.
+          </p>
+
+          <div class="home-split">
+            <div class="mini-card">
+              <div class="mini-title">Core areas</div>
+              <ul class="mini-list">
+                <li>Probability, stochastic processes, SDE intuition</li>
+                <li>Machine learning (classification, diagnostics, calibration)</li>
+                <li>Financial systems: risk, regimes, market behavior</li>
+              </ul>
+            </div>
+
+            <div class="mini-card">
+              <div class="mini-title">Outside the spreadsheet</div>
+              <ul class="mini-list">
+                <li>Chess and long-horizon strategy</li>
+                <li>Writing and literature</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer">
+        © <span id="y"></span> Hannah Attar
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    const y = document.getElementById("y");
+    if (y) y.textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
