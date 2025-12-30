@@ -301,8 +301,6 @@
         <div class="actions">
           <a class="btn-pro btn-primary" href="assets/pdfs/Regime_Aware_Model_Risk_Visualization.pdf" target="_blank" rel="noopener">
             Download paper (PDF) →
-          </a>
-          <a class="btn-pro" href="projects.html">All projects</a>
         </div>
 
         <div class="meta-grid">
@@ -319,7 +317,7 @@
       <section class="sec">
         <div class="grid-2">
           <div class="card">
-            <h3>TL;DR</h3>
+            <h3>Executive Summary</h3>
             <ul class="bullets">
               <li>Daily equity direction prediction is noisy, and predicted probabilities are compressed near 0.5.</li>
               <li>Regimes inferred from returns + realized volatility form persistent market states, not random “clusters.”</li>
@@ -373,7 +371,7 @@
 
       <!-- RESULTS -->
       <section class="sec">
-        <h2>Results (quick, but complete)</h2>
+        <h2>Results</h2>
 
         <div class="results-grid">
 
@@ -405,6 +403,63 @@
               Confidence filter used in the strategy: trade only when <strong>|p−0.5| &gt; 0.02</strong>, and deactivate execution during the high-risk regime.
             </p>
           </div>
+
+          <div class="card" style="margin-top:14px;">
+  <h3>Methods (Pipeline)</h3>
+
+  <ol class="pipe">
+    <li>
+      <span class="pipe-step">1</span>
+      <div class="pipe-body">
+        <div class="pipe-title">Data</div>
+        <div class="pipe-text">SPY daily closes (2006–2025). Chronological split: 70% train, 30% test.</div>
+      </div>
+    </li>
+    <li>
+      <span class="pipe-step">2</span>
+      <div class="pipe-body">
+        <div class="pipe-title">Features</div>
+        <div class="pipe-text">Recent returns + realized volatility: ret5, vol10, vol20 (standardized on train).</div>
+      </div>
+    </li>
+    <li>
+      <span class="pipe-step">3</span>
+      <div class="pipe-body">
+        <div class="pipe-title">Regimes (Unsupervised)</div>
+        <div class="pipe-text">Gaussian Mixture Model on (ret5, vol10, vol20) fit on train, applied forward.</div>
+      </div>
+    </li>
+    <li>
+      <span class="pipe-step">4</span>
+      <div class="pipe-body">
+        <div class="pipe-title">Prediction (Supervised)</div>
+        <div class="pipe-text">Logistic regression predicts next-day direction using (ret5, vol20).</div>
+      </div>
+    </li>
+    <li>
+      <span class="pipe-step">5</span>
+      <div class="pipe-body">
+        <div class="pipe-title">Confidence</div>
+        <div class="pipe-text">Use |p − 0.5| as a scalar conviction score for stratification and filtering.</div>
+      </div>
+    </li>
+    <li>
+      <span class="pipe-step">6</span>
+      <div class="pipe-body">
+        <div class="pipe-title">Deployment Rule</div>
+        <div class="pipe-text">Trade only if |p−0.5| &gt; 0.02 and deactivate execution in the high-risk regime.</div>
+      </div>
+    </li>
+    <li>
+      <span class="pipe-step">7</span>
+      <div class="pipe-body">
+        <div class="pipe-title">Evaluation</div>
+        <div class="pipe-text">OOS accuracy by confidence/regime + strategy Sharpe & max drawdown (gross of costs).</div>
+      </div>
+    </li>
+  </ol>
+</div>
+
 
           <!-- Right: figures -->
           <div>
