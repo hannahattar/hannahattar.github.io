@@ -207,7 +207,62 @@
       text-align:left;
       vertical-align:top;
     }
-    .table th{ color: rgba(17,24,39,.86); font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+    .table th{
+      color: rgba(17,24,39,.86);
+      font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    /* --- Pipeline card --- */
+    .pipe{
+      list-style:none;
+      margin: 0;
+      padding: 0;
+    }
+    .pipe li{
+      display:grid;
+      grid-template-columns: 34px 1fr;
+      gap: 10px;
+      align-items:start;
+      position: relative;
+      padding: 10px 0;
+    }
+    .pipe li:not(:last-child)::after{
+      content:"";
+      position:absolute;
+      left: 16px;
+      top: 44px;
+      bottom: -10px;
+      width: 2px;
+      background: rgba(17,24,39,0.10);
+      border-radius: 99px;
+    }
+    .pipe-step{
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 900;
+      font-size: 13px;
+      color: rgba(17,24,39,.90);
+      border: 1px solid rgba(17,24,39,0.12);
+      background: rgba(255,255,255,.92);
+    }
+    .pipe-title{
+      font-weight: 900;
+      font-size: 13px;
+      color: rgba(17,24,39,.88);
+      margin-bottom: 2px;
+    }
+    .pipe-text{
+      font-size: 13px;
+      color: rgba(17,24,39,.74);
+      line-height: 1.45;
+    }
 
     /* --- Lightbox --- */
     .lb{
@@ -301,6 +356,8 @@
         <div class="actions">
           <a class="btn-pro btn-primary" href="assets/pdfs/Regime_Aware_Model_Risk_Visualization.pdf" target="_blank" rel="noopener">
             Download paper (PDF) →
+          </a>
+          <a class="btn-pro" href="projects.html">All projects</a>
         </div>
 
         <div class="meta-grid">
@@ -402,64 +459,63 @@
             <p class="mini">
               Confidence filter used in the strategy: trade only when <strong>|p−0.5| &gt; 0.02</strong>, and deactivate execution during the high-risk regime.
             </p>
+
+            <!-- METHODS PIPELINE (fills the left-column whitespace) -->
+            <div class="card" style="margin-top:14px;">
+              <h3>Methods (Pipeline)</h3>
+              <ol class="pipe">
+                <li>
+                  <span class="pipe-step">1</span>
+                  <div>
+                    <div class="pipe-title">Data</div>
+                    <div class="pipe-text">SPY daily closes (2006–2025). Chronological split: 70% train, 30% test.</div>
+                  </div>
+                </li>
+                <li>
+                  <span class="pipe-step">2</span>
+                  <div>
+                    <div class="pipe-title">Features</div>
+                    <div class="pipe-text">ret5, vol10, vol20 (standardized on train).</div>
+                  </div>
+                </li>
+                <li>
+                  <span class="pipe-step">3</span>
+                  <div>
+                    <div class="pipe-title">Regimes (Unsupervised)</div>
+                    <div class="pipe-text">GMM on (ret5, vol10, vol20) fit on train, then applied forward.</div>
+                  </div>
+                </li>
+                <li>
+                  <span class="pipe-step">4</span>
+                  <div>
+                    <div class="pipe-title">Prediction (Supervised)</div>
+                    <div class="pipe-text">Logistic regression predicts next-day direction using (ret5, vol20).</div>
+                  </div>
+                </li>
+                <li>
+                  <span class="pipe-step">5</span>
+                  <div>
+                    <div class="pipe-title">Confidence</div>
+                    <div class="pipe-text">Use |p − 0.5| to stratify reliability and filter trades.</div>
+                  </div>
+                </li>
+                <li>
+                  <span class="pipe-step">6</span>
+                  <div>
+                    <div class="pipe-title">Deployment Rule</div>
+                    <div class="pipe-text">Trade only if |p−0.5| &gt; 0.02 and deactivate execution in the high-risk regime.</div>
+                  </div>
+                </li>
+                <li>
+                  <span class="pipe-step">7</span>
+                  <div>
+                    <div class="pipe-title">Evaluation</div>
+                    <div class="pipe-text">OOS accuracy by confidence/regime + strategy Sharpe & max drawdown (gross of costs).</div>
+                  </div>
+                </li>
+              </ol>
+            </div>
           </div>
-
-          <div class="card" style="margin-top:14px;">
-  <h3>Methods (Pipeline)</h3>
-
-  <ol class="pipe">
-    <li>
-      <span class="pipe-step">1</span>
-      <div class="pipe-body">
-        <div class="pipe-title">Data</div>
-        <div class="pipe-text">SPY daily closes (2006–2025). Chronological split: 70% train, 30% test.</div>
-      </div>
-    </li>
-    <li>
-      <span class="pipe-step">2</span>
-      <div class="pipe-body">
-        <div class="pipe-title">Features</div>
-        <div class="pipe-text">Recent returns + realized volatility: ret5, vol10, vol20 (standardized on train).</div>
-      </div>
-    </li>
-    <li>
-      <span class="pipe-step">3</span>
-      <div class="pipe-body">
-        <div class="pipe-title">Regimes (Unsupervised)</div>
-        <div class="pipe-text">Gaussian Mixture Model on (ret5, vol10, vol20) fit on train, applied forward.</div>
-      </div>
-    </li>
-    <li>
-      <span class="pipe-step">4</span>
-      <div class="pipe-body">
-        <div class="pipe-title">Prediction (Supervised)</div>
-        <div class="pipe-text">Logistic regression predicts next-day direction using (ret5, vol20).</div>
-      </div>
-    </li>
-    <li>
-      <span class="pipe-step">5</span>
-      <div class="pipe-body">
-        <div class="pipe-title">Confidence</div>
-        <div class="pipe-text">Use |p − 0.5| as a scalar conviction score for stratification and filtering.</div>
-      </div>
-    </li>
-    <li>
-      <span class="pipe-step">6</span>
-      <div class="pipe-body">
-        <div class="pipe-title">Deployment Rule</div>
-        <div class="pipe-text">Trade only if |p−0.5| &gt; 0.02 and deactivate execution in the high-risk regime.</div>
-      </div>
-    </li>
-    <li>
-      <span class="pipe-step">7</span>
-      <div class="pipe-body">
-        <div class="pipe-title">Evaluation</div>
-        <div class="pipe-text">OOS accuracy by confidence/regime + strategy Sharpe & max drawdown (gross of costs).</div>
-      </div>
-    </li>
-  </ol>
-</div>
-
 
           <!-- Right: figures -->
           <div>
@@ -593,4 +649,3 @@
 
 </body>
 </html>
-
