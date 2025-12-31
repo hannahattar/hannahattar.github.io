@@ -4,137 +4,100 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Hannah Attar</title>
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
 
-  <!-- Top navigation -->
+  <!-- Top Navigation -->
   <div class="topbar">
     <div class="topbar-inner">
       <a class="site-title" href="index.html">Hannah Attar</a>
-      <div class="topnav">
+      <nav class="topnav">
         <a href="projects.html">Projects</a>
         <a href="experience.html">Experience</a>
         <a href="assets/pdfs/Attar_Resume_2025.pdf" target="_blank" rel="noopener">Resume</a>
-      </div>
+      </nav>
     </div>
   </div>
 
-  <div class="page">
+  <!-- Main Content -->
+  <main class="page home">
 
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <div class="avatar">
-        <img src="assets/images/photo.jpg" alt="Hannah Attar"
-             style="width:100%; height:100%; object-fit:cover; transform:scale(1.06);" />
+    <!-- Hero -->
+    <section class="home-hero">
+      <h1 class="home-name">Hannah Attar</h1>
+
+      <p class="home-value">
+        I am a Financial Engineering graduate student with interests in quantitative finance,
+        machine learning, and stochastic modeling. My focus is on building rigorous and
+        interpretable models for financial systems operating under uncertainty.
+      </p>
+    </section>
+
+    <!-- Skills -->
+    <section class="home-section">
+      <h2>Skills</h2>
+
+      <div class="skills-grid">
+        <div class="skills-col">
+          <h3>Quantitative Methods</h3>
+          <ul>
+            <li>Probability and stochastic processes</li>
+            <li>Time-series analysis</li>
+            <li>Optimization and numerical methods</li>
+          </ul>
+        </div>
+
+        <div class="skills-col">
+          <h3>Machine Learning</h3>
+          <ul>
+            <li>Supervised learning and classification</li>
+            <li>Model calibration and validation</li>
+            <li>Feature engineering</li>
+          </ul>
+        </div>
+
+        <div class="skills-col">
+          <h3>Tools</h3>
+          <ul>
+            <li>Python (NumPy, pandas, scikit-learn)</li>
+            <li>Excel and financial modeling</li>
+            <li>LaTeX</li>
+          </ul>
+        </div>
       </div>
+    </section>
 
-      <div class="sidebar-name">Hannah Attar</div>
-      <p class="sidebar-bio">
-        Master’s student in Financial Engineering (USC)
+    <!-- Education -->
+    <section class="home-section">
+      <h2>Education</h2>
+
+      <p class="education-item">
+        <strong>University of Southern California</strong><br>
+        Master of Science in Financial Engineering
       </p>
 
-      <div class="sidebar-links">
-        <div>Los Angeles, CA</div>
-        <div>University of Southern California</div>
-        <div><a href="mailto:hmattar@usc.edu">hmattar@usc.edu</a></div>
-        <div><a href="https://github.com/hannahattar">GitHub</a></div>
-        <div><a href="https://www.linkedin.com/in/hannahattar/">LinkedIn</a></div>
-      </div>
-    </aside>
+      <p class="education-item">
+        <strong>University of San Francisco</strong><br>
+        Bachelor of Arts in Economics, <em>Honors</em><br>
+        Minor in English
+      </p>
+    </section>
 
-    <!-- Main content -->
-    <main>
+    <!-- Footer -->
+    <footer class="footer">
+      © <span id="y"></span> Hannah Attar
+    </footer>
 
-      <h1>Experience</h1>
-
-      <!-- Galliott Capital Advisors -->
-      <div class="experience-item">
-        <h2>Galliott Capital Advisors</h2>
-        <p class="lede">
-          Investment Analyst Intern · Beverly Hills, CA · September 2024 – December 2024
-        </p>
-
-        <ul>
-          <li>
-            Authored a comprehensive due diligence report on a seed-stage startup raising
-            approximately $2M, evaluating market opportunity, financial projections, and
-            long-term scalability to inform internal investment decisions
-          </li>
-          <li>
-            Built valuation and forecasting models using Excel and Python, including DCF
-            and time-series methods, to benchmark public comparables and support follow-on
-            funding analysis
-          </li>
-          <li>
-            Conducted extensive investor research using PitchBook, screening hundreds of
-            venture capital and private equity firms to identify a small set of strategic
-            acquisition candidates
-          </li>
-          <li>
-            Participated in multiple startup pitch meetings, presenting quantitative analysis
-            and model-based insights that contributed to investment discussions
-          </li>
-        </ul>
-      </div>
-
-      <!-- Freelance Academic Consultant -->
-      <div class="experience-item">
-        <h2>Freelance Academic Consultant</h2>
-        <p class="lede">
-          Self-Employed · San Francisco, CA · January 2023 – May 2024
-        </p>
-
-        <ul>
-          <li>
-            Provided one-on-one academic support to undergraduate students in economics,
-            econometrics, finance, and business, emphasizing quantitative reasoning and
-            conceptual clarity
-          </li>
-          <li>
-            Assisted with an econometrics capstone project, including model specification,
-            interpretation of results, and presentation of findings
-          </li>
-          <li>
-            Edited and structured academic writing to improve analytical coherence,
-            argument development, and technical precision
-          </li>
-        </ul>
-      </div>
-
-      <!-- Courtesy Electric Wholesale -->
-      <div class="experience-item">
-        <h2>Courtesy Electric Wholesale</h2>
-        <p class="lede">
-          Summer Junior Accountant · Pasadena, CA · June 2020 – August 2023
-        </p>
-
-        <ul>
-          <li>
-            Analyzed inventory, pricing, and sales data in Excel to support margin analysis
-            and pricing decisions under varying supply conditions
-          </li>
-          <li>
-            Managed accounts receivable and payable using QuickBooks, supporting accurate
-            cash-flow tracking and financial recordkeeping
-          </li>
-          <li>
-            Processed invoices and expense reports, contributing to improved operational
-            efficiency and internal controls
-          </li>
-        </ul>
-      </div>
-
-      <div class="footer">
-        © <span id="y"></span> Hannah Attar
-      </div>
-
-    </main>
-
-  </div>
+  </main>
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
