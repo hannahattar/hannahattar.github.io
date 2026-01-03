@@ -18,9 +18,9 @@
     /* Make sure the global layout container doesn't strangle this page */
     body.experience-page .page{
       width: 100%;
-      max-width: none !important;   /* this is the missing piece */
-      margin: 0 !important;         /* in case global sets margin:auto */
-      padding: 0 !important;        /* we’ll handle padding inside .two-col */
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
     }
 
     body.experience-page .two-col{
@@ -46,13 +46,59 @@
       max-width: none !important;
     }
 
-    body.experience-page .sidebar-card{
-      background: var(--surface, #fff);
-      border: 1px solid var(--rule, #e5e7eb);
-      border-radius: var(--radius, 16px);
-      padding: 18px;
-      box-shadow: var(--shadow, 0 1px 2px rgba(0,0,0,.05));
-      margin-bottom: 14px;
+    /* Sidebar relaxed style (Projects-like): no card, no white box */
+    body.experience-page .sidebar-section{
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      padding: 0;
+      margin: 0 0 18px;
+    }
+
+    body.experience-page .sidebar-section h2{
+      margin: 0 0 10px;
+      font-size: 14px;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      color: var(--muted, #4b5563);
+    }
+
+    body.experience-page .sidebar-section h3{
+      margin: 0 0 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text, #111827);
+    }
+
+    body.experience-page .sidebar-section ul{
+      margin: 0;
+      padding-left: 16px;
+    }
+
+    body.experience-page .sidebar-section li{
+      margin: 6px 0;
+    }
+
+    body.experience-page .sidebar-rule{
+      border: 0;
+      border-top: 1px solid var(--rule, #e5e7eb);
+      margin: 16px 0 18px;
+      opacity: .9;
+    }
+
+    /* Education styling (clean, compact) */
+    body.experience-page .edu-item{
+      margin: 0 0 12px;
+    }
+    body.experience-page .edu-school{
+      font-weight: 700;
+      margin-bottom: 2px;
+      color: var(--text, #111827);
+    }
+    body.experience-page .edu-degree{
+      color: var(--muted, #4b5563);
+      font-size: 14px;
+      line-height: 1.35;
     }
 
     @media (min-width: 980px){
@@ -66,6 +112,7 @@
       margin: 0 0 18px 0;
     }
 
+    /* Experience cards stay as cards */
     body.experience-page .exp-item{
       width: 100%;
       max-width: none !important;
@@ -160,57 +207,58 @@
       <!-- LEFT: Education + Skills -->
       <aside class="sidebar">
 
-        <section class="sidebar-card">
+        <section class="sidebar-section">
           <h2>Education</h2>
 
-          <p class="education-item">
-            <strong>University of Southern California</strong><br>
-            Master of Science in Financial Engineering
-          </p>
+          <div class="edu-item">
+            <div class="edu-school">University of Southern California</div>
+            <div class="edu-degree">Master of Science in Financial Engineering</div>
+          </div>
 
-          <p class="education-item">
-            <strong>University of San Francisco</strong><br>
-            Bachelor of Science in Economics, <em>Honors</em><br>
-            Minor in English
-          </p>
+          <div class="edu-item">
+            <div class="edu-school">University of San Francisco</div>
+            <div class="edu-degree">Bachelor of Science in Economics, <em>Honors</em></div>
+            <div class="edu-degree">Minor in English</div>
+          </div>
         </section>
 
-       <section class="sidebar-card">
-  <h2>Skills</h2>
+        <hr class="sidebar-rule" />
 
-  <div class="skills-grid">
-    <div class="skills-col">
-      <h3>Quantitative Finance</h3>
-      <ul>
-        <li>Probability and real analysis foundations</li>
-        <li>Stochastic processes and Itô calculus</li>
-        <li>Time series forecasting</li>
-        <li>Optimization methods</li>
-        <li>Derivatives pricing</li>
-      </ul>
-    </div>
+        <section class="sidebar-section">
+          <h2>Skills</h2>
 
-    <div class="skills-col">
-      <h3>Machine Learning</h3>
-      <ul>
-        <li>Supervised and unsupervised learning</li>
-        <li>Reinforcement learning methods</li>
-        <li>Feature engineering</li>
-        <li>Probabilistic modeling and prediction</li>
-      </ul>
-    </div>
+          <div class="skills-grid">
+            <div class="skills-col">
+              <h3>Quantitative Finance</h3>
+              <ul>
+                <li>Probability and real analysis foundations</li>
+                <li>Stochastic processes and Itô calculus</li>
+                <li>Time series forecasting</li>
+                <li>Optimization methods</li>
+                <li>Derivatives pricing</li>
+              </ul>
+            </div>
 
-    <div class="skills-col">
-      <h3>Tools</h3>
-      <ul>
-        <li>Python (NumPy, pandas, scikit-learn, statsmodels)</li>
-        <li>Excel</li>
-        <li>LaTeX</li>
-      </ul>
-    </div>
-  </div>
-</section>
+            <div class="skills-col">
+              <h3>Machine Learning</h3>
+              <ul>
+                <li>Supervised and unsupervised learning</li>
+                <li>Reinforcement learning methods</li>
+                <li>Feature engineering</li>
+                <li>Probabilistic modeling and prediction</li>
+              </ul>
+            </div>
 
+            <div class="skills-col">
+              <h3>Tools</h3>
+              <ul>
+                <li>Python (NumPy, pandas, scikit-learn, statsmodels)</li>
+                <li>Excel and financial modeling</li>
+                <li>LaTeX for technical writing</li>
+              </ul>
+            </div>
+          </div>
+        </section>
 
       </aside>
 
@@ -283,3 +331,4 @@
 
 </body>
 </html>
+
