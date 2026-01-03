@@ -992,3 +992,80 @@ hr{
     position: static;
   }
 }
+/* ================================
+   EXPERIENCE PAGE: widen + prevent squish
+   Paste at END of styles.css
+================================== */
+
+/* Make the page container wide enough */
+.two-col{
+  max-width: 1280px;                 /* was too narrow */
+  margin: 0 auto;
+  padding: 40px 28px 64px;
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 56px;                          /* more breathing room */
+  align-items: start;
+}
+
+/* Sidebar stays reasonable, main takes the rest */
+.sidebar{ grid-column: 1; }
+.main{
+  grid-column: 2;
+  min-width: 0;
+  width: 100%;
+}
+
+/* If any global rules are constraining sections/cards, kill them here */
+.main, .main *{
+  max-width: none;
+}
+
+/* Experience cards should fill the main column */
+.exp-item{
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Fix the header row getting squeezed */
+.exp-top{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  flex-wrap: wrap;                    /* wrap nicely on smaller widths */
+}
+
+/* Prevent the left block from collapsing into a skinny column */
+.exp-left{
+  flex: 1 1 520px;                    /* grow, but keep a sane minimum */
+  min-width: 420px;
+}
+
+/* Dates block stays compact */
+.exp-right{
+  flex: 0 0 auto;
+  white-space: nowrap;                /* keep dates on one line */
+}
+
+/* Keep org/location text from getting squeezed weirdly */
+.exp-org{
+  max-width: 70ch;                    /* readable line length */
+}
+
+/* Bullets: keep readable width and spacing */
+.exp-bullets{
+  margin: 12px 0 0 18px;
+  max-width: 90ch;                    /* prevents ultra-wide lines */
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 980px){
+  .two-col{
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .sidebar, .main{ grid-column: auto; }
+  .exp-left{ min-width: 0; flex-basis: auto; }
+  .exp-right{ white-space: normal; }
+}
