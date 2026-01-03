@@ -1,3 +1,23 @@
+/* 🚑 EMERGENCY OVERRIDE: stop vertical word wrapping */
+body.experience-page ul,
+body.experience-page li {
+  width: auto !important;
+  max-width: none !important;
+}
+
+body.experience-page li {
+  white-space: normal !important;
+  display: list-item !important;
+}
+
+/* Ensure experience bullets get full width */
+body.experience-page .exp-bullets {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+
+
 :root{
   /* =========================
      Color system (charcoal + cream - mature minimal)
