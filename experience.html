@@ -46,21 +46,36 @@
       max-width: none !important;
     }
 
-    /* --------- Color hierarchy (headers darker, body lighter) --------- */
-    body.experience-page .page-head h1,
-    body.experience-page .exp-role,
-    body.experience-page .sidebar-section h2,
-    body.experience-page .sidebar-section h3,
-    body.experience-page .edu-school{
-      color: var(--text, #111827);
+    /* -------------------------
+       Sidebar typography system
+       (Education + Skills match)
+       ------------------------- */
+
+    /* Section headers (Education / Skills) */
+    body.experience-page .sidebar-section h2{
+      margin: 0 0 10px;
+      font-size: 14px;             /* unified */
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text, #111827); /* darker headers */
     }
 
+    /* Subheaders (skill categories + school names) */
+    body.experience-page .sidebar-section h3,
+    body.experience-page .edu-school{
+      font-size: 13.5px;           /* unified */
+      font-weight: 700;
+      color: var(--text, #111827); /* darker headers */
+      margin: 0 0 6px;
+    }
+
+    /* Body text (degrees + bullets) */
     body.experience-page .edu-degree,
-    body.experience-page .exp-org,
-    body.experience-page .exp-right,
-    body.experience-page .exp-bullets,
-    body.experience-page .sidebar-section li{
-      color: var(--muted, #4b5563);
+    body.experience-page .sidebar-section ul{
+      font-size: 13.5px;           /* unified */
+      line-height: 1.45;
+      color: var(--muted, #4b5563); /* lighter body */
     }
 
     /* Sidebar relaxed style (Projects-like): no card, no white box */
@@ -72,33 +87,13 @@
       margin: 0 0 18px;
     }
 
-    body.experience-page .sidebar-section h2{
-      margin: 0 0 10px;
-      font-size: 14px;
-      letter-spacing: .02em;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: var(--text, #111827);
-    }
-
-    body.experience-page .sidebar-section h3{
-      margin: 0 0 8px;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text, #111827);
-    }
-
-    /* Smaller bullets than subsection titles */
     body.experience-page .sidebar-section ul{
       margin: 0;
       padding-left: 16px;
-      font-size: 12.5px;       /* smaller than h3 */
-      line-height: 1.55;
     }
 
     body.experience-page .sidebar-section li{
       margin: 6px 0;
-      color: var(--muted, #4b5563);
     }
 
     body.experience-page .sidebar-rule{
@@ -112,27 +107,16 @@
     body.experience-page .edu-item{
       margin: 0 0 12px;
     }
-    body.experience-page .edu-school{
-      font-weight: 700;
-      margin-bottom: 2px;
-      color: var(--text, #111827);
-    }
-    body.experience-page .edu-degree{
-      color: var(--muted, #4b5563);
-      font-size: 13.5px;
-      line-height: 1.35;
-    }
 
-    /* --------- Skills subsection spacing --------- */
+    /* Skills subsection spacing */
     body.experience-page .skills-col{
-      margin-bottom: 18px; /* space between subsections */
+      margin-bottom: 18px;
     }
     body.experience-page .skills-col:last-child{
       margin-bottom: 0;
     }
-
     body.experience-page .skills-col h3{
-      margin-bottom: 10px; /* more separation from bullets */
+      margin-bottom: 8px;
     }
 
     @media (min-width: 980px){
@@ -142,8 +126,13 @@
       }
     }
 
+    /* -------------------------
+       Experience typography
+       ------------------------- */
+
     body.experience-page .page-head h1{
       margin: 0 0 18px 0;
+      color: var(--text, #111827);
     }
 
     /* Experience cards stay as cards */
@@ -171,25 +160,28 @@
       min-width: 520px;
     }
 
+    body.experience-page .exp-role{
+      color: var(--text, #111827);     /* darker header */
+    }
+
     body.experience-page .exp-right{
       flex: 0 0 auto;
       white-space: nowrap;
-      color: var(--muted, #4b5563);
+      color: var(--muted, #4b5563);    /* lighter body */
       font-size: 0.95em;
     }
 
     body.experience-page .exp-org{
-      color: var(--muted, #4b5563);
+      color: var(--muted, #4b5563);    /* lighter body */
       font-size: 0.95em;
       margin-top: 4px;
       max-width: 75ch;
     }
 
-    /* Make experience bullets slightly lighter too */
     body.experience-page .exp-bullets{
       margin: 12px 0 0 18px;
       max-width: 92ch;
-      color: var(--muted, #4b5563);
+      color: var(--muted, #4b5563);    /* lighter body */
     }
 
     body.experience-page .exp-bullets li{
@@ -293,8 +285,8 @@
               <h3>Tools</h3>
               <ul>
                 <li>Python (NumPy, pandas, scikit-learn, statsmodels)</li>
-                <li>Excel</li>
-                <li>LaTeX </li>
+                <li>Excel and financial modeling</li>
+                <li>LaTeX for technical writing</li>
               </ul>
             </div>
           </div>
