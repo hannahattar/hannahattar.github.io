@@ -1,23 +1,3 @@
-/* 🚑 EMERGENCY OVERRIDE: stop vertical word wrapping */
-body.experience-page ul,
-body.experience-page li {
-  width: auto !important;
-  max-width: none !important;
-}
-
-body.experience-page li {
-  white-space: normal !important;
-  display: list-item !important;
-}
-
-/* Ensure experience bullets get full width */
-body.experience-page .exp-bullets {
-  width: 100% !important;
-  max-width: none !important;
-}
-
-
-
 :root{
   /* =========================
      Color system (charcoal + cream - mature minimal)
@@ -72,9 +52,7 @@ html, body{
   -moz-osx-font-smoothing: grayscale;
 }
 
-::selection{
-  background: rgba(31,41,55,.12);
-}
+::selection{ background: rgba(31,41,55,.12); }
 
 a{
   color: var(--accent);
@@ -114,7 +92,6 @@ img{ max-width:100%; height:auto; display:block; }
   letter-spacing: -0.01em;
   text-decoration: none;
 }
-
 .site-title:hover{
   text-decoration:none;
   color: var(--accent);
@@ -161,7 +138,7 @@ img{ max-width:100%; height:auto; display:block; }
 }
 
 /* =========================
-   Page layout
+   Global page layout (used by most pages)
    ========================= */
 .page{
   max-width: calc(var(--max) + var(--sidebar));
@@ -174,7 +151,7 @@ img{ max-width:100%; height:auto; display:block; }
 }
 
 /* =========================
-   Sidebar (compact professional)
+   Sidebar (site-wide)
    ========================= */
 .sidebar{
   padding: 0;
@@ -230,9 +207,7 @@ img{ max-width:100%; height:auto; display:block; }
   line-height: 1.6;
 }
 
-.sidebar-links > div:not(:last-child){
-  margin-bottom: 4px;
-}
+.sidebar-links > div:not(:last-child){ margin-bottom: 4px; }
 
 .sidebar-links a{
   color: var(--accent);
@@ -240,14 +215,13 @@ img{ max-width:100%; height:auto; display:block; }
   transition: color .2s ease;
   display: inline-block;
 }
-
 .sidebar-links a:hover{
   color: var(--text);
   text-decoration: none;
 }
 
 /* =========================
-   Main content
+   Main content (site-wide)
    ========================= */
 main{
   max-width: var(--max);
@@ -266,7 +240,6 @@ h1{
   font-size: 32px;
   margin: 0 0 16px;
   font-weight: 700;
-  letter-spacing: -0.02em;
 }
 
 h2{
@@ -275,10 +248,7 @@ h2{
   font-weight: 600;
   letter-spacing: -0.01em;
 }
-
-h2:first-of-type{
-  margin-top: 0;
-}
+h2:first-of-type{ margin-top: 0; }
 
 h3{
   font-size: 16px;
@@ -323,34 +293,27 @@ hr{
   align-items:center;
   justify-content:center;
   gap: 8px;
-
   padding: 10px 20px;
   border: 1px solid var(--rule);
   border-radius: 6px;
-
   font-size: 14px;
   font-weight: 500;
   color: var(--text);
   background: var(--surface);
-
   box-shadow: none;
   text-decoration:none;
-
   transition: border-color .2s ease, background .2s ease, color .2s ease;
 }
-
 .btn:hover{
   border-color: var(--accent);
   background: var(--bg);
   color: var(--accent);
   text-decoration:none;
 }
-
 .btn:focus{
   outline: none;
   box-shadow: var(--focus);
 }
-
 .btn.primary{
   border-color: rgba(30,64,175,.18);
   background: rgba(30,64,175,.10);
@@ -378,7 +341,6 @@ hr{
   margin-top: 20px;
   align-items:flex-start;
 }
-
 .book-links{ margin-top: 14px; }
 
 .proj-feature{
@@ -387,24 +349,19 @@ hr{
   gap: 28px;
   align-items:flex-start;
 }
-
 .proj-feature h2{ margin-top: 0; }
 .proj-cover{ align-self:flex-start; }
 .proj-links{ margin-top: 14px; }
 
 /* =========================
-   Projects (structure upgrades)
+   Projects
    ========================= */
-
-/* Optional: if you add <div class="projects-grid"> around cards,
-   this will auto-grid on desktop without breaking current layout. */
 .projects-grid{
   display:grid;
   grid-template-columns: 1fr;
   gap: 14px;
 }
 
-/* Card */
 .project-card{
   background: var(--surface);
   border: 1px solid var(--rule);
@@ -414,13 +371,11 @@ hr{
   box-shadow: var(--shadow-subtle);
   transition: box-shadow .2s ease, border-color .2s ease;
 }
-
 .project-card:hover{
   box-shadow: var(--shadow);
   border-color: rgba(24,24,27,.15);
 }
 
-/* Top row */
 .project-top{
   display:flex;
   justify-content:space-between;
@@ -435,7 +390,6 @@ hr{
   font-weight: 950;
 }
 
-/* Tags */
 .project-tags{
   margin-top: 10px;
   display:flex;
@@ -443,7 +397,6 @@ hr{
   gap: 8px;
   font-size: 12px;
 }
-
 .project-tags span{
   color: rgba(11,18,32,.84);
   background: rgba(30,64,175,.06);
@@ -453,7 +406,6 @@ hr{
   font-weight: 800;
 }
 
-/* Right-side links */
 .project-top-right{
   display:flex;
   flex-direction:column;
@@ -462,7 +414,6 @@ hr{
   white-space:nowrap;
 }
 
-/* Keep .proj-link but elevate */
 .proj-link{
   font-size: 13px;
   color: var(--text);
@@ -479,7 +430,6 @@ hr{
   box-shadow: none;
   transition: border-color .2s ease, background .2s ease, color .2s ease;
 }
-
 .proj-link:hover{
   border-color: var(--accent);
   background: var(--bg);
@@ -487,7 +437,6 @@ hr{
   text-decoration:none;
 }
 
-/* Description */
 .project-desc{
   margin: 14px 0 0;
   font-size: 15px;
@@ -495,24 +444,18 @@ hr{
   color: rgba(11,18,32,.92);
   max-width: none;
 }
+.project-card--with-cover .project-desc{ max-width: 62ch; }
 
-.project-card--with-cover .project-desc{
-  max-width: 62ch;
-}
-
-/* Divider */
 .project-divider{
   border-top: 1px solid var(--rule);
   margin: 20px 0;
 }
 
-/* Metrics */
 .project-metrics{
   display:grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
 }
-
 .project-metrics > div{
   border: 1px solid var(--rule);
   border-radius: 8px;
@@ -520,7 +463,6 @@ hr{
   background: var(--bg);
   box-shadow: none;
 }
-
 .metric-value{
   font-size: 18px;
   font-weight: 950;
@@ -528,7 +470,6 @@ hr{
   line-height: 1.1;
   letter-spacing: -0.01em;
 }
-
 .metric-label{
   margin-top: 6px;
   color: var(--muted);
@@ -536,11 +477,7 @@ hr{
   font-weight: 800;
 }
 
-/* Cover layout */
-.project-two-col{
-  margin-top: 12px;
-  display:block;
-}
+.project-two-col{ margin-top: 12px; display:block; }
 
 .project-card--with-cover .project-two-col{
   display:grid;
@@ -549,10 +486,7 @@ hr{
   align-items:start;
 }
 
-.project-cover{
-  justify-self:end;
-  align-self:start;
-}
+.project-cover{ justify-self:end; align-self:start; }
 
 .project-cover img{
   width:100%;
@@ -565,10 +499,7 @@ hr{
   box-shadow: var(--shadow-subtle);
   transition: box-shadow .2s ease;
 }
-
-.project-cover img:hover{
-  box-shadow: var(--shadow);
-}
+.project-cover img:hover{ box-shadow: var(--shadow); }
 
 /* =========================
    Research Interests list
@@ -581,7 +512,6 @@ hr{
   gap: 20px;
   color: var(--text);
 }
-
 .ri li{
   margin: 0;
   padding: 24px;
@@ -591,12 +521,10 @@ hr{
   box-shadow: var(--shadow-subtle);
   transition: box-shadow .2s ease, border-color .2s ease;
 }
-
 .ri li:hover{
   box-shadow: var(--shadow);
   border-color: rgba(24,24,27,.12);
 }
-
 .ri li strong{
   color: var(--text);
   font-weight: 600;
@@ -605,7 +533,6 @@ hr{
   font-size: 16px;
   letter-spacing: -0.01em;
 }
-
 .ri li span{
   color: var(--muted);
   display: block;
@@ -614,7 +541,7 @@ hr{
 }
 
 /* =========================
-   Experience cards
+   Experience cards (legacy class; safe to keep)
    ========================= */
 .experience-item{
   background: var(--surface);
@@ -625,32 +552,18 @@ hr{
   box-shadow: var(--shadow-subtle);
   transition: box-shadow .2s ease, border-color .2s ease;
 }
-
 .experience-item:hover{
   box-shadow: var(--shadow);
   border-color: rgba(24,24,27,.12);
 }
-
-.experience-item h2{
-  margin-top: 0;
-  margin-bottom: 8px;
-}
-
+.experience-item h2{ margin-top: 0; margin-bottom: 8px; }
 .experience-item .lede{
   margin-bottom: 16px;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--rule);
 }
-
-.experience-item ul{
-  margin: 0;
-  padding-left: 20px;
-}
-
-.experience-item li{
-  margin-bottom: 12px;
-  line-height: 1.7;
-}
+.experience-item ul{ margin: 0; padding-left: 20px; }
+.experience-item li{ margin-bottom: 12px; line-height: 1.7; }
 
 /* =========================
    Detail pages
@@ -679,10 +592,7 @@ hr{
   padding: 6px 0;
   transition: color .2s ease;
 }
-
-.detail-back:hover{
-  color: var(--text);
-}
+.detail-back:hover{ color: var(--text); }
 
 .detail-hero{
   background: var(--surface);
@@ -746,10 +656,7 @@ hr{
   padding: 32px;
   box-shadow: var(--shadow-subtle);
 }
-
-.detail-section:first-of-type{
-  margin-top: 0;
-}
+.detail-section:first-of-type{ margin-top: 0; }
 
 .detail-section h2{
   margin: 0 0 20px;
@@ -774,10 +681,7 @@ hr{
   box-shadow: var(--shadow-subtle);
   transition: box-shadow .2s ease;
 }
-
-.card:hover{
-  box-shadow: var(--shadow);
-}
+.card:hover{ box-shadow: var(--shadow); }
 
 .card-title{
   font-weight: 950;
@@ -788,7 +692,6 @@ hr{
   margin: 0;
   padding-left: 18px;
 }
-
 .tight li{ margin: 0 0 6px; }
 
 .callout{
@@ -823,24 +726,14 @@ hr{
   font-weight: 800;
 }
 
-.figimg{
-  width:100%;
-  height:auto;
-}
+.figimg{ width:100%; height:auto; }
 
 /* =========================
-   Responsive
+   Responsive (site-wide)
    ========================= */
 @media (min-width: 980px){
-  /* If you wrap cards in .projects-grid, make it 2-up on wide screens */
-  .projects-grid{
-    grid-template-columns: 1fr 1fr;
-  }
-
-  /* When using grid, remove the vertical margins so spacing is consistent */
-  .projects-grid .project-card{
-    margin: 0;
-  }
+  .projects-grid{ grid-template-columns: 1fr 1fr; }
+  .projects-grid .project-card{ margin: 0; }
 }
 
 @media (max-width: 900px){
@@ -861,24 +754,13 @@ hr{
     height: 100px;
   }
 
-  .sidebar-links{
-    text-align: center;
-  }
+  .sidebar-links{ text-align: center; }
 
-  .book-feature{
-    grid-template-columns: 1fr;
-  }
-  .book-cover{
-    order:-1;
-    max-width: 340px;
-  }
+  .book-feature{ grid-template-columns: 1fr; }
+  .book-cover{ order:-1; max-width: 340px; }
 
-  .proj-feature{
-    grid-template-columns: 1fr;
-  }
-  .proj-cover{
-    max-width: 320px;
-  }
+  .proj-feature{ grid-template-columns: 1fr; }
+  .proj-cover{ max-width: 320px; }
 
   .project-top-right{
     text-align:left;
@@ -886,17 +768,10 @@ hr{
     flex-wrap:wrap;
   }
 
-  .project-metrics{
-    grid-template-columns: 1fr;
-  }
+  .project-metrics{ grid-template-columns: 1fr; }
 
-  .project-card--with-cover .project-two-col{
-    grid-template-columns: 1fr;
-  }
-
-  .project-cover{
-    justify-self:start;
-  }
+  .project-card--with-cover .project-two-col{ grid-template-columns: 1fr; }
+  .project-cover{ justify-self:start; }
 
   .project-cover img{
     max-width: 360px;
@@ -906,186 +781,118 @@ hr{
 }
 
 @media (max-width: 860px){
-  .detail-meta{
-    grid-template-columns: 1fr;
-  }
-  .grid-2{
-    grid-template-columns: 1fr;
-  }
-  .detail-title{
-    font-size: 34px;
-  }
+  .detail-meta{ grid-template-columns: 1fr; }
+  .grid-2{ grid-template-columns: 1fr; }
+  .detail-title{ font-size: 34px; }
 }
-/* ================================
-   EXPERIENCE PAGE: 2-column layout
-   Paste at END of styles.css
-================================== */
 
-/* Make the content area actually use the page width */
-.page {
+/* =========================================================
+   EXPERIENCE PAGE ONLY
+   Fix: prevent nested grids squishing the main content.
+   We disable the global .page grid on this page and let
+   .two-col control the layout.
+   ========================================================= */
+body.experience-page .page{
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  display: block; /* stop the global 2-col grid on this page */
+}
+
+body.experience-page .two-col{
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 42px 26px 70px;
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 56px;
+  align-items: start;
   width: 100%;
 }
 
-/* Two-column grid: fixed-ish sidebar + flexible main */
-.two-col{
-  max-width: 1100px;           /* wider than your old max */
-  margin: 0 auto;
-  padding: 32px 20px 56px;
-  display: grid;
-  grid-template-columns: 320px minmax(0, 1fr);
-  gap: 40px;
-  align-items: start;
-}
-
-/* Sidebar stays on the left */
-.sidebar{
-  grid-column: 1;
-}
-
-/* Main column forced to the right */
-.main{
-  grid-column: 2;
-  min-width: 0;                /* prevents overflow weirdness */
-}
-
-/* Optional: make sidebar feel like a panel */
-.sidebar-card{
-  background: var(--surface, #fff);
-  border: 1px solid var(--rule, #e5e7eb);
-  border-radius: var(--radius, 16px);
-  padding: 18px 18px;
-  box-shadow: var(--shadow, 0 1px 2px rgba(0,0,0,.05));
-  margin-bottom: 14px;
-}
-
-/* Keep the sidebar visible while scrolling */
-@media (min-width: 900px){
-  .sidebar{
+@media (min-width: 980px){
+  body.experience-page .two-col .sidebar{
     position: sticky;
-    top: 88px; /* below your topbar */
+    top: 88px;
   }
 }
 
-/* Main section spacing */
-.page-head h1{
-  margin: 0 0 14px 0;
-}
-
-.exp-item{
-  background: var(--surface, #fff);
-  border: 1px solid var(--rule, #e5e7eb);
-  border-radius: var(--radius, 16px);
-  padding: 18px 18px;
-  box-shadow: var(--shadow, 0 1px 2px rgba(0,0,0,.05));
+/* Optional: simple panel look */
+body.experience-page .sidebar-card{
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow-subtle);
   margin-bottom: 14px;
 }
 
-.exp-top{
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  align-items: baseline;
-}
-
-.exp-role{
-  margin: 0;
-}
-
-.exp-org, .exp-dates{
-  color: var(--muted, #4b5563);
-  font-size: 0.95em;
-}
-
-.exp-bullets{
-  margin: 10px 0 0 18px;
-}
-
-/* Responsive: stack sidebar on top on small screens */
-@media (max-width: 900px){
-  .two-col{
-    grid-template-columns: 1fr;
-  }
-  .sidebar, .main{
-    grid-column: auto;
-  }
-  .sidebar{
-    position: static;
-  }
-}
-/* ================================
-   EXPERIENCE PAGE: widen + prevent squish
-   Paste at END of styles.css
-================================== */
-
-/* Make the page container wide enough */
-.two-col{
-  max-width: 1280px;                 /* was too narrow */
-  margin: 0 auto;
-  padding: 40px 28px 64px;
-  display: grid;
-  grid-template-columns: 320px minmax(0, 1fr);
-  gap: 56px;                          /* more breathing room */
-  align-items: start;
-}
-
-/* Sidebar stays reasonable, main takes the rest */
-.sidebar{ grid-column: 1; }
-.main{
-  grid-column: 2;
+body.experience-page .main{
   min-width: 0;
   width: 100%;
-}
-
-/* If any global rules are constraining sections/cards, kill them here */
-.main, .main *{
   max-width: none;
 }
 
-/* Experience cards should fill the main column */
-.exp-item{
+body.experience-page .exp-item{
   width: 100%;
-  max-width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow-subtle);
+  margin-bottom: 14px;
 }
 
-/* Fix the header row getting squeezed */
-.exp-top{
+body.experience-page .exp-top{
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 18px;
-  flex-wrap: wrap;                    /* wrap nicely on smaller widths */
+  flex-wrap: wrap;
 }
 
-/* Prevent the left block from collapsing into a skinny column */
-.exp-left{
-  flex: 1 1 520px;                    /* grow, but keep a sane minimum */
-  min-width: 420px;
+body.experience-page .exp-left{
+  flex: 1 1 620px;
+  min-width: 520px;
 }
 
-/* Dates block stays compact */
-.exp-right{
+body.experience-page .exp-right{
   flex: 0 0 auto;
-  white-space: nowrap;                /* keep dates on one line */
+  white-space: nowrap;
+  color: var(--muted);
+  font-size: 0.95em;
 }
 
-/* Keep org/location text from getting squeezed weirdly */
-.exp-org{
-  max-width: 70ch;                    /* readable line length */
+body.experience-page .exp-org{
+  color: var(--muted);
+  font-size: 0.95em;
+  margin-top: 4px;
+  max-width: 75ch;
 }
 
-/* Bullets: keep readable width and spacing */
-.exp-bullets{
+body.experience-page .exp-bullets{
   margin: 12px 0 0 18px;
-  max-width: 90ch;                    /* prevents ultra-wide lines */
+  max-width: 92ch;
 }
 
-/* Responsive: stack on small screens */
+/* Mobile stack */
 @media (max-width: 980px){
-  .two-col{
+  body.experience-page .two-col{
     grid-template-columns: 1fr;
     gap: 22px;
+    padding: 28px 18px 60px;
   }
-  .sidebar, .main{ grid-column: auto; }
-  .exp-left{ min-width: 0; flex-basis: auto; }
-  .exp-right{ white-space: normal; }
+
+  body.experience-page .two-col .sidebar{
+    position: static;
+  }
+
+  body.experience-page .exp-left{
+    min-width: 0;
+    flex-basis: auto;
+  }
+
+  body.experience-page .exp-right{
+    white-space: normal;
+  }
 }
