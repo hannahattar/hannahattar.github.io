@@ -13,11 +13,14 @@
   <!-- Global Styles -->
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Page-only overrides (so Experience stops being crushed) -->
+  <!-- Page-only overrides -->
   <style>
-    /* Scope everything to this page so we don't break other pages */
+    /* Make sure the global layout container doesn't strangle this page */
     body.experience-page .page{
       width: 100%;
+      max-width: none !important;   /* this is the missing piece */
+      margin: 0 !important;         /* in case global sets margin:auto */
+      padding: 0 !important;        /* we’ll handle padding inside .two-col */
     }
 
     body.experience-page .two-col{
@@ -28,6 +31,7 @@
       grid-template-columns: 320px minmax(0, 1fr);
       gap: 56px;
       align-items: start;
+      width: 100%;
     }
 
     body.experience-page .sidebar{
@@ -39,7 +43,6 @@
       grid-column: 2;
       width: 100%;
       min-width: 0;
-      /* critical: neutralize any global max-width rules */
       max-width: none !important;
     }
 
@@ -47,7 +50,7 @@
       background: var(--surface, #fff);
       border: 1px solid var(--rule, #e5e7eb);
       border-radius: var(--radius, 16px);
-      padding: 18px 18px;
+      padding: 18px;
       box-shadow: var(--shadow, 0 1px 2px rgba(0,0,0,.05));
       margin-bottom: 14px;
     }
@@ -65,11 +68,11 @@
 
     body.experience-page .exp-item{
       width: 100%;
-      max-width: none !important; /* kill any inherited constraints */
+      max-width: none !important;
       background: var(--surface, #fff);
       border: 1px solid var(--rule, #e5e7eb);
       border-radius: var(--radius, 16px);
-      padding: 18px 18px;
+      padding: 18px;
       box-shadow: var(--shadow, 0 1px 2px rgba(0,0,0,.05));
       margin-bottom: 14px;
     }
@@ -82,7 +85,6 @@
       flex-wrap: wrap;
     }
 
-    /* This is the “stop wrapping one-word-per-line” fix */
     body.experience-page .exp-left{
       flex: 1 1 620px;
       min-width: 520px;
@@ -104,7 +106,7 @@
 
     body.experience-page .exp-bullets{
       margin: 12px 0 0 18px;
-      max-width: 92ch; /* readable line length */
+      max-width: 92ch;
     }
 
     /* Mobile: stack */
@@ -112,18 +114,23 @@
       body.experience-page .two-col{
         grid-template-columns: 1fr;
         gap: 22px;
+        padding: 28px 18px 60px;
       }
+
       body.experience-page .sidebar,
       body.experience-page .main{
         grid-column: auto;
       }
+
       body.experience-page .sidebar{
         position: static;
       }
+
       body.experience-page .exp-left{
         min-width: 0;
         flex-basis: auto;
       }
+
       body.experience-page .exp-right{
         white-space: normal;
       }
