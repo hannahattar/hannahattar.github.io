@@ -656,6 +656,40 @@ hr{
 }
 .exp-bullets li{ margin: 8px 0; }
 
+/* One-page Experience: mini 2-col layout inside main */
+.exp-two-col{
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 44px;
+  align-items: start;
+  margin-top: 18px;
+}
+
+.exp-side{
+  position: sticky;
+  top: calc(var(--topbar-offset) + 16px);
+}
+
+.exp-main{
+  min-width: 0;
+}
+
+/* Make the left column look a bit more “contained” */
+.exp-side .sidebar-section{
+  margin-bottom: 14px;
+}
+
+@media (max-width: 980px){
+  .exp-two-col{
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .exp-side{
+    position: static;
+  }
+}
+
 /* =========================
    Experience cards (legacy class; safe to keep)
    ========================= */
