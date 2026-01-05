@@ -16,8 +16,8 @@
     <div class="topbar-inner">
       <a class="site-title" href="index.html">Hannah Attar</a>
       <div class="topnav">
-        <a href="projects.html">Projects</a>
-        <a href="experience.html">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
         <a href="assets/pdfs/Attar_Resume_2026.pdf" target="_blank" rel="noopener">Resume</a>
       </div>
     </div>
@@ -32,7 +32,6 @@
              style="width:100%; height:100%; object-fit:cover; transform:scale(1.06);" />
       </div>
 
-
       <div class="sidebar-name">Hannah Attar</div>
       <p class="sidebar-bio">
         Master’s student in Financial Engineering (USC)
@@ -42,10 +41,9 @@
         <div>Los Angeles, CA</div>
         <div>University of Southern California</div>
         <div><a href="mailto:hmattar@usc.edu">hmattar@usc.edu</a></div>
-        <div><a href="https://github.com/hannahattar">GitHub</a></div>
-        <div><a href="https://www.linkedin.com/in/hannahattar/">LinkedIn</a></div>
+        <div><a href="https://github.com/hannahattar" target="_blank" rel="noopener">GitHub</a></div>
+        <div><a href="https://www.linkedin.com/in/hannahattar/" target="_blank" rel="noopener">LinkedIn</a></div>
       </div>
-
     </aside>
 
     <!-- Main content -->
@@ -63,7 +61,6 @@
       <p>
         Outside of academics, I enjoy playing chess and studying strategic games that emphasize long-horizon reasoning, as well as creative writing and literature.
       </p>
-
 
       <hr />
 
@@ -84,9 +81,240 @@
           <strong>Macroeconomic Dynamics and Regime Shifts</strong><br />
           <span>Examination of how macroeconomic forces and structural changes influence asset prices across time and market regimes.</span>
         </li>
-        </ul>
+      </ul>
 
-      
+      <hr />
+
+      <!-- ===== Projects (full content) ===== -->
+      <section id="projects">
+        <h1>Projects</h1>
+        <p class="lede">
+          Selected projects spanning econometrics, housing and mortgage markets, stochastic processes, and applied machine learning.
+        </p>
+
+        <hr />
+
+        <!-- Project Card: State-Aware Model Risk -->
+        <section class="project-card">
+          <div class="project-top">
+            <div class="project-top-left">
+              <h2 class="project-title">Regime-Aware Model Risk Visualization</h2>
+              <div class="project-tags">
+                <span>Python</span>
+                <span>Gaussian Mixture Model</span>
+                <span>Logistic Regression</span>
+                <span>Probability Calibration</span>
+                <span>Confidence-Based Trading Rules</span>
+              </div>
+            </div>
+
+            <div class="project-top-right">
+              <a class="proj-link" href="state-aware-model-risk.html">
+                See Details →
+              </a>
+              <a class="proj-link"
+                 href="https://github.com/hannahattar/state-aware-model-risk"
+                 target="_blank" rel="noopener">
+                View Code (GitHub) →
+              </a>
+            </div>
+          </div>
+
+          <p class="project-desc">
+            Regime-aware diagnostics for short-horizon equity signals. SPY daily direction probabilities from a logistic classifier are evaluated out-of-sample
+            using confidence binning and GMM-inferred market regimes, supported by calibration diagnostics (probability compression, Brier score) and an
+            illustrative regime-aware deployment filter to study drawdowns and risk profile shifts.
+          </p>
+
+          <div class="project-divider"></div>
+
+          <div class="project-metrics">
+            <div class="metric">
+              <div class="metric-value">0.552</div>
+              <div class="metric-label">OOS Accuracy</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">0.247</div>
+              <div class="metric-label">Brier Score</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">0.66</div>
+              <div class="metric-label">OOS Sharpe (gross)</div>
+            </div>
+          </div>
+        </section>
+
+        <hr />
+
+        <!-- Project Card: Spatial Econometrics -->
+        <section class="project-card">
+          <div class="project-top">
+            <div class="project-top-left">
+              <h2 class="project-title">Spatial Econometric Modeling of Housing Market Dynamics</h2>
+              <div class="project-tags">
+                <span>Stata</span>
+                <span>Python</span>
+                <span>Spatial Econometrics</span>
+                <span>Instrumental Variables (2SLS)</span>
+                <span>Autoregressive Models (SAR / GS2SLS / MLE)</span>
+                <span>Geospatial Feature Engineering</span>
+                <span>Clustering-Based Segmentation</span>
+              </div>
+            </div>
+
+            <div class="project-top-right">
+              <a class="proj-link" href="https://arxiv.org/pdf/2412.03583" target="_blank" rel="noopener">View Paper (arXiv) →</a>
+            </div>
+          </div>
+
+          <p class="project-desc">
+            Built spatial econometric models to evaluate housing prices using geographically clustered datasets and spatial lags,
+            combining Stata and Python workflows for estimation, diagnostics, and validation.
+          </p>
+
+          <div class="project-divider"></div>
+
+          <div class="project-metrics">
+            <div class="metric">
+              <div class="metric-value">0.891</div>
+              <div class="metric-label">R² (Predictive Fit)</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">0.363</div>
+              <div class="metric-label">RMSE</div>
+            </div>
+            <div class="metric">
+              <div class="metric-value">0.293</div>
+              <div class="metric-label">MAE</div>
+            </div>
+          </div>
+        </section>
+
+        <hr />
+
+        <!-- Project Card: Mortgage + MBS Cash Flows -->
+        <section class="project-card">
+          <div class="project-top">
+            <div class="project-top-left">
+              <h2 class="project-title">Mortgage and MBS Cash-Flow Modeling</h2>
+              <div class="project-tags">
+                <span>Excel</span>
+                <span>Amortization</span>
+                <span>Prepayment</span>
+                <span>Default / Severity</span>
+                <span>Tranche Exposure</span>
+              </div>
+            </div>
+
+            <div class="project-top-right">
+              <a class="proj-link" href="none">See Details →</a>
+            </div>
+          </div>
+
+          <p class="project-desc">
+            Built mortgage and MBS cash-flow models to analyze amortization, prepayment behavior, default scenarios,
+            and cash-flow sensitivity. Studied how the borrower prepayment option affects tranche exposure and
+            interest-rate sensitivity under different assumptions.
+          </p>
+
+          <div class="project-divider"></div>
+
+          <div class="project-metrics">
+            <div class="metric">
+              <div class="metric-value">January 15, 2026</div>
+              <div class="metric-label">Publishing Date</div>
+            </div>
+          </div>
+        </section>
+
+        <hr />
+
+        <!-- Academic Research & Writing -->
+        <section>
+          <h2 style="margin-top: 2.5rem;">Academic Research & Writing</h2>
+
+          <!-- Project Card: Book Manuscript -->
+          <section class="project-card project-card--with-cover">
+            <div class="project-top">
+              <div class="project-top-left">
+                <h2 class="project-title">Probability and Stochastic Processes (Book Manuscript)</h2>
+                <div class="project-tags">
+                  <span>Python</span>
+                  <span>LaTeX</span>
+                  <span>Probability</span>
+                  <span>Stochastic Processes</span>
+                  <span>Quantitative Modeling</span>
+                </div>
+              </div>
+
+              <div class="project-top-right">
+                <a class="proj-link" href="assets/pdfs/probability-stochastic-processes-preview.pdf" target="_blank" rel="noopener">
+                  Preview (PDF) →
+                </a>
+              </div>
+            </div>
+
+            <div class="project-two-col">
+              <div>
+                <p class="project-desc">
+                  A structured, concept-driven reference that develops core probability and stochastic process ideas within a single coherent framework.
+                  Emphasizes clarity of structure and continuity across topics, combining rigorous definitions with concise intuition and original computational visualizations.
+                  Designed as a refresher and applied reference for quantitative finance and financial engineering.
+                </p>
+              </div>
+
+              <div class="project-cover">
+                <img src="assets/images/book-cover.jpg" alt="Cover of Probability and Stochastic Processes" />
+              </div>
+            </div>
+          </section>
+
+          <hr />
+
+          <section class="project-card">
+            <div class="project-top">
+              <div class="project-top-left">
+                <h2 class="project-title">
+                  Institutions, Resources, and Development in the D.R.C.
+                </h2>
+                <div class="project-tags">
+                  <span>Development Economics</span>
+                  <span>Political Economy</span>
+                  <span>Institutions</span>
+                  <span>Resource Economics</span>
+                  <span>Economic History</span>
+                </div>
+              </div>
+
+              <div class="project-top-right">
+                <a class="proj-link"
+                   href="assets/pdfs/At_The_Mercy_of_Natures_Riches.pdf"
+                   target="_blank"
+                   rel="noopener">
+                  View Paper (PDF) →
+                </a>
+              </div>
+            </div>
+
+            <p class="project-desc">
+              An institutional and development-economics analysis of the Democratic Republic of Congo’s
+              resource paradox. Examines how governance failures, conflict, and financing constraints
+              prevent resource wealth from translating into broad-based growth, and evaluates structural
+              policy pathways for sustainable development. Emphasizes economic reasoning and institutional
+              design rather than econometric modeling.
+            </p>
+          </section>
+        </section>
+      </section>
+      <!-- ===== End Projects ===== -->
+
+      <hr />
+
+      <!-- Placeholder: Experience will be inserted here next -->
+      <section id="experience">
+        <h1>Experience</h1>
+        <p class="lede">Coming next: we’ll paste your full experience page here.</p>
+      </section>
 
       <div class="footer">
         © <span id="y"></span> Hannah Attar
@@ -96,7 +324,8 @@
   </div>
 
   <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
+    const y = document.getElementById("y");
+    if (y) y.textContent = new Date().getFullYear();
   </script>
 
 </body>
