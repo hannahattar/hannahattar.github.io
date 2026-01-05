@@ -35,9 +35,6 @@
   --shadow-hover: 0 2px 4px rgba(0,0,0,.08), 0 4px 12px rgba(0,0,0,.06);
 
   --focus: 0 0 0 3px var(--ring);
-
-  /* Anchor offset for sticky topbar */
-  --topbar-offset: 96px;
 }
 
 *{ box-sizing:border-box; }
@@ -54,11 +51,6 @@ html, body{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-/* Smooth scroll for anchor nav */
-html{ scroll-behavior: smooth; }
-/* Prevent anchor targets hiding behind sticky header */
-section{ scroll-margin-top: var(--topbar-offset); }
 
 ::selection{ background: rgba(31,41,55,.12); }
 
@@ -549,148 +541,6 @@ hr{
 }
 
 /* =========================
-   EXPERIENCE (one-page + reusable)
-   ========================= */
-
-/* Sidebar-style sections (Education / Skills) */
-.sidebar-section{
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-  padding: 0;
-  margin: 0 0 18px;
-}
-
-.sidebar-section h2{
-  margin: 0 0 10px;
-  font-size: 14px;
-  letter-spacing: .02em;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--text);
-}
-
-.sidebar-section h3,
-.edu-school{
-  font-size: 13.5px;
-  font-weight: 700;
-  color: var(--text);
-  margin: 0 0 6px;
-}
-
-.edu-item{ margin: 0 0 12px; }
-
-.edu-degree{
-  font-size: 13.5px;
-  line-height: 1.45;
-  color: var(--muted);
-}
-
-.skills-col{ margin-bottom: 18px; }
-.skills-col:last-child{ margin-bottom: 0; }
-.skills-col h3{ margin-bottom: 8px; }
-
-.sidebar-section ul{
-  margin: 0;
-  padding-left: 16px;
-  font-size: 13.5px;
-  line-height: 1.45;
-  color: var(--muted);
-}
-.sidebar-section li{ margin: 6px 0; }
-
-.sidebar-rule{
-  border: 0;
-  border-top: 1px solid var(--rule);
-  margin: 16px 0 18px;
-  opacity: .9;
-}
-
-/* Experience cards */
-.exp-item{
-  width: 100%;
-  background: var(--surface);
-  border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  padding: 18px;
-  box-shadow: var(--shadow-subtle);
-  margin: 14px 0;
-}
-
-.exp-top{
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 18px;
-  flex-wrap: wrap;
-}
-
-.exp-left{
-  flex: 1 1 620px;
-  min-width: 0;
-}
-
-.exp-role{
-  color: var(--text);
-  margin: 0;
-}
-
-.exp-right{
-  flex: 0 0 auto;
-  white-space: nowrap;
-  color: var(--muted);
-  font-size: 0.95em;
-}
-
-.exp-org{
-  color: var(--muted);
-  font-size: 0.95em;
-  margin-top: 4px;
-  max-width: 75ch;
-}
-
-.exp-bullets{
-  margin: 12px 0 0 18px;
-  max-width: 92ch;
-  color: var(--muted);
-}
-.exp-bullets li{ margin: 8px 0; }
-
-/* One-page Experience: mini 2-col layout inside main */
-.exp-two-col{
-  display: grid;
-  grid-template-columns: 320px minmax(0, 1fr);
-  gap: 44px;
-  align-items: start;
-  margin-top: 18px;
-}
-
-.exp-side{
-  position: sticky;
-  top: calc(var(--topbar-offset) + 16px);
-}
-
-.exp-main{
-  min-width: 0;
-}
-
-/* Make the left column look a bit more “contained” */
-.exp-side .sidebar-section{
-  margin-bottom: 14px;
-}
-
-@media (max-width: 980px){
-  .exp-two-col{
-    grid-template-columns: 1fr;
-    gap: 22px;
-  }
-
-  .exp-side{
-    position: static;
-  }
-}
-
-/* =========================
    Experience cards (legacy class; safe to keep)
    ========================= */
 .experience-item{
@@ -928,9 +778,6 @@ hr{
     height:auto;
     object-fit:contain;
   }
-
-  /* Experience date stacks naturally on small screens */
-  .exp-right{ white-space: normal; }
 }
 
 @media (max-width: 860px){
@@ -941,7 +788,9 @@ hr{
 
 /* =========================================================
    EXPERIENCE PAGE ONLY
-   Keep your dedicated experience.html layout working (optional)
+   Fix: prevent nested grids squishing the main content.
+   We disable the global .page grid on this page and let
+   .two-col control the layout.
    ========================================================= */
 body.experience-page .page{
   max-width: none;
@@ -968,8 +817,82 @@ body.experience-page .two-col{
   }
 }
 
+/* Optional: simple panel look */
+body.experience-page .sidebar-card{
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow-subtle);
+  margin-bottom: 14px;
+}
+
 body.experience-page .main{
   min-width: 0;
   width: 100%;
   max-width: none;
+}
+
+body.experience-page .exp-item{
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow-subtle);
+  margin-bottom: 14px;
+}
+
+body.experience-page .exp-top{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+body.experience-page .exp-left{
+  flex: 1 1 620px;
+  min-width: 520px;
+}
+
+body.experience-page .exp-right{
+  flex: 0 0 auto;
+  white-space: nowrap;
+  color: var(--muted);
+  font-size: 0.95em;
+}
+
+body.experience-page .exp-org{
+  color: var(--muted);
+  font-size: 0.95em;
+  margin-top: 4px;
+  max-width: 75ch;
+}
+
+body.experience-page .exp-bullets{
+  margin: 12px 0 0 18px;
+  max-width: 92ch;
+}
+
+/* Mobile stack */
+@media (max-width: 980px){
+  body.experience-page .two-col{
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 28px 18px 60px;
+  }
+
+  body.experience-page .two-col .sidebar{
+    position: static;
+  }
+
+  body.experience-page .exp-left{
+    min-width: 0;
+    flex-basis: auto;
+  }
+
+  body.experience-page .exp-right{
+    white-space: normal;
+  }
 }
