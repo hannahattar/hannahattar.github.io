@@ -163,8 +163,8 @@ img{ max-width:100%; height:auto; display:block; }
 }
 
 .avatar{
-  width: 120px;
-  height: 120px;
+  width: 160px;
+  height: 160px;
   border-radius: 999px;
   border: 1px solid var(--rule);
   background: var(--surface);
@@ -173,6 +173,7 @@ img{ max-width:100%; height:auto; display:block; }
   margin: 0 auto 24px;
   display: block;
 }
+
 
 .sidebar-name{
   margin: 0 0 6px;
