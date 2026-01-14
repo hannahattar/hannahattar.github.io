@@ -5,200 +5,119 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Hannah Attar | Education</title>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
-  <!-- Global Styles -->
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Page-only overrides (timeline + page width parity with Experience) -->
+  <!-- Page-only: timeline layout + typography to match your example screenshot -->
   <style>
-    /* Match your Experience page "full-width" container behavior */
-    body.education-page .page{
-      width: 100%;
-      max-width: none !important;
-      margin: 0 !important;
-      padding: 0 !important;
+    /* Keep main content from getting strangled */
+    .page main{
+      min-width: 0;
     }
 
-    body.education-page .two-col{
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 42px 26px 70px;
-      display: grid;
-      grid-template-columns: 320px minmax(0, 1fr);
-      gap: 56px;
-      align-items: start;
-      width: 100%;
-    }
-
-    body.education-page .sidebar{ grid-column: 1; min-width: 0; }
-    body.education-page .main{ grid-column: 2; width: 100%; min-width: 0; max-width: none !important; }
-
-    @media (min-width: 980px){
-      body.education-page .sidebar{
-        position: sticky;
-        top: 88px;
-      }
-    }
-
-    @media (max-width: 980px){
-      body.education-page .two-col{
-        grid-template-columns: 1fr;
-        gap: 22px;
-        padding: 28px 18px 60px;
-      }
-      body.education-page .sidebar,
-      body.education-page .main{
-        grid-column: auto;
-      }
-      body.education-page .sidebar{
-        position: static;
-      }
-    }
-
-    /* Sidebar typography: reuse your Experience conventions */
-    body.education-page .sidebar-section{
-      background: transparent;
-      border: 0;
-      box-shadow: none;
-      padding: 0;
-      margin: 0 0 18px;
-    }
-
-    body.education-page .sidebar-section h2{
-      margin: 0 0 10px;
-      font-size: 14px;
-      letter-spacing: .02em;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: var(--text, #111827);
-    }
-
-    body.education-page .sidebar-section h3{
-      font-size: 13.5px;
-      font-weight: 700;
-      color: var(--text, #111827);
-      margin: 0 0 6px;
-    }
-
-    body.education-page .sidebar-section ul{
-      margin: 0;
-      padding-left: 16px;
-      font-size: 13.5px;
-      line-height: 1.45;
-      color: var(--muted, #4b5563);
-    }
-
-    body.education-page .sidebar-section li{ margin: 6px 0; }
-
-    body.education-page .sidebar-rule{
-      border: 0;
-      border-top: 1px solid var(--rule, #e5e7eb);
-      margin: 16px 0 18px;
-      opacity: .9;
-    }
-
-    /* Page header */
-    body.education-page .page-head h1{
-      margin: 0 0 18px 0;
-      color: var(--text, #111827);
-    }
-
-    /* -------------------------
-       Education timeline (screenshot-inspired)
-       ------------------------- */
-
-    body.education-page .edu-timeline{
+    /* Timeline wrapper */
+    .edu-timeline{
       position: relative;
-      padding-left: 28px; /* room for rail + dots */
-      margin-top: 6px;
+      margin-top: 18px;
+      padding-left: 56px;          /* room for rail + dot, like the example */
+      max-width: 980px;            /* keeps line lengths elegant */
     }
 
-    body.education-page .edu-timeline:before{
+    /* Vertical rail */
+    .edu-timeline::before{
       content:"";
       position:absolute;
-      left: 8px;
-      top: 6px;
-      bottom: 6px;
+      left: 18px;
+      top: 10px;
+      bottom: 10px;
       width: 2px;
       background: var(--rule, #e5e7eb);
     }
 
-    body.education-page .edu-entry{
+    /* Each entry block */
+    .edu-entry{
       position: relative;
-      padding: 14px 0 22px;
+      padding: 18px 0 42px;
     }
 
-    body.education-page .edu-dot{
+    /* Dot */
+    .edu-dot{
       position:absolute;
-      left: 1px;
-      top: 18px;
-      width: 14px;
-      height: 14px;
+      left: 11px;
+      top: 22px;
+      width: 12px;
+      height: 12px;
       border-radius: 999px;
-      background: var(--text, #111827);
-      box-shadow: 0 0 0 6px rgba(17,24,39,.06); /* subtle halo */
+      background: rgba(17,24,39,.55);
     }
 
-    body.education-page .edu-head{
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 18px;
-      flex-wrap: wrap;
+    /* Header row: school left, dates right (use grid to avoid flex squeeze weirdness) */
+    .edu-head{
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      column-gap: 28px;
     }
 
-    body.education-page .edu-school{
+    .edu-school{
       margin: 0;
-      font-size: 26px;
+      font-size: 30px;
       font-weight: 700;
       color: var(--text, #111827);
       letter-spacing: -0.01em;
+      line-height: 1.15;
+
+      /* prevent the “one word per line” disaster */
+      white-space: normal;
+      word-break: normal;
+      overflow-wrap: normal;
     }
 
-    body.education-page .edu-dates{
-      color: var(--muted, #4b5563);
-      font-size: 0.95em;
+    .edu-dates{
+      justify-self: end;
       white-space: nowrap;
+      font-size: 18px;
+      color: rgba(17,24,39,.45);
+      padding-top: 6px; /* aligns visually with title baseline */
     }
 
-    body.education-page .edu-degree{
-      margin-top: 8px;
+    /* Lines underneath (screenshot has big readable body text) */
+    .edu-lines{
+      margin-top: 14px;
+      font-size: 20px;
+      line-height: 1.7;
       color: var(--text, #111827);
-      font-weight: 400;
-    }
-
-    body.education-page .edu-lines{
-      margin: 10px 0 0 0;
-      padding-left: 0;
-      list-style: none;
-      color: var(--muted, #4b5563);
       max-width: 95ch;
     }
 
-    body.education-page .edu-lines li{
-      margin: 8px 0;
-      line-height: 1.5;
+    .edu-line{
+      margin: 12px 0;
     }
 
-    body.education-page .edu-label{
+    .edu-label{
       font-weight: 700;
-      color: var(--text, #111827);
     }
 
+    /* Mobile: let dates wrap + reduce sizes slightly */
     @media (max-width: 720px){
-      body.education-page .edu-dates{ white-space: normal; }
-      body.education-page .edu-school{ font-size: 22px; }
+      .edu-timeline{ padding-left: 46px; }
+      .edu-school{ font-size: 24px; }
+      .edu-dates{
+        white-space: normal;
+        justify-self: start;
+        padding-top: 0;
+      }
+      .edu-lines{ font-size: 18px; }
     }
   </style>
 </head>
 
-<body class="education-page">
+<body>
 
-  <!-- Top Navigation -->
+  <!-- Top navigation -->
   <div class="topbar">
     <div class="topbar-inner">
       <a class="site-title" href="index.html">Hannah Attar</a>
@@ -211,103 +130,91 @@
     </div>
   </div>
 
-  <!-- Main Content -->
-  <main class="page">
-    <div class="two-col">
+  <div class="page">
 
-      <!-- LEFT: Sidebar (keep consistent with your site) -->
-      <aside class="sidebar">
+    <!-- Sidebar (MATCHES projects.html exactly) -->
+    <aside class="sidebar">
+      <div class="avatar">
+        <img src="assets/images/photo.jpg" alt="Hannah Attar"
+             style="width:100%; height:100%; object-fit:cover; transform:scale(1.06);" />
+      </div>
 
-        <section class="sidebar-section">
-          <h2>At a glance</h2>
-          <ul>
-            <li>M.S. Financial Engineering (USC)</li>
-            <li>B.S. Economics (USF), Honors</li>
-            <li>Minor: English Literature</li>
-          </ul>
-        </section>
+      <div class="sidebar-name">Hannah Attar</div>
+      <p class="sidebar-bio">
+        Master’s student in Financial Engineering (USC)
+      </p>
 
-        <hr class="sidebar-rule" />
+      <div class="sidebar-links">
+        <div>Los Angeles, CA</div>
+        <div>University of Southern California</div>
+        <div><a href="mailto:hmattar@usc.edu">hmattar@usc.edu</a></div>
+        <div><a href="https://github.com/hannahattar" target="_blank" rel="noopener">GitHub</a></div>
+        <div><a href="https://www.linkedin.com/in/hannahattar/" target="_blank" rel="noopener">LinkedIn</a></div>
+      </div>
+    </aside>
 
-        <section class="sidebar-section">
-          <h2>Focus</h2>
-          <ul>
-            <li>Probability &amp; stochastic processes</li>
-            <li>Derivatives &amp; fixed income</li>
-            <li>Machine learning for markets</li>
-          </ul>
-        </section>
+    <!-- Main content -->
+    <main>
+      <h1>Education</h1>
 
-      </aside>
+      <div class="edu-timeline">
 
-      <!-- RIGHT: Education timeline -->
-      <section class="main">
-        <header class="page-head">
-          <h1>Education</h1>
-        </header>
+        <!-- USC -->
+        <article class="edu-entry">
+          <span class="edu-dot" aria-hidden="true"></span>
 
-        <div class="edu-timeline">
+          <div class="edu-head">
+            <h2 class="edu-school">University of Southern California (Viterbi)</h2>
+            <div class="edu-dates">Aug 2025 – May 2027 (Expected)</div>
+          </div>
 
-          <!-- USC -->
-          <article class="edu-entry">
-            <span class="edu-dot" aria-hidden="true"></span>
-
-            <div class="edu-head">
-              <h2 class="edu-school">University of Southern California (Viterbi)</h2>
-              <div class="edu-dates">Jan 2025 – May 2026 (Expected)</div>
+          <div class="edu-lines">
+            <div class="edu-line">M.S. Financial Engineering</div>
+            <div class="edu-line">Dean's Master's Scholarship (merit-based)</div>
+            <div class="edu-line">
+              <span class="edu-label">Relevant coursework:</span>
+              Optimization, Probability/Stochastic Processes, Derivatives Pricing, Machine Learning, Numerical Methods
             </div>
+          </div>
+        </article>
 
-            <div class="edu-degree">M.S. Financial Engineering</div>
+        <!-- USF -->
+        <article class="edu-entry">
+          <span class="edu-dot" aria-hidden="true"></span>
 
-            <ul class="edu-lines">
-              <li>
-                <span class="edu-label">Relevant coursework:</span>
-                Optimization, Probability/Stochastic Processes, Derivatives Pricing, Machine Learning, Numerical Methods, Mortgages &amp; MBS
-              </li>
-            </ul>
-          </article>
+          <div class="edu-head">
+            <h2 class="edu-school">University of San Francisco</h2>
+            <div class="edu-dates">Aug 2022 – May 2025</div>
+          </div>
 
-          <!-- USF -->
-          <article class="edu-entry">
-            <span class="edu-dot" aria-hidden="true"></span>
-
-            <div class="edu-head">
-              <h2 class="edu-school">University of San Francisco</h2>
-              <div class="edu-dates">Aug 2022 – May 2025</div>
+          <div class="edu-lines">
+            <div class="edu-line">B.S. Economics (Financial Economics)</div>
+            <div class="edu-line">Minor: Computer Science</div>
+            <div class="edu-line">
+              <span class="edu-label">Relevant coursework:</span>
+              Real Analysis, Linear Algebra &amp; Probability, Financial &amp; Applied Econometrics, Micro &amp; Macroeconomics,
+              Statistics, Data Structures &amp; Algorithms, Options &amp; Futures
             </div>
+            <div class="edu-line">
+              Fed Challenge (2023): Led 5-person team; presented policy recommendation to Federal Reserve judges
+            </div>
+          </div>
+        </article>
 
-            <div class="edu-degree">B.S. Economics (Financial Economics) • Minor: English Literature</div>
+      </div>
 
-            <ul class="edu-lines">
-              <li>
-                <span class="edu-label">Relevant coursework:</span>
-                Calculus I &amp; II, Linear Algebra &amp; Probability, Financial &amp; Applied Econometrics, Micro &amp; Macroeconomics,
-                Statistics, Data Structures &amp; Algorithms, Options &amp; Futures
-              </li>
-              <!-- Optional: uncomment if you want this line -->
-              <!--
-              <li>
-                <span class="edu-label">Fed Challenge (2023):</span>
-                Led 5-person team; presented policy recommendation to Federal Reserve judges
-              </li>
-              -->
-            </ul>
-          </article>
+      <hr />
 
-        </div>
+      <div class="footer">
+        © <span id="y"></span> Hannah Attar
+      </div>
+    </main>
 
-      </section>
-
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-      © <span id="y"></span> Hannah Attar
-    </footer>
-  </main>
+  </div>
 
   <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
+    const y = document.getElementById("y");
+    if (y) y.textContent = new Date().getFullYear();
   </script>
 
 </body>
