@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Education | Hannah Attar</title>
+
+  <!-- Use your site-wide CSS -->
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+
+<body>
+  <!-- Keep your existing site header/nav exactly as you do on other pages -->
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html">Hannah Attar</a>
+
+      <nav class="nav">
+        <a href="projects.html">Projects</a>
+        <a href="experience.html">Experience</a>
+        <a class="active" href="education.html">Education</a>
+        <a href="writing.html">Writing</a>
+        <a href="resume.html">Resume</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="container">
+      <h1 class="page-title">Education</h1>
+
+      <div class="edu-timeline">
+
+        <!-- USC -->
+        <article class="edu-item">
+          <div class="edu-marker" aria-hidden="true"></div>
+
+          <div class="edu-card">
+            <div class="edu-top">
+              <div class="edu-titleblock">
+                <h2 class="edu-school">University of Southern California (Viterbi)</h2>
+                <div class="edu-degree">M.S. Financial Engineering</div>
+              </div>
+
+              <div class="edu-dates">Jan 2025 – May 2026 <span class="muted">(Expected)</span></div>
+            </div>
+
+            <ul class="edu-bullets">
+                <span class="muted">Relevant coursework:</span>
+                Optimization, Probability/Stochastic Processes, Derivatives Pricing, Machine Learning, Numerical Methods, Mortgages & MBS
+              </li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- USF -->
+        <article class="edu-item">
+          <div class="edu-marker" aria-hidden="true"></div>
+
+          <div class="edu-card">
+            <div class="edu-top">
+              <div class="edu-titleblock">
+                <h2 class="edu-school">University of San Francisco</h2>
+                <div class="edu-degree">
+                  B.S. Economics <span class="muted">(Financial Economics)</span>
+                  <span class="edu-sep">•</span>
+                  Minor: English Literature
+                </div>
+              </div>
+
+              <div class="edu-dates">Aug 2022 – May 2025</div>
+            </div>
+
+            <ul class="edu-bullets">
+              <li>
+                <span class="muted">Relevant coursework:</span>
+                Calculus I & II, Linear Algebra &amp; Probability, Financial &amp; Applied Econometrics, Micro &amp; Macroeconomics,
+                Statistics, Data Structures &amp; Algorithms, Options &amp; Futures
+              </li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Keep your existing site footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="muted">© <span id="year"></span> Hannah Attar</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
