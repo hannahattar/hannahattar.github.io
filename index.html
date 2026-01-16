@@ -4,11 +4,85 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Hannah Attar</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Page-only: Research Interests vertical rail (replaces white boxes) -->
+  <style>
+    /* Ensure main column can shrink without breaking layout */
+    .page main { min-width: 0; }
+
+    /* Research Interests: vertical rail (no white boxes) */
+    .ri-rail{
+      margin-top: 14px;
+      max-width: 980px;
+    }
+
+    .ri-item{
+      position: relative;
+      padding-left: 28px;     /* room for dot + rail */
+      padding-bottom: 1.6rem; /* spacing between items */
+    }
+
+    .ri-item::before{
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.35rem;
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      background: rgba(17,24,39,.55);
+    }
+
+    .ri-item::after{
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 0;
+      bottom: -0.7rem;
+      width: 2px;
+      background: var(--rule, rgba(15,15,20,.08));
+    }
+
+    .ri-item:last-child{
+      padding-bottom: 0;
+    }
+    .ri-item:last-child::after{
+      display: none;
+    }
+
+    .ri-content{
+      padding-left: 2rem;
+    }
+
+    .ri-content h3{
+      margin: 0 0 0.35rem 0;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text, #18181b);
+      line-height: 1.25;
+      word-break: normal;
+      overflow-wrap: normal;
+    }
+
+    .ri-content p{
+      margin: 0;
+      color: var(--muted, #71717a);
+      line-height: 1.7;
+      max-width: 95ch;
+    }
+
+    @media (max-width: 720px){
+      .ri-content{ padding-left: 1.6rem; }
+      .ri-content h3{ font-size: 1.08rem; }
+    }
+  </style>
 </head>
+
 <body>
 
   <!-- Top navigation -->
@@ -33,7 +107,6 @@
              style="width:100%; height:100%; object-fit:cover; transform:scale(1.06);" />
       </div>
 
-
       <div class="sidebar-name">Hannah Attar</div>
       <p class="sidebar-bio">
         Master’s student in Financial Engineering (USC)
@@ -46,7 +119,6 @@
         <div><a href="https://github.com/hannahattar">GitHub</a></div>
         <div><a href="https://www.linkedin.com/in/hannahattar/">LinkedIn</a></div>
       </div>
-
     </aside>
 
     <!-- Main content -->
@@ -57,37 +129,38 @@
         I am a Master’s student in Financial Engineering at the University of Southern California with a strong interest in quantitative modeling at the intersection of probability, economics, and financial systems. My work is driven by a desire to understand how abstract mathematical structures, such as stochastic processes and statistical models, translate into observable financial behavior in markets and real assets, and how these tools can be used to reason rigorously about uncertainty, dynamics, and risk.
       </p>
 
-      <p>
-        In my current graduate studies at USC, I have completed coursework in probability, stochastic processes, machine learning, and mathematical methods for financial engineering. I have also taken applied finance courses including corporate finance and mortgages and mortgage-backed securities. I completed my undergraduate studies in Economics, graduating with honors in three years, with a minor in English Literature. My academic focus was on econometrics and applied econometric analysis. In parallel, I pursued graduate-level coursework in econometrics, data science and machine learning, developing a strong foundation in empirical modeling and data-driven analysis.
-      </p>
-
-      <p>
-        Outside of academics, I enjoy playing chess and studying strategic games that emphasize long-horizon reasoning, as well as creative writing and literature.
-      </p>
-
-
       <hr />
 
       <h2>Research Interests</h2>
 
-      <ul class="ri">
-        <li>
-          <strong>Cross-Asset and Non-Obvious Correlations</strong><br />
-          <span>Exploration of subtle relationships between market behavior and external variables, such as weather patterns or broader environmental signals, and how these correlations form, decay, and re-emerge.</span>
-        </li>
+      <div class="ri-rail">
+        <div class="ri-item">
+          <div class="ri-content">
+            <h3>Cross-Asset and Non-Obvious Correlations</h3>
+            <p>
+              Exploration of subtle relationships between market behavior and external variables, such as weather patterns or broader environmental signals, and how these correlations form, decay, and re-emerge.
+            </p>
+          </div>
+        </div>
 
-        <li>
-          <strong>Risk, Uncertainty, and Risk Mitigation</strong><br />
-          <span>Study of how risk propagates through financial systems, how tail events emerge, and how disciplined positioning and hedging can be used to manage exposure under stochastic dynamics.</span>
-        </li>
+        <div class="ri-item">
+          <div class="ri-content">
+            <h3>Risk, Uncertainty, and Risk Mitigation</h3>
+            <p>
+              Study of how risk propagates through financial systems, how tail events emerge, and how disciplined positioning and hedging can be used to manage exposure under stochastic dynamics.
+            </p>
+          </div>
+        </div>
 
-        <li>
-          <strong>Macroeconomic Dynamics and Regime Shifts</strong><br />
-          <span>Examination of how macroeconomic forces and structural changes influence asset prices across time and market regimes.</span>
-        </li>
-        </ul>
-
-      
+        <div class="ri-item">
+          <div class="ri-content">
+            <h3>Macroeconomic Dynamics and Regime Shifts</h3>
+            <p>
+              Examination of how macroeconomic forces and structural changes influence asset prices across time and market regimes.
+            </p>
+          </div>
+        </div>
+      </div>
 
       <div class="footer">
         © <span id="y"></span> Hannah Attar
