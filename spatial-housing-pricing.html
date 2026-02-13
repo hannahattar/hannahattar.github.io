@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spatial Housing Pricing | Hannah Attar</title>
+
+  <meta name="description" content="A quant-style spatial econometrics project analyzing coastal housing prices using clustering, spatial autoregression (GS2SLS), IV, and classification to quantify structural and location-driven effects.">
+  <meta property="og:title" content="Spatial Housing Pricing | Hannah Attar">
+  <meta property="og:description" content="Spatial clustering + spatial econometrics (GS2SLS), IV, and logistic classification to measure structural and location effects in coastal housing prices.">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    .detail { padding-bottom: 48px; }
+    .pro-wrap{ max-width: 980px; margin: 0 auto; padding: 0 18px; }
+    .detail-back{ display:inline-flex; gap:10px; align-items:center; margin:18px 0 8px; font-weight:600; }
+
+    .hero{
+      padding: 22px 0 10px;
+      border-bottom: 1px solid rgba(17,24,39,0.08);
+      margin-bottom: 18px;
+    }
+    .kicker{
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: rgba(17,24,39,.58);
+      font-weight: 700;
+    }
+    .title{
+      margin: 10px 0 8px;
+      font-size: 34px;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+    .subtitle{
+      margin: 0 0 14px;
+      font-size: 16px;
+      color: rgba(17,24,39,.72);
+      max-width: 78ch;
+    }
+
+    .meta-grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 18px;
+      margin-top: 14px;
+      padding: 14px 14px;
+      border: 1px solid rgba(17,24,39,0.10);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.7);
+    }
+    .meta-item{ font-size: 13px; color: rgba(17,24,39,.74); }
+    .meta-item span{ font-weight: 700; color: rgba(17,24,39,.88); margin-right: 6px; }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .btn-pro{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 13px;
+      border: 1px solid rgba(17,24,39,0.12);
+      background: rgba(255,255,255,.92);
+      color: rgba(17,24,39,.92);
+      text-decoration:none;
+      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    }
+    .btn-pro:hover{
+      transform: translateY(-1px);
+      border-color: rgba(17,24,39,0.22);
+      box-shadow: 0 10px 26px rgba(0,0,0,.08);
+      text-decoration:none;
+    }
+    .btn-primary{
+      background: rgba(17,24,39,.92);
+      color: #fff;
+      border-color: rgba(17,24,39,.92);
+    }
+
+    .sec{ margin: 26px 0; }
+    .sec h2{
+      font-size: 18px;
+      margin: 0 0 10px;
+      letter-spacing: -0.01em;
+    }
+    .sec p{ margin: 0 0 10px; color: rgba(17,24,39,.78); max-width: 78ch; }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      align-items:start;
+    }
+    .card{
+      border: 1px solid rgba(17,24,39,0.10);
+      border-radius: 16px;
+      background: rgba(255,255,255,.78);
+      padding: 14px 14px;
+      box-shadow: 0 1px 2px rgba(0,0,0,.04);
+    }
+    .card h3{
+      margin: 0 0 8px;
+      font-size: 14px;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      color: rgba(17,24,39,.72);
+    }
+    .bullets{ margin: 0; padding-left: 18px; color: rgba(17,24,39,.78); }
+    .bullets li{ margin: 6px 0; }
+
+    .kpis{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .kpi{
+      border: 1px solid rgba(17,24,39,0.10);
+      border-radius: 14px;
+      padding: 10px 10px;
+      background: rgba(255,255,255,.86);
+    }
+    .kpi .label{ font-size: 12px; color: rgba(17,24,39,.62); font-weight: 700; }
+    .kpi .value{ font-size: 16px; font-weight: 800; color: rgba(17,24,39,.92); margin-top: 2px; }
+    .kpi .note{ font-size: 12px; color: rgba(17,24,39,.66); margin-top: 2px; line-height: 1.35; }
+    .mini{ font-size: 13px; color: rgba(17,24,39,.74); margin-top: 8px; }
+
+    .fig{
+      margin: 0 0 12px;
+      border: 1px solid rgba(17,24,39,0.10);
+      border-radius: 16px;
+      background: rgba(255,255,255,.85);
+      overflow:hidden;
+    }
+    .fig-top{
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(17,24,39,0.08);
+      align-items:baseline;
+    }
+    .fig-title{
+      font-weight: 800;
+      font-size: 13px;
+      color: rgba(17,24,39,.90);
+    }
+    .fig-cap{
+      font-size: 12px;
+      color: rgba(17,24,39,.62);
+      margin-left: auto;
+    }
+    .fig-body{ padding: 10px 12px 12px; }
+    .figimg{
+      width: 100%;
+      height: auto;
+      display:block;
+      border-radius: 12px;
+      cursor: zoom-in;
+    }
+    .fig-note{
+      margin-top: 8px;
+      font-size: 12px;
+      color: rgba(17,24,39,.66);
+      line-height: 1.45;
+    }
+
+    .pipe{
+      list-style:none;
+      margin: 0;
+      padding: 0;
+    }
+    .pipe li{
+      display:grid;
+      grid-template-columns: 34px 1fr;
+      gap: 10px;
+      align-items:start;
+      position: relative;
+      padding: 10px 0;
+    }
+    .pipe li:not(:last-child)::after{
+      content:"";
+      position:absolute;
+      left: 16px;
+      top: 44px;
+      bottom: -10px;
+      width: 2px;
+      background: rgba(17,24,39,0.10);
+      border-radius: 99px;
+    }
+    .pipe-step{
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 900;
+      font-size: 13px;
+      color: rgba(17,24,39,.90);
+      border: 1px solid rgba(17,24,39,0.12);
+      background: rgba(255,255,255,.92);
+    }
+    .pipe-title{
+      font-weight: 900;
+      font-size: 13px;
+      color: rgba(17,24,39,.88);
+      margin-bottom: 2px;
+    }
+    .pipe-text{
+      font-size: 13px;
+      color: rgba(17,24,39,.74);
+      line-height: 1.45;
+    }
+
+    .lb{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.72);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 22px;
+      z-index: 999;
+    }
+    .lb.open{ display:flex; }
+    .lb-inner{
+      max-width: min(1100px, 96vw);
+      max-height: 92vh;
+    }
+    .lb-img{
+      width: 100%;
+      height: auto;
+      max-height: 92vh;
+      display:block;
+      border-radius: 14px;
+      cursor: zoom-out;
+      background: #fff;
+    }
+    .lb-x{
+      position:absolute;
+      top: 14px;
+      right: 14px;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(0,0,0,.25);
+      color:#fff;
+      font-weight:900;
+      font-size:18px;
+      line-height:40px;
+      text-align:center;
+      cursor:pointer;
+      user-select:none;
+    }
+
+    .footer{
+      margin-top: 34px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(17,24,39,0.08);
+      color: rgba(17,24,39,.58);
+      font-size: 13px;
+    }
+
+    @media (max-width: 860px){
+      .grid-2{ grid-template-columns: 1fr; }
+      .title{ font-size: 30px; }
+      .meta-grid{ grid-template-columns: 1fr; }
+      .kpis{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top navigation -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="site-title" href="index.html">Hannah Attar</a>
+      <div class="topnav">
+        <a href="projects.html">Projects</a>
+        <a href="experience.html">Experience</a>
+        <a href="assets/pdfs/Attar_Resume_2025.pdf" target="_blank" rel="noopener">Resume</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail">
+    <div class="pro-wrap">
+      <a class="detail-back" href="projects.html">← Back to Projects</a>
+
+      <!-- HERO -->
+      <header class="hero">
+        <div class="kicker">Project Report</div>
+        <h1 class="title">Spatial Housing Pricing: Structure + Location + Spillovers</h1>
+        <p class="subtitle">
+          A quant-style spatial econometrics build that separates <strong>structural value</strong> (sqft, baths),
+          <strong>micro-location</strong> (distance to PCH), and <strong>spatial spillovers</strong> using clustering,
+          spatial autoregression (GS2SLS), and classification.
+        </p>
+
+        <div class="actions">
+          <a class="btn-pro btn-primary"
+             href="assets/pdfs/Dana_Point_Spatial_Econometrics.pdf"
+             target="_blank" rel="noopener">
+            View paper (PDF) →
+          </a>
+        </div>
+
+        <div class="meta-grid">
+          <div class="meta-item"><span>Sample</span> 620 transactions (2021–2024)</div>
+          <div class="meta-item"><span>Target</span> ln(price)</div>
+          <div class="meta-item"><span>Core signal</span> ln(sqft), baths, dist_pch</div>
+          <div class="meta-item"><span>Spatial layer</span> clustering + spatial autoregression (GS2SLS)</div>
+          <div class="meta-item"><span>Classification</span> high-price dummy via logit</div>
+          <div class="meta-item"><span>Outcome</span> tighter inference under spatial structure</div>
+        </div>
+      </header>
+
+      <!-- QUICK READ -->
+      <section class="sec">
+        <div class="grid-2">
+          <div class="card">
+            <h3>Executive Summary</h3>
+            <ul class="bullets">
+              <li><strong>Spatial structure is real:</strong> transactions cluster into distinct micro-markets.</li>
+              <li><strong>Distance matters after correction:</strong> dist_pch becomes strongly significant in spatial models.</li>
+              <li><strong>Do not trust naïve inference:</strong> spatial dependence changes coefficients and significance.</li>
+              <li><strong>Classification is high-signal:</strong> logit reaches 90.48% accuracy on high-price detection.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Key numbers</h3>
+            <div class="kpis">
+              <div class="kpi">
+                <div class="label">N (transactions)</div>
+                <div class="value">620</div>
+                <div class="note">Cross-sectional with time controls (month/year).</div>
+              </div>
+              <div class="kpi">
+                <div class="label">Spatial model fit</div>
+                <div class="value">Pseudo R² = 0.753</div>
+                <div class="note">GS2SLS spatial autoregressive model.</div>
+              </div>
+              <div class="kpi">
+                <div class="label">Fixed effects fit</div>
+                <div class="value">R² = 0.891</div>
+                <div class="note">Absorbing cluster indicators materially improves fit.</div>
+              </div>
+              <div class="kpi">
+                <div class="label">Logit accuracy</div>
+                <div class="value">90.48%</div>
+                <div class="note">Sensitivity 74.84%, specificity 95.70%.</div>
+              </div>
+            </div>
+            <p class="mini">Metrics shown to compare modeling layers; focus is inference quality under spatial structure.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- METHODS -->
+      <section class="sec">
+        <h2>Pipeline</h2>
+        <div class="card">
+          <ol class="pipe">
+            <li>
+              <span class="pipe-step">1</span>
+              <div>
+                <div class="pipe-title">Data + target</div>
+                <div class="pipe-text">620 transactions; model ln(price) using structural features + time controls + spatial covariates.</div>
+              </div>
+            </li>
+            <li>
+              <span class="pipe-step">2</span>
+              <div>
+                <div class="pipe-title">Spatial representation</div>
+                <div class="pipe-text">Latitude/longitude + distance to PCH; clustering used to detect micro-markets.</div>
+              </div>
+            </li>
+            <li>
+              <span class="pipe-step">3</span>
+              <div>
+                <div class="pipe-title">Spatial econometrics</div>
+                <div class="pipe-text">GS2SLS spatial autoregressive model to correct for spatial dependence and spillovers.</div>
+              </div>
+            </li>
+            <li>
+              <span class="pipe-step">4</span>
+              <div>
+                <div class="pipe-title">IV layer</div>
+                <div class="pipe-text">Instrumenting endogenous structure (sqft) to reduce bias and stabilize inference.</div>
+              </div>
+            </li>
+            <li>
+              <span class="pipe-step">5</span>
+              <div>
+                <div class="pipe-title">Classification layer</div>
+                <div class="pipe-text">Logit model predicts high-price outcomes; confusion matrix used to evaluate error profile.</div>
+              </div>
+            </li>
+            <li>
+              <span class="pipe-step">6</span>
+              <div>
+                <div class="pipe-title">Diagnostics</div>
+                <div class="pipe-text">Residual checks for misspecification and tail behavior.</div>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- FIGURES -->
+      <section class="sec">
+        <h2>Results (selected visuals)</h2>
+
+        <div class="fig">
+          <div class="fig-top">
+            <div class="fig-title">Spatial distribution of transactions</div>
+            <div class="fig-cap">Figure 1</div>
+          </div>
+          <div class="fig-body">
+            <img class="figimg" src="assets/images/spatial_effects.png" alt="Map of transactions" data-zoom loading="lazy">
+            <div class="fig-note">Transactions are not uniformly distributed; distinct micro-markets emerge geographically.</div>
+          </div>
+        </div>
+
+        <div class="fig">
+          <div class="fig-top">
+            <div class="fig-title">Micro-market separation (latitude vs longitude)</div>
+            <div class="fig-cap">Figure 2</div>
+          </div>
+          <div class="fig-body">
+            <img class="figimg" src="assets/images/clusters.png" alt="Latitude vs longitude scatter" data-zoom loading="lazy">
+            <div class="fig-note">Clear spatial clustering motivates cluster controls and spatial dependence correction.</div>
+          </div>
+        </div>
+
+        <div class="fig">
+          <div class="fig-top">
+            <div class="fig-title">Cluster-level price dispersion (K-means)</div>
+            <div class="fig-cap">Figure 3</div>
+          </div>
+          <div class="fig-body">
+            <img class="figimg" src="assets/images/k_means.png" alt="K-means clusters and price dispersion" data-zoom loading="lazy">
+            <div class="fig-note">Clusters show distinct medians and variance profiles, implying heterogeneous price formation.</div>
+          </div>
+        </div>
+
+        <div class="fig">
+          <div class="fig-top">
+            <div class="fig-title">Spatial autoregressive model (GS2SLS)</div>
+            <div class="fig-cap">Figure 4</div>
+          </div>
+          <div class="fig-body">
+            <img class="figimg" src="assets/images/iv_results.png" alt="Spatial autoregressive GS2SLS output" data-zoom loading="lazy">
+            <div class="fig-note">After spatial correction, distance-to-PCH becomes highly significant, consistent with location-driven pricing.</div>
+          </div>
+        </div>
+
+        <div class="fig">
+          <div class="fig-top">
+            <div class="fig-title">Logit model + error profile</div>
+            <div class="fig-cap">Figure 5</div>
+          </div>
+          <div class="fig-body">
+            <img class="figimg" src="assets/images/logit_classification.png" alt="Logit classification matrix" data-zoom loading="lazy">
+            <div class="fig-note">90.48% correctly classified. High specificity (95.70%) with moderate sensitivity (74.84%).</div>
+          </div>
+        </div>
+
+        <div class="fig">
+          <div class="fig-top">
+            <div class="fig-title">Fixed effects + residual diagnostics</div>
+            <div class="fig-cap">Figure 6</div>
+          </div>
+          <div class="fig-body">
+            <img class="figimg" src="assets/images/residual_scatter_hist.png" alt="Residual plot and histogram" data-zoom loading="lazy">
+            <div class="fig-note">Residual behavior is broadly stable with mild dispersion changes at the upper tail, suggesting limited nonlinear structure.</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Interpretation</h3>
+          <ul class="bullets">
+            <li><strong>Spatial correction changes inference:</strong> ignoring dependence can understate location effects.</li>
+            <li><strong>Micro-markets matter:</strong> clustering captures structural heterogeneity that global averages blur.</li>
+            <li><strong>Classification adds signal:</strong> the logit model is useful for “tail” outcomes (high-price detection).</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- LIMITATIONS -->
+      <section class="sec">
+        <h2>Limitations and next steps</h2>
+        <div class="card">
+          <ul class="bullets">
+            <li><strong>Cross-sectional scope:</strong> results reflect a 2021–2024 window; dynamics could shift across regimes.</li>
+            <li><strong>Model extension:</strong> test alternative spatial weight matrices and nonlinear models for the upper tail.</li>
+            <li><strong>Feature enrichment:</strong> add ocean proximity, school zones, view indicators, and renovation proxies if available.</li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="footer">
+        © <span id="y"></span> Hannah Attar
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lb" id="lb" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="lb-x" id="lbClose" aria-label="Close">×</div>
+    <div class="lb-inner">
+      <img class="lb-img" id="lbImg" alt="Expanded figure">
+    </div>
+  </div>
+
+  <script>
+    // Footer year
+    const y = document.getElementById("y");
+    if (y) y.textContent = new Date().getFullYear();
+
+    // Minimal lightbox for figures
+    const lb = document.getElementById("lb");
+    const lbImg = document.getElementById("lbImg");
+    const lbClose = document.getElementById("lbClose");
+
+    let lastFocus = null;
+
+    function openLB(src, alt){
+      lastFocus = document.activeElement;
+      lbImg.src = src;
+      lbImg.alt = alt || "Expanded figure";
+      lb.classList.add("open");
+      lb.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      lbClose.focus();
+    }
+    function closeLB(){
+      lb.classList.remove("open");
+      lb.setAttribute("aria-hidden", "true");
+      lbImg.src = "";
+      document.body.style.overflow = "";
+      if (lastFocus) lastFocus.focus();
+    }
+
+    document.querySelectorAll("[data-zoom]").forEach(img => {
+      img.addEventListener("click", () => openLB(img.currentSrc || img.src, img.alt));
+      img.addEventListener("keypress", (e) => {
+        if (e.key === "Enter" || e.key === " ") openLB(img.currentSrc || img.src, img.alt);
+      });
+      img.tabIndex = 0;
+    });
+
+    lb.addEventListener("click", (e) => {
+      if (e.target === lb || e.target === lbImg) closeLB();
+    });
+    lbClose.addEventListener("click", closeLB);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lb.classList.contains("open")) closeLB();
+    });
+  </script>
+
+</body>
+</html>
