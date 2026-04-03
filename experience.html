@@ -1,265 +1,536 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hannah Attar | Experience</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hannah Attar — Financial Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>:root {
+  --bg: #f6f4f0;
+  --bg-elevated: #ffffff;
+  --bg-card: #ffffff;
+  --bg-subtle: #edeae4;
+  --text-primary: #1a1a1f;
+  --text-secondary: #4a4a50;
+  --text-muted: #8a8a90;
+  --accent: #8b6914;
+  --accent-light: #b8941f;
+  --accent-bg: rgba(139,105,20,0.06);
+  --border: #ddd8cf;
+  --border-light: #e8e4dc;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'DM Sans', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
-  <!-- Global Styles -->
-  <link rel="stylesheet" href="styles.css" />
+body {
+  font-family: var(--sans); background: var(--bg); color: var(--text-primary);
+  line-height: 1.7; font-weight: 300; overflow-x: hidden; -webkit-font-smoothing: antialiased;
+}
 
-  <!-- Page-only styles (kept minimal; matches your site system) -->
-  <style>
-    /* Experience cards (matches your projects card language) */
-    .exp-card{
-      background: var(--surface);
-      border: 1px solid var(--rule);
-      border-radius: var(--radius-sm);
-      padding: 22px;
-      margin: 24px 0;
-      box-shadow: var(--shadow-subtle);
-      transition: box-shadow .2s ease, border-color .2s ease;
-    }
-    .exp-card:hover{
-      box-shadow: var(--shadow);
-      border-color: rgba(24,24,27,.12);
-    }
+::selection { background: var(--accent); color: #fff; }
 
-    .exp-top{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap: 18px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9999;
+}
 
-    .exp-role{
-      margin: 0;
-      font-size: 16px;
-      font-weight: 900;
-      color: var(--text);
-      line-height: 1.25;
-    }
+a { color: var(--accent); text-decoration: none; transition: color 0.3s ease; }
+a:hover { color: var(--text-primary); }
 
-    .exp-org{
-      margin-top: 6px;
-      color: var(--muted);
-      font-size: 13.5px;
-      line-height: 1.5;
-      max-width: 80ch;
-    }
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1.25rem 3rem; display: flex; justify-content: space-between; align-items: center;
+  backdrop-filter: blur(20px); background: rgba(246,244,240,0.85);
+  border-bottom: 1px solid var(--border-light); transition: all 0.4s ease;
+}
+nav .logo { font-family: var(--serif); font-size: 1.15rem; font-weight: 500; letter-spacing: 0.04em; color: var(--text-primary); }
+nav .logo span { color: var(--accent); }
+nav ul { list-style: none; display: flex; gap: 2.25rem; }
+nav ul li a {
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--text-muted); position: relative; padding-bottom: 2px;
+}
+nav ul li a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.3s ease; }
+nav ul li a:hover { color: var(--text-primary); }
+nav ul li a:hover::after { width: 100%; }
 
-    .exp-date{
-      white-space: nowrap;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 500;
-      margin-top: 2px;
-    }
+.menu-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 5px; z-index: 200; }
+.menu-toggle span { width: 22px; height: 1.5px; background: var(--text-muted); transition: all 0.3s ease; }
 
-    .exp-bullets{
-      margin: 12px 0 0 18px;
-      color: rgba(11,18,32,.92);
-      line-height: 1.7;
-    }
-    .exp-bullets li{ margin: 8px 0; }
+/* HERO */
+.hero { min-height: 100vh; display: flex; align-items: center; position: relative; padding: 8rem 3rem 4rem; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -30%; right: -15%; width: 60vw; height: 60vw; background: radial-gradient(ellipse, rgba(139,105,20,0.04) 0%, transparent 65%); pointer-events: none; }
+.hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; max-width: 1400px; margin: 0 auto; width: 100%; align-items: center; }
+.hero-text { position: relative; }
+.hero-label { font-family: var(--mono); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; }
+.hero-name { font-family: var(--serif); font-size: clamp(3rem, 5.5vw, 5.5rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.02em; color: var(--text-primary); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s ease forwards 0.4s; }
+.hero-name em { font-style: italic; color: var(--accent); font-weight: 300; }
+.hero-subtitle { font-size: 1.05rem; font-weight: 300; color: var(--text-secondary); line-height: 1.8; max-width: 520px; margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 0.8s ease forwards 0.6s; }
+.hero-meta { display: flex; gap: 2.5rem; opacity: 0; animation: fadeUp 0.8s ease forwards 0.8s; }
+.hero-meta-item { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+.hero-meta-item strong { display: block; font-family: var(--sans); font-size: 0.85rem; font-weight: 400; color: var(--text-secondary); letter-spacing: 0; text-transform: none; margin-top: 0.35rem; }
+.hero-visual { display: flex; justify-content: center; align-items: center; opacity: 0; animation: fadeIn 1.2s ease forwards 0.6s; }
+.hero-photo-frame { position: relative; width: 380px; height: 480px; }
+.hero-photo-frame::before { content: ''; position: absolute; inset: -1px; border: 1px solid var(--border); z-index: 1; }
+.hero-photo-frame::after { content: ''; position: absolute; top: 12px; left: 12px; right: -12px; bottom: -12px; border: 1px solid var(--accent-light); opacity: 0.25; }
+.hero-photo-frame img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* Skills section at bottom (simple 3-col grid) */
-    .skills-wrap{
-      margin-top: 28px;
-    }
-    .skills-grid{
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 14px;
-    }
-    .skill-box{
-      border: 1px solid var(--rule);
-      border-radius: var(--radius-sm);
-      background: var(--surface);
-      padding: 18px;
-      box-shadow: var(--shadow-subtle);
-    }
-    .skill-box h3{
-      margin: 0 0 10px;
-      font-size: 14px;
-      font-weight: 900;
-      color: var(--text);
-      letter-spacing: -0.01em;
-    }
-    .skill-box ul{
-      margin: 0;
-      padding-left: 16px;
-      color: var(--muted);
-      font-size: 13.5px;
-      line-height: 1.55;
-    }
-    .skill-box li{ margin: 6px 0; }
+/* SECTIONS */
+section { padding: 7rem 3rem; max-width: 1400px; margin: 0 auto; }
+.section-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 4rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
+.section-number { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.05em; }
+.section-title { font-family: var(--serif); font-size: 2.2rem; font-weight: 400; letter-spacing: -0.01em; }
+.section-line { flex: 1; height: 1px; background: var(--border); }
 
-    @media (max-width: 900px){
-      .skills-grid{ grid-template-columns: 1fr; }
-      .exp-date{ white-space: normal; }
-    }
-  </style>
+/* ABOUT */
+.about-content { display: grid; grid-template-columns: 2fr 1fr; gap: 5rem; }
+.about-text { font-size: 1.05rem; line-height: 1.9; color: var(--text-secondary); font-weight: 300; }
+.about-interests h3 { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.75rem; }
+.interest-item { padding: 1.25rem 0; border-bottom: 1px solid var(--border-light); }
+.interest-item:first-of-type { border-top: 1px solid var(--border-light); }
+.interest-item h4 { font-family: var(--sans); font-size: 0.9rem; font-weight: 500; color: var(--text-primary); margin-bottom: 0.4rem; }
+.interest-item p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; }
+
+/* PROJECTS */
+.projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.project-card { background: var(--bg-card); border: 1px solid var(--border-light); padding: 2.5rem; position: relative; transition: all 0.4s ease; display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
+.project-card:hover { border-color: var(--accent-light); transform: translateY(-3px); box-shadow: 0 16px 48px rgba(0,0,0,0.06); }
+.project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), transparent); opacity: 0; transition: opacity 0.4s ease; }
+.project-card:hover::before { opacity: 1; }
+.project-type { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+.project-card h3 { font-family: var(--serif); font-size: 1.4rem; font-weight: 400; line-height: 1.3; margin-bottom: 1rem; color: var(--text-primary); }
+.project-card p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem; flex: 1; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+.project-tags span { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.05em; padding: 0.3rem 0.7rem; border: 1px solid var(--border-light); color: var(--text-muted); background: var(--bg); transition: all 0.3s ease; }
+.project-card:hover .project-tags span { border-color: var(--border); color: var(--text-secondary); }
+.project-metrics { display: flex; gap: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border-light); }
+.metric-value { font-family: var(--mono); font-size: 1.1rem; font-weight: 500; color: var(--accent); }
+.metric-label { font-size: 0.6rem; font-family: var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-top: 0.2rem; }
+.project-links { display: flex; gap: 1rem; margin-top: 1rem; }
+.project-links a { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); border-bottom: 1px solid transparent; padding-bottom: 1px; transition: all 0.3s ease; }
+.project-links a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* BOOK */
+.book-feature { margin-top: 2rem; background: var(--bg-elevated); border: 1px solid var(--border-light); padding: 3rem; display: grid; grid-template-columns: 200px 1fr; gap: 3rem; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
+.book-cover { width: 100%; aspect-ratio: 3/4; border: 1px solid var(--border-light); overflow: hidden; }
+.book-cover img { width: 100%; height: 100%; object-fit: cover; }
+.book-info .project-type { margin-bottom: 0.75rem; }
+.book-info h3 { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; line-height: 1.3; margin-bottom: 1rem; }
+.book-info p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem; }
+
+/* EXPERIENCE */
+.timeline { position: relative; }
+.timeline::before { content: ''; position: absolute; left: 200px; top: 0; bottom: 0; width: 1px; background: var(--border-light); }
+.timeline-item { display: grid; grid-template-columns: 200px 1fr; gap: 3rem; padding: 2.5rem 0; border-bottom: 1px solid var(--border-light); position: relative; }
+.timeline-item:last-child { border-bottom: none; }
+.timeline-date { text-align: right; padding-right: 2.5rem; }
+.timeline-date span { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase; }
+.timeline-dot { position: absolute; left: 196px; top: 2.7rem; width: 9px; height: 9px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent-light); z-index: 1; }
+.timeline-content h3 { font-family: var(--sans); font-size: 1rem; font-weight: 500; margin-bottom: 0.25rem; }
+.timeline-content .company { font-family: var(--serif); font-style: italic; font-size: 0.95rem; color: var(--accent); margin-bottom: 0.15rem; }
+.timeline-content .location { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem; }
+.timeline-content ul { list-style: none; }
+.timeline-content ul li { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.7; padding-left: 1rem; position: relative; margin-bottom: 0.5rem; }
+.timeline-content ul li::before { content: '\2014'; position: absolute; left: 0; color: var(--accent-light); font-size: 0.7rem; }
+
+/* SKILLS */
+.skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 4rem; }
+.skill-group h3 { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-light); }
+.skill-group ul { list-style: none; }
+.skill-group ul li { font-size: 0.82rem; color: var(--text-secondary); padding: 0.5rem 0; border-bottom: 1px solid var(--border-light); }
+
+/* EDUCATION */
+.education-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.edu-card { background: var(--bg-card); border: 1px solid var(--border-light); padding: 2.5rem; position: relative; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
+.edu-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), transparent); }
+.edu-degree { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+.edu-card h3 { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; margin-bottom: 0.35rem; }
+.edu-card .edu-program { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
+.edu-card .edu-date { font-family: var(--mono); font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.08em; margin-bottom: 1.25rem; }
+.edu-card .coursework { font-size: 0.78rem; color: var(--text-muted); line-height: 1.7; }
+.edu-card .coursework strong { color: var(--text-secondary); font-weight: 500; display: block; margin-bottom: 0.3rem; font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; }
+
+/* CONTACT */
+.contact-section { text-align: center; padding: 8rem 3rem; position: relative; }
+.contact-section::before { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 80vw; height: 50vh; background: radial-gradient(ellipse at bottom, rgba(139,105,20,0.03) 0%, transparent 70%); pointer-events: none; }
+.contact-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
+.contact-heading { font-family: var(--serif); font-size: clamp(2.5rem, 4vw, 3.5rem); font-weight: 300; line-height: 1.2; margin-bottom: 2.5rem; }
+.contact-links { display: flex; justify-content: center; gap: 3rem; }
+.contact-links a { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); padding-bottom: 4px; border-bottom: 1px solid var(--border); transition: all 0.3s ease; }
+.contact-links a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+footer { text-align: center; padding: 2.5rem 3rem; border-top: 1px solid var(--border-light); font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; color: var(--text-muted); }
+
+/* PROJECT DETAIL PAGES */
+.detail-hero {
+  padding: 9rem 3rem 3rem; max-width: 1000px; margin: 0 auto;
+}
+.detail-back {
+  font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 2rem; display: inline-block;
+  border-bottom: 1px solid transparent; padding-bottom: 1px; transition: all 0.3s ease;
+}
+.detail-back:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+.detail-label {
+  font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+}
+.detail-title {
+  font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300;
+  line-height: 1.15; margin-bottom: 1.5rem; letter-spacing: -0.01em;
+}
+.detail-subtitle {
+  font-size: 1rem; color: var(--text-secondary); line-height: 1.8;
+  max-width: 700px; margin-bottom: 2rem; font-weight: 300;
+}
+.detail-links { display: flex; gap: 1rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+.detail-links a {
+  font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 0.55rem 1.2rem; border: 1px solid var(--border);
+  color: var(--text-muted); transition: all 0.3s ease;
+}
+.detail-links a:hover { border-color: var(--accent); color: var(--accent); }
+
+.detail-meta-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1px; background: var(--border-light); border: 1px solid var(--border-light); margin-bottom: 3rem;
+}
+.detail-meta-cell {
+  background: var(--bg-elevated); padding: 1rem 1.25rem;
+}
+.detail-meta-cell .label {
+  font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.35rem;
+}
+.detail-meta-cell .value { font-size: 0.85rem; color: var(--text-primary); font-weight: 400; }
+
+/* Detail body content */
+.detail-body {
+  max-width: 1000px; margin: 0 auto; padding: 0 3rem 5rem;
+}
+.detail-body h2 {
+  font-family: var(--serif); font-size: 1.6rem; font-weight: 400;
+  margin-top: 3.5rem; margin-bottom: 1.25rem; padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+}
+.detail-body h3 {
+  font-family: var(--sans); font-size: 1rem; font-weight: 500;
+  margin-top: 2rem; margin-bottom: 0.75rem; color: var(--text-primary);
+}
+.detail-body p {
+  font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem;
+}
+.detail-body ul { list-style: none; margin-bottom: 1.5rem; }
+.detail-body ul li {
+  font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;
+  padding-left: 1.25rem; position: relative; margin-bottom: 0.5rem;
+}
+.detail-body ul li::before { content: '\2014'; position: absolute; left: 0; color: var(--accent-light); font-size: 0.7rem; }
+
+.detail-body ol {
+  list-style: none; counter-reset: steps; margin-bottom: 1.5rem;
+}
+.detail-body ol li {
+  font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;
+  padding-left: 2.5rem; position: relative; margin-bottom: 0.75rem; counter-increment: steps;
+}
+.detail-body ol li::before {
+  content: counter(steps); position: absolute; left: 0; top: 0;
+  font-family: var(--mono); font-size: 0.7rem; font-weight: 500;
+  color: var(--accent); background: var(--accent-bg);
+  width: 1.6rem; height: 1.6rem; display: flex; align-items: center;
+  justify-content: center; border-radius: 50%;
+}
+
+/* Key numbers row */
+.key-numbers {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1px; background: var(--border-light); border: 1px solid var(--border-light);
+  margin: 2rem 0;
+}
+.key-number {
+  background: var(--bg-elevated); padding: 1.5rem;
+}
+.key-number .kn-value {
+  font-family: var(--mono); font-size: 1.5rem; font-weight: 500;
+  color: var(--accent); margin-bottom: 0.25rem;
+}
+.key-number .kn-label {
+  font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.25rem;
+}
+.key-number .kn-note { font-size: 0.75rem; color: var(--text-muted); line-height: 1.5; }
+
+/* Tables */
+.detail-body table {
+  width: 100%; border-collapse: collapse; margin: 1.5rem 0;
+  font-size: 0.8rem;
+}
+.detail-body table th {
+  font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text-muted); text-align: left;
+  padding: 0.75rem 1rem; border-bottom: 2px solid var(--border);
+  background: var(--bg-subtle); font-weight: 500;
+}
+.detail-body table td {
+  padding: 0.65rem 1rem; border-bottom: 1px solid var(--border-light);
+  color: var(--text-secondary); font-family: var(--mono); font-size: 0.78rem;
+}
+.detail-body table td:first-child { font-family: var(--sans); }
+.detail-body table tr:hover td { background: var(--accent-bg); }
+
+/* Figures */
+.figure {
+  margin: 2rem 0; background: var(--bg-elevated); border: 1px solid var(--border-light);
+  padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+.figure img { width: 100%; height: auto; display: block; margin-bottom: 1rem; }
+.figure-label {
+  font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 0.35rem;
+}
+.figure-caption { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+
+/* Callout boxes */
+.callout {
+  background: var(--accent-bg); border-left: 3px solid var(--accent);
+  padding: 1.25rem 1.5rem; margin: 1.5rem 0;
+}
+.callout p { margin-bottom: 0; font-size: 0.85rem; }
+.callout strong { color: var(--text-primary); }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .hero-visual { order: -1; }
+  .hero-photo-frame { width: 280px; height: 350px; }
+  .about-content { grid-template-columns: 1fr; gap: 3rem; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .education-grid { grid-template-columns: 1fr; }
+  .book-feature { grid-template-columns: 150px 1fr; gap: 2rem; padding: 2rem; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  .timeline::before { left: 0; }
+  .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; padding-left: 1.5rem; }
+  .timeline-date { text-align: left; padding-right: 0; }
+  .timeline-dot { left: -4px; }
+  .detail-hero, .detail-body { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  nav ul { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(246,244,240,0.97); flex-direction: column; justify-content: center; align-items: center; gap: 2rem; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+  nav ul.open { opacity: 1; pointer-events: all; }
+  nav ul li a { font-size: 1rem; letter-spacing: 0.2em; }
+  .menu-toggle { display: flex; }
+  section { padding: 4rem 1.5rem; }
+  .hero { padding: 6rem 1.5rem 3rem; }
+  .hero-meta { flex-direction: column; gap: 1rem; }
+  .contact-section { padding: 5rem 1.5rem; }
+  .contact-links { flex-direction: column; align-items: center; gap: 1.5rem; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .book-feature { grid-template-columns: 1fr; text-align: center; }
+  .book-cover { max-width: 160px; margin: 0 auto; }
+}
+</style>
 </head>
-
 <body>
 
-  <!-- Top navigation -->
-  <div class="topbar">
-    <div class="topbar-inner">
-      <a class="site-title" href="index.html">Hannah Attar</a>
-      <div class="topnav">
-        <a href="projects.html">Projects</a>
-        <a class="active" href="experience.html">Experience</a>
-        <a href="education.html">Education</a>
-        <a href="assets/pdfs/Attar_Resume_2026.pdf" target="_blank" rel="noopener">Resume</a>
+<nav>
+  <a href="index.html" class="logo">H<span>.</span> Attar</a>
+  <button class="menu-toggle" onclick="document.querySelector('nav ul').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul>
+    <li><a href="#about" onclick="document.querySelector('nav ul').classList.remove('open')">About</a></li>
+    <li><a href="#projects" onclick="document.querySelector('nav ul').classList.remove('open')">Projects</a></li>
+    <li><a href="#experience" onclick="document.querySelector('nav ul').classList.remove('open')">Experience</a></li>
+    <li><a href="#education" onclick="document.querySelector('nav ul').classList.remove('open')">Education</a></li>
+    <li><a href="https://hannahattar.com/assets/pdfs/Attar_Resume_2026.pdf" target="_blank">Resume ↗</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-text">
+      <div class="hero-label">Financial Engineering · Econometrics · Risk</div>
+      <h1 class="hero-name">Hannah<br><em>Attar</em></h1>
+      <p class="hero-subtitle">Financial engineer and econometrician drawn to rare events, regime breaks, and the limits of inference — where modeling, judgment, and mathematical humility become inseparable.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">Program<strong>MS Financial Engineering</strong></div>
+        <div class="hero-meta-item">University<strong>USC Viterbi</strong></div>
+        <div class="hero-meta-item">Location<strong>Los Angeles, CA</strong></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-photo-frame">
+        <img src="https://hannahattar.com/assets/images/photo.jpg" alt="Hannah Attar" loading="eager">
       </div>
     </div>
   </div>
+</section>
 
-  <div class="page">
+<section id="about">
+  <div class="section-header reveal"><span class="section-number">01</span><h2 class="section-title">About</h2><div class="section-line"></div></div>
+  <div class="about-content">
+    <div class="about-text reveal">
+      I am a financial engineer and econometrician interested in situations where markets stop behaving in the ways our models assume they should. I am drawn to rare events and regime breaks, where the data becomes thin, the structure becomes latent, and we are forced to confront the limits of inference itself.<br><br>
+      What interests me most in these settings is not only estimation, but the more basic question of what can be inferred at all, and how much confidence any conclusion deserves when the underlying process may be changing as it is being observed. In that sense, my work is motivated by problems where modeling, judgment, and an awareness of the limits of mathematics and data all become inseparable.
+    </div>
+    <div class="about-interests reveal">
+      <h3>Research Interests</h3>
+      <div class="interest-item"><h4>Cross-Asset &amp; Non-Obvious Correlations</h4><p>Exploration of subtle relationships between market behavior and external variables — how these correlations form, decay, and re-emerge.</p></div>
+      <div class="interest-item"><h4>Risk, Uncertainty &amp; Mitigation</h4><p>How risk propagates through financial systems, how tail events emerge, and how disciplined positioning can manage exposure under stochastic dynamics.</p></div>
+      <div class="interest-item"><h4>Macroeconomic Regime Shifts</h4><p>How macroeconomic forces and structural changes influence asset prices across time and market regimes.</p></div>
+    </div>
+  </div>
+</section>
 
-    <!-- Sidebar (same as projects page) -->
-    <aside class="sidebar">
-      <div class="avatar">
-        <img src="assets/images/photo.jpg" alt="Hannah Attar"
-             style="width:100%; height:100%; object-fit:cover; transform:scale(1.06);" />
+<section id="projects">
+  <div class="section-header reveal"><span class="section-number">02</span><h2 class="section-title">Projects</h2><div class="section-line"></div></div>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <span class="project-type">Quantitative Research</span>
+      <h3>Regime-Aware Model Risk Visualization</h3>
+      <p>Regime-aware diagnostics for short-horizon equity signals. SPY daily direction probabilities from a logistic classifier evaluated out-of-sample using confidence binning and GMM-inferred market regimes.</p>
+      <div class="project-tags"><span>Python</span><span>GMM</span><span>Logistic Regression</span><span>Probability Calibration</span></div>
+      <div class="project-metrics">
+        <div class="metric"><div class="metric-value">0.552</div><div class="metric-label">OOS Accuracy</div></div>
+        <div class="metric"><div class="metric-value">0.247</div><div class="metric-label">Brier Score</div></div>
+        <div class="metric"><div class="metric-value">0.66</div><div class="metric-label">OOS Sharpe</div></div>
       </div>
-
-      <div class="sidebar-name">Hannah Attar</div>
-      <p class="sidebar-bio">
-        Master’s student in Financial Engineering (USC)
-      </p>
-
-      <div class="sidebar-links">
-        <div>Los Angeles, CA</div>
-        <div>University of Southern California</div>
-        <div><a href="mailto:hmattar@usc.edu">hmattar@usc.edu</a></div>
-        <div><a href="https://github.com/hannahattar" target="_blank" rel="noopener">GitHub</a></div>
-        <div><a href="https://www.linkedin.com/in/hannahattar/" target="_blank" rel="noopener">LinkedIn</a></div>
+      <div class="project-links"><a href="state-aware-model-risk.html">Details →</a><a href="https://github.com/hannahattar/state-aware-model-risk" target="_blank">GitHub →</a></div>
+    </div>
+    <div class="project-card reveal">
+      <span class="project-type">Spatial Econometrics</span>
+      <h3>Spatial Econometric Modeling of Housing Markets</h3>
+      <p>Built spatial econometric models to evaluate housing prices using geographically clustered datasets and spatial lags, combining Stata and Python workflows for estimation, diagnostics, and validation.</p>
+      <div class="project-tags"><span>Stata</span><span>Python</span><span>2SLS</span><span>SAR / GS2SLS</span><span>Geospatial</span></div>
+      <div class="project-metrics">
+        <div class="metric"><div class="metric-value">0.891</div><div class="metric-label">R²</div></div>
+        <div class="metric"><div class="metric-value">0.363</div><div class="metric-label">RMSE</div></div>
+        <div class="metric"><div class="metric-value">0.293</div><div class="metric-label">MAE</div></div>
       </div>
-    </aside>
+      <div class="project-links"><a href="spatial-pricing.html">Details →</a><a href="https://arxiv.org/pdf/2412.03583" target="_blank">arXiv →</a></div>
+    </div>
+    <div class="project-card reveal">
+      <span class="project-type">Fixed Income</span>
+      <h3>Mortgage &amp; MBS Cash-Flow Modeling</h3>
+      <p>Built mortgage and MBS cash-flow models to analyze amortization, prepayment behavior, default scenarios, and cash-flow sensitivity. Studied borrower prepayment option effects on tranche exposure and interest-rate sensitivity.</p>
+      <div class="project-tags"><span>Excel</span><span>Amortization</span><span>Prepayment</span><span>Default / Severity</span><span>Tranche Exposure</span></div>
+      <div class="project-metrics"><div class="metric"><div class="metric-value">Spring '26</div><div class="metric-label">Publishing</div></div></div>
+    </div>
+    <div class="project-card reveal">
+      <span class="project-type">Development Economics</span>
+      <h3>Institutions, Resources, and Development in the D.R.C.</h3>
+      <p>An institutional and development-economics analysis of the DRC's resource paradox. Examines how governance failures, conflict, and financing constraints prevent resource wealth from translating into growth.</p>
+      <div class="project-tags"><span>Political Economy</span><span>Institutions</span><span>Resource Economics</span><span>Economic History</span></div>
+      <div class="project-links"><a href="https://hannahattar.com/assets/pdfs/At_The_Mercy_of_Natures_Riches.pdf" target="_blank">Read Paper →</a></div>
+    </div>
+  </div>
+  <div class="book-feature reveal">
+    <div class="book-cover"><img src="https://hannahattar.com/assets/images/book-cover.jpg" alt="Book Cover" loading="lazy"></div>
+    <div class="book-info">
+      <span class="project-type">Book Manuscript</span>
+      <h3>Probability &amp; Stochastic Processes</h3>
+      <p>A structured, concept-driven reference that develops core probability and stochastic process ideas within a single coherent framework. Emphasizes clarity of structure and continuity across topics, combining rigorous definitions with concise intuition and original computational visualizations.</p>
+      <div class="project-links"><a href="https://hannahattar.com/assets/pdfs/probability-stochastic-processes-preview.pdf" target="_blank">Preview PDF →</a></div>
+    </div>
+  </div>
+</section>
 
-    <!-- Main -->
-    <main>
-      <h1>Experience</h1>
-      <p class="lede">
-        Investing, modeling, diligence, and decision support across public markets and private investments.
-      </p>
-
-      <hr />
-
-      <!-- Experience 1 -->
-      <section class="exp-card">
-        <div class="exp-top">
-          <div>
-            <h2 class="exp-role">Investment Analyst Intern</h2>
-            <div class="exp-org"><strong>Galliott Capital Advisors</strong> · Beverly Hills, CA</div>
-          </div>
-          <div class="exp-date">Sep 2024 – Dec 2024</div>
-        </div>
-
-        <ul class="exp-bullets">
-          <li>Authored a 30-page due diligence report on a seed-stage startup raising $2M by researching market fit, analyzing financials, and long-term scalability; directly informing internal investment decisions</li>
-          <li>Built DCF and ARIMA models in Excel and Python, benchmarking public comps to project revenue growth and inform valuation strategy for a $3–5M follow-on round</li>
-          <li>Profiled 700+ VC/PE buyers via PitchBook and proprietary screens, narrowing to 2–3 strategic partners for a potential acquisition</li>
-          <li>Sponsored 10+ startup pitch meetings by presenting KPI assessments and model insights, shaping investment decisions</li>
+<section id="experience">
+  <div class="section-header reveal"><span class="section-number">03</span><h2 class="section-title">Experience</h2><div class="section-line"></div></div>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-date"><span>Sep — Dec 2024</span></div><div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3>Investment Analyst Intern</h3><div class="company">Galliott Capital Advisors</div><div class="location">Beverly Hills, CA</div>
+        <ul>
+          <li>Authored a 30-page due diligence report on a seed-stage startup raising $2M, directly informing internal investment decisions</li>
+          <li>Built DCF and ARIMA models in Excel and Python, benchmarking public comps to project revenue growth for a $3–5M follow-on round</li>
+          <li>Profiled 700+ VC/PE buyers via PitchBook, narrowing to 2–3 strategic partners for a potential acquisition</li>
+          <li>Sponsored 10+ startup pitch meetings by presenting KPI assessments and model insights</li>
         </ul>
-      </section>
-
-      <!-- Experience 2 -->
-      <section class="exp-card">
-        <div class="exp-top">
-          <div>
-            <h2 class="exp-role">Summer Junior Accountant</h2>
-            <div class="exp-org"><strong>Courtesy Electric Wholesale</strong> · Pasadena, CA</div>
-          </div>
-          <div class="exp-date">Jun 2023 – Aug 2024</div>
-        </div>
-
-        <ul class="exp-bullets">
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-date"><span>Jun 2023 — Aug 2024</span></div><div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3>Summer Junior Accountant</h3><div class="company">Courtesy Electric Wholesale</div><div class="location">Pasadena, CA</div>
+        <ul>
           <li>Analyzed inventory and sales data in Excel to adjust pricing based on margins, supply trends, and competitor benchmarks</li>
           <li>Managed accounts receivable/payable in QuickBooks, ensuring accurate cash flow and recordkeeping</li>
           <li>Processed invoices and expense reports to streamline vendor payments and improve operational efficiency</li>
         </ul>
-      </section>
-
-      <!-- Experience 3 -->
-      <section class="exp-card">
-        <div class="exp-top">
-          <div>
-            <h2 class="exp-role">Freelance Academic Consultant</h2>
-            <div class="exp-org"><strong>Self-Employed</strong> · San Francisco, CA</div>
-          </div>
-          <div class="exp-date">Jan 2023 – May 2024</div>
-        </div>
-
-        <ul class="exp-bullets">
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-date"><span>Jan 2023 — May 2024</span></div><div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3>Freelance Academic Consultant</h3><div class="company">Self-Employed</div><div class="location">San Francisco, CA</div>
+        <ul>
           <li>Tutored 10+ undergraduates in Economics, Econometrics, Finance, and English, improving performance across semesters</li>
           <li>Provided end-to-end support on an Econometrics capstone, enabling on-time degree completion</li>
           <li>Edited and structured 15+ academic essays to strengthen clarity, analysis, and academic voice</li>
         </ul>
-      </section>
-
-      <!-- Skills moved to bottom of main -->
-      <section class="skills-wrap">
-        <h2>Skills</h2>
-        <p class="lede" style="font-size:14px; margin-top:-6px;">
-
-        <div class="skills-grid">
-          <div class="skill-box">
-            <h3>Quantitative Finance</h3>
-            <ul>
-              <li>Probability and real analysis foundations</li>
-              <li>Stochastic processes and Itô calculus</li>
-              <li>Time series forecasting</li>
-              <li>Optimization methods</li>
-              <li>Derivatives pricing</li>
-            </ul>
-          </div>
-
-          <div class="skill-box">
-            <h3>Machine Learning</h3>
-            <ul>
-              <li>Supervised and unsupervised learning</li>
-              <li>Reinforcement learning methods</li>
-              <li>Feature engineering</li>
-              <li>Probabilistic modeling and prediction</li>
-            </ul>
-          </div>
-
-          <div class="skill-box">
-            <h3>Tools</h3>
-            <ul>
-              <li>Python (NumPy, pandas, scikit-learn, statsmodels)</li>
-              <li>Excel and financial modeling</li>
-              <li>LaTeX for technical writing</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <hr />
-
-      <div class="footer">
-        © <span id="y"></span> Hannah Attar
       </div>
-    </main>
-
+    </div>
   </div>
+  <div class="skills-grid">
+    <div class="skill-group reveal"><h3>Quantitative Finance</h3><ul><li>Probability &amp; Real Analysis</li><li>Stochastic Processes &amp; Itô Calculus</li><li>Time Series Forecasting</li><li>Optimization Methods</li><li>Derivatives Pricing</li></ul></div>
+    <div class="skill-group reveal"><h3>Machine Learning</h3><ul><li>Supervised &amp; Unsupervised Learning</li><li>Reinforcement Learning</li><li>Feature Engineering</li><li>Probabilistic Modeling</li></ul></div>
+    <div class="skill-group reveal"><h3>Tools &amp; Languages</h3><ul><li>Python (NumPy, pandas, scikit-learn, statsmodels)</li><li>Excel &amp; Financial Modeling</li><li>Stata</li><li>LaTeX for Technical Writing</li></ul></div>
+  </div>
+</section>
 
-  <script>
-    const y = document.getElementById("y");
-    if (y) y.textContent = new Date().getFullYear();
-  </script>
+<section id="education">
+  <div class="section-header reveal"><span class="section-number">04</span><h2 class="section-title">Education</h2><div class="section-line"></div></div>
+  <div class="education-grid">
+    <div class="edu-card reveal">
+      <div class="edu-degree">Master's Degree</div><h3>University of Southern California</h3>
+      <div class="edu-program">MS in Financial Engineering · Viterbi School</div>
+      <div class="edu-date">Jan 2025 — May 2026 (Expected)</div>
+      <div class="coursework"><strong>Coursework</strong>Optimization, Probability, Stochastic Processes, Derivatives Pricing, Machine Learning, Numerical Methods, Mortgages &amp; MBS</div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-degree">Bachelor's Degree</div><h3>University of San Francisco</h3>
+      <div class="edu-program">BS in Economics · Minor in English Literature</div>
+      <div class="edu-date">Aug 2021 — May 2024</div>
+      <div class="coursework"><strong>Coursework</strong>Calculus I &amp; II, Linear Algebra &amp; Probability, Financial &amp; Applied Econometrics, Micro &amp; Macroeconomics, Statistics, Development Economics</div>
+    </div>
+  </div>
+</section>
 
+<section class="contact-section" id="contact">
+  <div class="contact-label reveal">Get in Touch</div>
+  <h2 class="contact-heading reveal">Let's talk markets,<br>models, and research.</h2>
+  <div class="contact-links reveal">
+    <a href="mailto:hmattar@usc.edu">Email</a>
+    <a href="https://github.com/hannahattar" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/hannahattar/" target="_blank">LinkedIn</a>
+    <a href="https://hannahattar.com/assets/pdfs/Attar_Resume_2026.pdf" target="_blank">Resume</a>
+  </div>
+</section>
+
+<footer>&copy; 2026 Hannah Attar</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
