@@ -4,622 +4,547 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Regime-Aware Model Risk Visualization | Hannah Attar</title>
-
   <meta name="description" content="A diagnostic study showing model reliability is state-dependent, with regime-aware deployment rules that improve risk outcomes.">
-
   <meta property="og:title" content="Regime-Aware Model Risk Visualization | Hannah Attar">
   <meta property="og:description" content="Model risk is conditional: diagnose failure modes by regime and confidence to improve deployment decisions.">
   <meta property="og:type" content="website">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="styles.css" />
-
-  
-
-
-  <!-- Page-local polish (so you don't have to rewire your whole site) -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    /* --- Layout helpers --- */
-    .detail { padding-bottom: 48px; }
-    .pro-wrap{ max-width: 980px; margin: 0 auto; padding: 0 18px; }
-    .detail-back{ display:inline-flex; gap:10px; align-items:center; margin:18px 0 8px; font-weight:600; }
-
-    /* --- Hero --- */
-    .hero{
-      padding: 22px 0 10px;
-      border-bottom: 1px solid rgba(17,24,39,0.08);
-      margin-bottom: 18px;
-    }
-    .kicker{
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      font-size: 12px;
-      color: rgba(17,24,39,.58);
-      font-weight: 700;
-    }
-    .title{
-      margin: 10px 0 8px;
-      font-size: 34px;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-    }
-    .subtitle{
-      margin: 0 0 14px;
-      font-size: 16px;
-      color: rgba(17,24,39,.72);
-      max-width: 70ch;
+    :root {
+      --bg: #f6f4f0;
+      --bg-elevated: #ffffff;
+      --bg-card: #ffffff;
+      --bg-subtle: #edeae4;
+      --text-primary: #1a1a1f;
+      --text-secondary: #4a4a50;
+      --text-muted: #8a8a90;
+      --accent: #8b6914;
+      --accent-light: #b8941f;
+      --accent-bg: rgba(139,105,20,0.06);
+      --border: #ddd8cf;
+      --border-light: #e8e4dc;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+      --mono: 'JetBrains Mono', monospace;
     }
 
-    .meta-grid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px 18px;
-      margin-top: 14px;
-      padding: 14px 14px;
-      border: 1px solid rgba(17,24,39,0.10);
-      border-radius: 14px;
-      background: rgba(255,255,255,0.7);
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans); background: var(--bg); color: var(--text-primary);
+      line-height: 1.7; font-weight: 300; overflow-x: hidden; -webkit-font-smoothing: antialiased;
     }
-    .meta-item{ font-size: 13px; color: rgba(17,24,39,.74); }
-    .meta-item span{ font-weight: 700; color: rgba(17,24,39,.88); margin-right: 6px; }
+    ::selection { background: var(--accent); color: #fff; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999;
+    }
+    a { color: var(--accent); text-decoration: none; transition: color 0.3s ease; }
+    a:hover { color: var(--text-primary); }
 
-    .actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 10px;
-      margin-top: 14px;
+    /* NAV — identical to index.html */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.25rem 3rem; display: flex; justify-content: space-between; align-items: center;
+      backdrop-filter: blur(20px); background: rgba(246,244,240,0.85);
+      border-bottom: 1px solid var(--border-light); transition: all 0.4s ease;
     }
-    .btn-pro{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 13px;
-      border: 1px solid rgba(17,24,39,0.12);
-      background: rgba(255,255,255,.92);
-      color: rgba(17,24,39,.92);
-      text-decoration:none;
-      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    nav .logo { font-family: var(--serif); font-size: 1.15rem; font-weight: 500; letter-spacing: 0.04em; color: var(--text-primary); }
+    nav .logo span { color: var(--accent); }
+    nav ul { list-style: none; display: flex; gap: 2.25rem; }
+    nav ul li a {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--text-muted); position: relative; padding-bottom: 2px;
     }
-    .btn-pro:hover{
-      transform: translateY(-1px);
-      border-color: rgba(17,24,39,0.22);
-      box-shadow: 0 10px 26px rgba(0,0,0,.08);
-      text-decoration:none;
-    }
-    .btn-primary{
-      background: rgba(17,24,39,.92);
-      color: #fff;
-      border-color: rgba(17,24,39,.92);
-    }
-    .btn-primary:hover{ border-color: rgba(17,24,39,1); }
+    nav ul li a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.3s ease; }
+    nav ul li a:hover { color: var(--text-primary); }
+    nav ul li a:hover::after { width: 100%; }
+    .menu-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 5px; z-index: 200; }
+    .menu-toggle span { width: 22px; height: 1.5px; background: var(--text-muted); transition: all 0.3s ease; }
 
-    /* --- Sections --- */
-    .sec{ margin: 26px 0; }
-    .sec h2{
-      font-size: 18px;
-      margin: 0 0 10px;
-      letter-spacing: -0.01em;
+    /* DETAIL HERO */
+    .detail-hero {
+      padding: 9rem 3rem 3rem; max-width: 1000px; margin: 0 auto;
     }
-    .sec p{ margin: 0 0 10px; color: rgba(17,24,39,.78); max-width: 78ch; }
-    .muted{ color: rgba(17,24,39,.66); }
+    .detail-back {
+      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 2rem; display: inline-block;
+      border-bottom: 1px solid transparent; padding-bottom: 1px; transition: all 0.3s ease;
+    }
+    .detail-back:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .detail-label {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+    }
+    .detail-title {
+      font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300;
+      line-height: 1.15; margin-bottom: 1.5rem; letter-spacing: -0.01em;
+    }
+    .detail-subtitle {
+      font-size: 1rem; color: var(--text-secondary); line-height: 1.8;
+      max-width: 700px; margin-bottom: 2rem; font-weight: 300;
+    }
+    .detail-actions {
+      display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2.5rem;
+    }
+    .detail-actions a {
+      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.6rem 1.4rem; border: 1px solid var(--border);
+      color: var(--text-muted); transition: all 0.3s ease;
+    }
+    .detail-actions a:hover { border-color: var(--accent); color: var(--accent); }
+    .detail-actions a.primary {
+      background: var(--text-primary); color: var(--bg); border-color: var(--text-primary);
+    }
+    .detail-actions a.primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-    /* --- Quick read / cards --- */
-    .grid-2{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 18px;
-      align-items:start;
+    /* META GRID */
+    .detail-meta-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1px; background: var(--border-light); border: 1px solid var(--border-light); margin-bottom: 3rem;
     }
-    .card{
-      border: 1px solid rgba(17,24,39,0.10);
-      border-radius: 16px;
-      background: rgba(255,255,255,.78);
-      padding: 14px 14px;
-      box-shadow: 0 1px 2px rgba(0,0,0,.04);
+    .detail-meta-cell { background: var(--bg-elevated); padding: 1rem 1.25rem; }
+    .detail-meta-cell .label {
+      font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.35rem;
     }
-    .card h3{
-      margin: 0 0 8px;
-      font-size: 14px;
-      letter-spacing: .02em;
-      text-transform: uppercase;
-      color: rgba(17,24,39,.72);
-    }
-    .bullets{ margin: 0; padding-left: 18px; color: rgba(17,24,39,.78); }
-    .bullets li{ margin: 6px 0; }
+    .detail-meta-cell .value { font-size: 0.85rem; color: var(--text-primary); font-weight: 400; }
 
-    .kpis{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 10px;
+    /* DETAIL BODY */
+    .detail-body { max-width: 1000px; margin: 0 auto; padding: 0 3rem 5rem; }
+    .detail-body h2 {
+      font-family: var(--serif); font-size: 1.6rem; font-weight: 400;
+      margin-top: 3.5rem; margin-bottom: 1.25rem; padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-light);
     }
-    .kpi{
-      border: 1px solid rgba(17,24,39,0.10);
-      border-radius: 14px;
-      padding: 10px 10px;
-      background: rgba(255,255,255,.86);
+    .detail-body h2:first-child { margin-top: 0; }
+    .detail-body h3 {
+      font-family: var(--sans); font-size: 0.95rem; font-weight: 500;
+      margin-top: 2rem; margin-bottom: 0.75rem; color: var(--text-primary);
     }
-    .kpi .label{ font-size: 12px; color: rgba(17,24,39,.62); font-weight: 700; }
-    .kpi .value{ font-size: 16px; font-weight: 800; color: rgba(17,24,39,.92); margin-top: 2px; }
-    .kpi .note{ font-size: 12px; color: rgba(17,24,39,.66); margin-top: 2px; line-height: 1.35; }
+    .detail-body p {
+      font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem;
+    }
+    .detail-body ul { list-style: none; margin-bottom: 1.5rem; }
+    .detail-body ul li {
+      font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;
+      padding-left: 1.25rem; position: relative; margin-bottom: 0.5rem;
+    }
+    .detail-body ul li::before { content: '\2014'; position: absolute; left: 0; color: var(--accent-light); font-size: 0.7rem; }
+    .detail-body ul li strong { color: var(--text-primary); font-weight: 500; }
 
-    /* --- Results layout --- */
-    .results-grid{
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap: 18px;
-      align-items:start;
+    /* KEY NUMBERS */
+    .key-numbers {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1px; background: var(--border-light); border: 1px solid var(--border-light); margin: 2rem 0;
     }
-    .mini{
-      font-size: 13px;
-      color: rgba(17,24,39,.74);
-      margin-top: 6px;
+    .key-number { background: var(--bg-elevated); padding: 1.5rem; }
+    .key-number .kn-value {
+      font-family: var(--mono); font-size: 1.5rem; font-weight: 500;
+      color: var(--accent); margin-bottom: 0.25rem;
+    }
+    .key-number .kn-label {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.25rem;
+    }
+    .key-number .kn-note { font-size: 0.75rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* PIPELINE */
+    .pipeline { position: relative; margin: 1.5rem 0; }
+    .pipe-item {
+      display: grid; grid-template-columns: 36px 1fr; gap: 1.25rem;
+      position: relative; padding: 1rem 0;
+    }
+    .pipe-item:not(:last-child)::after {
+      content: ''; position: absolute; left: 17px; top: 52px; bottom: -4px;
+      width: 1px; background: var(--border-light);
+    }
+    .pipe-num {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 0.7rem; font-weight: 500;
+      color: var(--accent); background: var(--accent-bg);
+      border: 1px solid var(--border-light); flex-shrink: 0;
+    }
+    .pipe-content h4 {
+      font-family: var(--sans); font-size: 0.88rem; font-weight: 500;
+      color: var(--text-primary); margin-bottom: 0.2rem;
+    }
+    .pipe-content p {
+      font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; margin: 0;
     }
 
-    /* New: results wrapper card should not add extra padding around inner cards */
-    .results-wrap{ padding: 12px; }
-    .results-wrap .card{ background: rgba(255,255,255,.82); }
-    .results-wrap .results-grid > div:first-child .card{ margin-bottom: 0; }
-
-    /* --- Figures: smaller, consistent, professional --- */
-    .fig{
-      margin: 0 0 12px;
-      border: 1px solid rgba(17,24,39,0.10);
-      border-radius: 16px;
-      background: rgba(255,255,255,.85);
-      overflow:hidden;
+    /* FIGURES */
+    .figure {
+      margin: 2rem 0; background: var(--bg-elevated); border: 1px solid var(--border-light);
+      padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
-    .fig-top{
-      display:flex;
-      justify-content:space-between;
-      gap: 10px;
-      padding: 10px 12px;
-      border-bottom: 1px solid rgba(17,24,39,0.08);
-      align-items:baseline;
-    }
-    .fig-title{
-      font-weight: 800;
-      font-size: 13px;
-      color: rgba(17,24,39,.90);
-    }
-    .fig-cap{
-      font-size: 12px;
-      color: rgba(17,24,39,.62);
-      margin-left: auto;
-    }
-    .fig-body{ padding: 10px 12px 12px; }
-    .figimg{
-      width: 100%;
-      height: auto;
-      display:block;
-      border-radius: 12px;
+    .figure img {
+      width: 100%; height: auto; display: block; margin-bottom: 1rem;
       cursor: zoom-in;
     }
-    .fig-note{
-      margin-top: 8px;
-      font-size: 12px;
-      color: rgba(17,24,39,.66);
-      line-height: 1.45;
+    .figure-header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      margin-bottom: 0.75rem;
+    }
+    .figure-label {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .figure-num {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em;
+      color: var(--text-muted);
+    }
+    .figure-caption { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* TABLES */
+    .detail-body table {
+      width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.8rem;
+    }
+    .detail-body table th {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted); text-align: left;
+      padding: 0.75rem 1rem; border-bottom: 2px solid var(--border);
+      background: var(--bg-subtle); font-weight: 500;
+    }
+    .detail-body table td {
+      padding: 0.65rem 1rem; border-bottom: 1px solid var(--border-light);
+      color: var(--text-secondary); font-family: var(--mono); font-size: 0.78rem;
+    }
+    .detail-body table td:first-child { font-family: var(--sans); }
+    .detail-body table tr:hover td { background: var(--accent-bg); }
+
+    /* CALLOUT */
+    .callout {
+      background: var(--accent-bg); border-left: 3px solid var(--accent);
+      padding: 1.25rem 1.5rem; margin: 1.5rem 0;
+    }
+    .callout p { margin-bottom: 0; font-size: 0.85rem; }
+    .callout strong { color: var(--text-primary); }
+
+    /* RESULTS GRID */
+    .results-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem;
+      align-items: start; margin-top: 1.5rem;
     }
 
-    /* --- Tiny table --- */
-    .table{
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-      color: rgba(17,24,39,.78);
-    }
-    .table th, .table td{
-      padding: 8px 10px;
-      border-bottom: 1px solid rgba(17,24,39,0.10);
-      text-align:left;
-      vertical-align:top;
-    }
-    .table th{
-      color: rgba(17,24,39,.86);
-      font-weight: 800;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: .06em;
+    /* FOOTER */
+    footer {
+      text-align: center; padding: 2.5rem 3rem; border-top: 1px solid var(--border-light);
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; color: var(--text-muted);
     }
 
-    /* --- Pipeline --- */
-    .pipe{
-      list-style:none;
-      margin: 0;
-      padding: 0;
+    /* LIGHTBOX */
+    .lb {
+      position: fixed; inset: 0; background: rgba(0,0,0,.72);
+      display: none; align-items: center; justify-content: center;
+      padding: 22px; z-index: 999;
     }
-    .pipe li{
-      display:grid;
-      grid-template-columns: 34px 1fr;
-      gap: 10px;
-      align-items:start;
-      position: relative;
-      padding: 10px 0;
+    .lb.open { display: flex; }
+    .lb-inner { max-width: min(1100px, 96vw); max-height: 92vh; }
+    .lb-img {
+      width: 100%; height: auto; max-height: 92vh; display: block;
+      cursor: zoom-out; background: #fff;
     }
-    .pipe li:not(:last-child)::after{
-      content:"";
-      position:absolute;
-      left: 16px;
-      top: 44px;
-      bottom: -10px;
-      width: 2px;
-      background: rgba(17,24,39,0.10);
-      border-radius: 99px;
-    }
-    .pipe-step{
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight: 900;
-      font-size: 13px;
-      color: rgba(17,24,39,.90);
-      border: 1px solid rgba(17,24,39,0.12);
-      background: rgba(255,255,255,.92);
-    }
-    .pipe-title{
-      font-weight: 900;
-      font-size: 13px;
-      color: rgba(17,24,39,.88);
-      margin-bottom: 2px;
-    }
-    .pipe-text{
-      font-size: 13px;
-      color: rgba(17,24,39,.74);
-      line-height: 1.45;
+    .lb-x {
+      position: absolute; top: 14px; right: 14px; width: 40px; height: 40px;
+      border-radius: 50%; border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(0,0,0,.25); color: #fff; font-weight: 900; font-size: 18px;
+      line-height: 40px; text-align: center; cursor: pointer; user-select: none;
     }
 
-    /* --- Lightbox --- */
-    .lb{
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.72);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 22px;
-      z-index: 999;
-    }
-    .lb.open{ display:flex; }
-    .lb-inner{
-      max-width: min(1100px, 96vw);
-      max-height: 92vh;
-    }
-    .lb-img{
-      width: 100%;
-      height: auto;
-      max-height: 92vh;
-      display:block;
-      border-radius: 14px;
-      cursor: zoom-out;
-      background: #fff;
-    }
-    .lb-x{
-      position:absolute;
-      top: 14px;
-      right: 14px;
-      width: 40px;
-      height: 40px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.25);
-      background: rgba(0,0,0,.25);
-      color:#fff;
-      font-weight:900;
-      font-size:18px;
-      line-height:40px;
-      text-align:center;
-      cursor:pointer;
-      user-select:none;
-    }
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* --- Footer --- */
-    .footer{
-      margin-top: 34px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(17,24,39,0.08);
-      color: rgba(17,24,39,.58);
-      font-size: 13px;
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .results-layout { grid-template-columns: 1fr; }
+      .detail-hero, .detail-body { padding-left: 1.5rem; padding-right: 1.5rem; }
     }
-
-    /* --- Responsive --- */
-    @media (max-width: 860px){
-      .grid-2, .results-grid{ grid-template-columns: 1fr; }
-      .title{ font-size: 30px; }
-      .meta-grid{ grid-template-columns: 1fr; }
-      .kpis{ grid-template-columns: 1fr; }
-      .results-wrap{ padding: 10px; }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      nav ul {
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(246,244,240,0.97); flex-direction: column;
+        justify-content: center; align-items: center; gap: 2rem;
+        opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+      }
+      nav ul.open { opacity: 1; pointer-events: all; }
+      nav ul li a { font-size: 1rem; letter-spacing: 0.2em; }
+      .menu-toggle { display: flex; }
+      .detail-hero { padding: 7rem 1.5rem 2rem; }
+      .detail-body { padding: 0 1.5rem 3rem; }
+      .detail-meta-grid { grid-template-columns: 1fr 1fr; }
+      .key-numbers { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Top navigation -->
-  <div class="topbar">
-    <div class="topbar-inner">
-      <a class="site-title" href="index.html">Hannah Attar</a>
-      <div class="topnav">
-        <a href="projects.html">Projects</a>
-        <a href="experience.html">Experience</a>
-        <a href="assets/pdfs/Attar_Resume_2025.pdf" target="_blank" rel="noopener">Resume</a>
-      </div>
-    </div>
-  </div>
+  <!-- NAV — matches index.html -->
+  <nav>
+    <a href="index.html" class="logo">H<span>.</span> Attar</a>
+    <button class="menu-toggle" onclick="document.querySelector('nav ul').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul>
+      <li><a href="index.html#about" onclick="document.querySelector('nav ul').classList.remove('open')">About</a></li>
+      <li><a href="index.html#projects" onclick="document.querySelector('nav ul').classList.remove('open')">Projects</a></li>
+      <li><a href="index.html#experience" onclick="document.querySelector('nav ul').classList.remove('open')">Experience</a></li>
+      <li><a href="index.html#education" onclick="document.querySelector('nav ul').classList.remove('open')">Education</a></li>
+      <li><a href="https://hannahattar.com/assets/pdfs/Attar_Resume_2026.pdf" target="_blank">Resume ↗</a></li>
+    </ul>
+  </nav>
 
-  <div class="detail">
-    <div class="pro-wrap">
-      <a class="detail-back" href="projects.html">← Back to Projects</a>
+  <!-- HERO -->
+  <div class="detail-hero">
+    <a class="detail-back" href="index.html#projects">← Back to Projects</a>
+    <div class="detail-label">Project Report · Quantitative Research</div>
+    <h1 class="detail-title">Regime-Aware Model Risk Visualization</h1>
+    <p class="detail-subtitle">
+      A diagnostic study showing that a model's reliability is <em>state-dependent</em>, and that
+      disciplined deployment rules — filtering by confidence and regime — can improve risk outcomes even when daily prediction is weak.
+    </p>
 
-      <!-- HERO -->
-      <header class="hero">
-        <div class="kicker">Project Report</div>
-        <h1 class="title">Regime-Aware Model Risk Visualization</h1>
-        <p class="subtitle">
-          A diagnostic study showing that a model’s reliability is <strong>state-dependent</strong>, and that
-          disciplined deployment rules (confidence + regime) can improve risk outcomes even when daily prediction is weak.
-        </p>
-
-    <div class="actions">
-      <a class="btn-pro btn-primary"
+    <div class="detail-actions">
+      <a class="primary"
          href="assets/pdfs/Regime_Aware_Model_Risk_Visualization.pdf"
          download="Regime_Aware_Model_Risk_Visualization.pdf">
-        Download paper (PDF) →
+        Download Paper (PDF)
+      </a>
+      <a href="https://github.com/hannahattar/state-aware-model-risk" target="_blank" rel="noopener">
+        GitHub Repository
       </a>
     </div>
 
-
-        <div class="meta-grid">
-          <div class="meta-item"><span>Asset</span> SPY, daily (2006–2025)</div>
-          <div class="meta-item"><span>Sample</span> N = 5,007 (70% train / 30% test)</div>
-          <div class="meta-item"><span>Regimes</span> GMM on (ret5, vol10, vol20)</div>
-          <div class="meta-item"><span>Predictor</span> Logistic regression on (ret5, vol20)</div>
-          <div class="meta-item"><span>Confidence</span> |p − 0.5|</div>
-          <div class="meta-item"><span>Goal</span> Evaluation + deployment discipline</div>
-        </div>
-      </header>
-
-      <!-- QUICK READ -->
-      <section class="sec">
-        <div class="grid-2">
-          <div class="card">
-            <h3>Executive Summary</h3>
-            <ul class="bullets">
-              <li>Daily equity direction prediction is noisy, and predicted probabilities are compressed near 0.5.</li>
-              <li>Regimes inferred from returns + realized volatility form persistent market states, not random “clusters.”</li>
-              <li>Model reliability varies materially by regime, so “average” metrics hide failure modes.</li>
-              <li>Filtering trades by confidence and disabling execution in a high-risk regime improves the strategy’s risk profile.</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <h3>Key numbers (out-of-sample)</h3>
-            <div class="kpis">
-              <div class="kpi">
-                <div class="label">Brier score</div>
-                <div class="value">0.247</div>
-                <div class="note">Close to an uninformative baseline, consistent with probability compression.</div>
-              </div>
-              <div class="kpi">
-                <div class="label">Confidence (|p−0.5|)</div>
-                <div class="value">mean 0.0498</div>
-                <div class="note">Std 0.0121, max 0.1008 (test N=1,503).</div>
-              </div>
-              <div class="kpi">
-                <div class="label">Regime Sharpe (best)</div>
-                <div class="value">1.38</div>
-                <div class="note">Strategy performance concentrates in certain regimes.</div>
-              </div>
-              <div class="kpi">
-                <div class="label">High-vol regime</div>
-                <div class="value">unstable</div>
-                <div class="note">Regime 3 shows poor/undefined Sharpe and degraded reliability.</div>
-              </div>
-            </div>
-            <p class="mini">
-              Metrics reported are gross of trading frictions and used primarily for diagnostic comparison.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- WHAT THIS PROJECT IS -->
-      <section class="sec">
-        <h2>What this demonstrates</h2>
-        <div class="card">
-          <ul class="bullets">
-            <li><strong>Model risk is conditional:</strong> a “single” classifier behaves differently depending on the state distribution it operates under.</li>
-            <li><strong>Confidence is not enough:</strong> the confidence-accuracy relationship changes by regime, especially in high volatility.</li>
-            <li><strong>Prediction ≠ deployment:</strong> economic outcomes are strongly influenced by when you choose to trade, not just what the model predicts.</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- METHODS -->
-      <section class="sec">
-        <h2>Methods (Pipeline)</h2>
-        <div class="card">
-          <ol class="pipe">
-            <li>
-              <span class="pipe-step">1</span>
-              <div>
-                <div class="pipe-title">Data</div>
-                <div class="pipe-text">SPY daily closes (2006–2025). Chronological split: 70% train, 30% test.</div>
-              </div>
-            </li>
-            <li>
-              <span class="pipe-step">2</span>
-              <div>
-                <div class="pipe-title">Features</div>
-                <div class="pipe-text">ret5, vol10, vol20 (standardized on train).</div>
-              </div>
-            </li>
-            <li>
-              <span class="pipe-step">3</span>
-              <div>
-                <div class="pipe-title">Regimes (Unsupervised)</div>
-                <div class="pipe-text">GMM on (ret5, vol10, vol20) fit on train, then applied forward.</div>
-              </div>
-            </li>
-            <li>
-              <span class="pipe-step">4</span>
-              <div>
-                <div class="pipe-title">Prediction (Supervised)</div>
-                <div class="pipe-text">Logistic regression predicts next-day direction using (ret5, vol20).</div>
-              </div>
-            </li>
-            <li>
-              <span class="pipe-step">5</span>
-              <div>
-                <div class="pipe-title">Confidence</div>
-                <div class="pipe-text">Use |p − 0.5| to stratify reliability and filter trades.</div>
-              </div>
-            </li>
-            <li>
-              <span class="pipe-step">6</span>
-              <div>
-                <div class="pipe-title">Deployment Rule</div>
-                <div class="pipe-text">Trade only if |p−0.5| &gt; 0.02 and deactivate execution in the high-risk regime.</div>
-              </div>
-            </li>
-            <li>
-              <span class="pipe-step">7</span>
-              <div>
-                <div class="pipe-title">Evaluation</div>
-                <div class="pipe-text">OOS accuracy by confidence/regime + strategy Sharpe & max drawdown (gross of costs).</div>
-              </div>
-            </li>
-          </ol>
-        </div>
-      </section>
-
-      <!-- RESULTS -->
-      <section class="sec">
-        <h2>Results</h2>
-
-        <!-- Outer results card (so Results reads like one section, but still uses your inner cards/figures) -->
-        <div class="card results-wrap">
-          <div class="results-grid">
-
-            <!-- Left: narrative -->
-            <div class="card">
-              <h3>Findings</h3>
-              <ul class="bullets">
-                <li><strong>Regimes persist and cluster in stress periods.</strong> The inferred high-volatility state concentrates around extended market stress, consistent with volatility clustering.</li>
-                <li><strong>Reliability is regime-dependent.</strong> Accuracy patterns differ by regime; the high-volatility regime shows more erratic confidence-stratified behavior (small samples amplify variability).</li>
-                <li><strong>Feature-space separation explains it.</strong> Regimes occupy distinct regions in (ret5, vol20), so a single global decision rule effectively faces different operating conditions.</li>
-                <li><strong>Probabilities are compressed.</strong> Outputs stay near the unconditional mean; probabilities work better as low-amplitude signals than as literal calibrated forecasts.</li>
-                <li><strong>Deployment rules change the risk profile.</strong> Confidence filtering plus deactivating the high-risk regime primarily reduces drawdown depth and return volatility rather than magically increasing raw accuracy.</li>
-              </ul>
-
-              <h3 style="margin-top:14px;">Regime-level strategy Sharpe (OOS)</h3>
-              <table class="table" aria-label="Sharpe ratios by regime">
-                <thead>
-                  <tr><th>Regime</th><th>Sharpe</th><th>Interpretation</th></tr>
-                </thead>
-                <tbody>
-                  <tr><td>0</td><td>1.38</td><td>Strongest contribution in this regime.</td></tr>
-                  <tr><td>1</td><td>0.41</td><td>Positive but modest.</td></tr>
-                  <tr><td>2</td><td>0.22</td><td>Low but positive.</td></tr>
-                  <tr><td>3</td><td>NaN</td><td>Unstable / adverse high-volatility state.</td></tr>
-                </tbody>
-              </table>
-
-              <p class="mini">
-                Confidence filter used in the strategy: trade only when <strong>|p−0.5| &gt; 0.02</strong>, and deactivate execution during the high-risk regime.
-              </p>
-            </div>
-
-            <!-- Right: figures -->
-            <div>
-              <div class="fig">
-                <div class="fig-top">
-                  <div class="fig-title">Regime timeline</div>
-                  <div class="fig-cap">Figure 1</div>
-                </div>
-                <div class="fig-body">
-                  <img class="figimg" src="assets/images/1.png" alt="Inferred market regimes over time" data-zoom>
-                  <div class="fig-note">High-vol regime clusters around prolonged stress episodes, supporting interpretation as persistent market states.</div>
-                </div>
-              </div>
-
-              <div class="fig">
-                <div class="fig-top">
-                  <div class="fig-title">Accuracy vs confidence, by regime</div>
-                  <div class="fig-cap">Figure 2</div>
-                </div>
-                <div class="fig-body">
-                  <img class="figimg" src="assets/images/2.png" alt="Out-of-sample accuracy versus confidence by regime" data-zoom>
-                  <div class="fig-note">Confidence is not universally monotonic. High-vol regime shows degraded stability (and smaller bin counts).</div>
-                </div>
-              </div>
-
-              <div class="fig">
-                <div class="fig-top">
-                  <div class="fig-title">Equity curve (OOS)</div>
-                  <div class="fig-cap">Figure 3</div>
-                </div>
-                <div class="fig-body">
-                  <img class="figimg" src="assets/images/3.png" alt="Out-of-sample strategy equity curve" data-zoom>
-                  <div class="fig-note">Selective deployment changes drawdowns/volatility more than it changes raw predictive metrics. Gross of costs.</div>
-                </div>
-              </div>
-
-              <div class="fig">
-                <div class="fig-top">
-                  <div class="fig-title">Probability field + regimes</div>
-                  <div class="fig-cap">Figure 4</div>
-                </div>
-                <div class="fig-body">
-                  <img class="figimg" src="assets/images/4.png" alt="Logistic probability field with inferred regimes" data-zoom>
-                  <div class="fig-note">Regimes occupy distinct areas of (ret5, vol20), providing a geometric explanation for state-dependent behavior.</div>
-                </div>
-              </div>
-
-              <div class="fig">
-                <div class="fig-top">
-                  <div class="fig-title">Probability compression</div>
-                  <div class="fig-cap">Figure 5</div>
-                </div>
-                <div class="fig-body">
-                  <img class="figimg" src="assets/images/5.png" alt="Distribution of predicted probabilities" data-zoom>
-                  <div class="fig-note">Predicted probabilities concentrate near the unconditional mean, motivating thresholded deployment.</div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <!-- INTERPRETATION -->
-      <section class="sec">
-        <h2>Interpretation and limitations</h2>
-        <div class="card">
-          <ul class="bullets">
-            <li><strong>Diagnostic, not “alpha claims.”</strong> The point is to map failure modes and decide when not to trade.</li>
-            <li><strong>Costs not modeled.</strong> Results are gross of transaction costs, slippage, and financing/short constraints.</li>
-            <li><strong>Small samples in extreme regimes.</strong> High-volatility regime bins can be thin; interpret bin-level spikes cautiously.</li>
-            <li><strong>Next steps.</strong> Richer features, alternative regime definitions, and explicit execution costs would make the deployment test more realistic.</li>
-          </ul>
-        </div>
-      </section>
-
-      <div class="footer">
-        © <span id="y"></span> Hannah Attar
+    <div class="detail-meta-grid">
+      <div class="detail-meta-cell">
+        <div class="label">Asset</div>
+        <div class="value">SPY, daily (2006–2025)</div>
+      </div>
+      <div class="detail-meta-cell">
+        <div class="label">Sample</div>
+        <div class="value">N = 5,007 (70 / 30 split)</div>
+      </div>
+      <div class="detail-meta-cell">
+        <div class="label">Regimes</div>
+        <div class="value">GMM on (ret5, vol10, vol20)</div>
+      </div>
+      <div class="detail-meta-cell">
+        <div class="label">Predictor</div>
+        <div class="value">Logistic regression (ret5, vol20)</div>
+      </div>
+      <div class="detail-meta-cell">
+        <div class="label">Confidence</div>
+        <div class="value">|p − 0.5|</div>
+      </div>
+      <div class="detail-meta-cell">
+        <div class="label">Goal</div>
+        <div class="value">Evaluation + deployment discipline</div>
       </div>
     </div>
   </div>
 
-  <!-- Lightbox -->
+  <!-- BODY -->
+  <div class="detail-body">
+
+    <!-- KEY NUMBERS -->
+    <h2 class="reveal">Key Numbers (Out-of-Sample)</h2>
+    <div class="key-numbers reveal">
+      <div class="key-number">
+        <div class="kn-value">0.247</div>
+        <div class="kn-label">Brier Score</div>
+        <div class="kn-note">Close to uninformative baseline, consistent with probability compression.</div>
+      </div>
+      <div class="key-number">
+        <div class="kn-value">0.0498</div>
+        <div class="kn-label">Mean Confidence |p−0.5|</div>
+        <div class="kn-note">Std 0.0121, max 0.1008 (test N = 1,503).</div>
+      </div>
+      <div class="key-number">
+        <div class="kn-value">1.38</div>
+        <div class="kn-label">Best Regime Sharpe</div>
+        <div class="kn-note">Strategy performance concentrates in certain regimes.</div>
+      </div>
+      <div class="key-number">
+        <div class="kn-value">unstable</div>
+        <div class="kn-label">High-Vol Regime</div>
+        <div class="kn-note">Regime 3 shows poor/undefined Sharpe and degraded reliability.</div>
+      </div>
+    </div>
+    <div class="callout reveal">
+      <p>Metrics reported are gross of trading frictions and used primarily for <strong>diagnostic comparison</strong>, not as live performance claims.</p>
+    </div>
+
+    <!-- EXECUTIVE SUMMARY -->
+    <h2 class="reveal">Executive Summary</h2>
+    <ul class="reveal">
+      <li>Daily equity direction prediction is noisy, and predicted probabilities are compressed near 0.5.</li>
+      <li>Regimes inferred from returns + realized volatility form persistent market states, not random "clusters."</li>
+      <li>Model reliability varies materially by regime, so "average" metrics hide failure modes.</li>
+      <li>Filtering trades by confidence and disabling execution in a high-risk regime improves the strategy's risk profile.</li>
+    </ul>
+
+    <!-- WHAT THIS DEMONSTRATES -->
+    <h2 class="reveal">What This Demonstrates</h2>
+    <ul class="reveal">
+      <li><strong>Model risk is conditional:</strong> a "single" classifier behaves differently depending on the state distribution it operates under.</li>
+      <li><strong>Confidence is not enough:</strong> the confidence-accuracy relationship changes by regime, especially in high volatility.</li>
+      <li><strong>Prediction ≠ deployment:</strong> economic outcomes are strongly influenced by when you choose to trade, not just what the model predicts.</li>
+    </ul>
+
+    <!-- METHODS -->
+    <h2 class="reveal">Methods (Pipeline)</h2>
+    <div class="pipeline reveal">
+      <div class="pipe-item">
+        <div class="pipe-num">1</div>
+        <div class="pipe-content">
+          <h4>Data</h4>
+          <p>SPY daily closes (2006–2025). Chronological split: 70% train, 30% test.</p>
+        </div>
+      </div>
+      <div class="pipe-item">
+        <div class="pipe-num">2</div>
+        <div class="pipe-content">
+          <h4>Features</h4>
+          <p>ret5, vol10, vol20 (standardized on train).</p>
+        </div>
+      </div>
+      <div class="pipe-item">
+        <div class="pipe-num">3</div>
+        <div class="pipe-content">
+          <h4>Regimes (Unsupervised)</h4>
+          <p>GMM on (ret5, vol10, vol20) fit on train, then applied forward.</p>
+        </div>
+      </div>
+      <div class="pipe-item">
+        <div class="pipe-num">4</div>
+        <div class="pipe-content">
+          <h4>Prediction (Supervised)</h4>
+          <p>Logistic regression predicts next-day direction using (ret5, vol20).</p>
+        </div>
+      </div>
+      <div class="pipe-item">
+        <div class="pipe-num">5</div>
+        <div class="pipe-content">
+          <h4>Confidence</h4>
+          <p>Use |p − 0.5| to stratify reliability and filter trades.</p>
+        </div>
+      </div>
+      <div class="pipe-item">
+        <div class="pipe-num">6</div>
+        <div class="pipe-content">
+          <h4>Deployment Rule</h4>
+          <p>Trade only if |p−0.5| &gt; 0.02 and deactivate execution in the high-risk regime.</p>
+        </div>
+      </div>
+      <div class="pipe-item">
+        <div class="pipe-num">7</div>
+        <div class="pipe-content">
+          <h4>Evaluation</h4>
+          <p>OOS accuracy by confidence/regime + strategy Sharpe &amp; max drawdown (gross of costs).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <h2 class="reveal">Results</h2>
+
+    <div class="results-layout">
+      <!-- Left: narrative -->
+      <div class="reveal">
+        <h3>Findings</h3>
+        <ul>
+          <li><strong>Regimes persist and cluster in stress periods.</strong> The inferred high-volatility state concentrates around extended market stress, consistent with volatility clustering.</li>
+          <li><strong>Reliability is regime-dependent.</strong> Accuracy patterns differ by regime; the high-volatility regime shows more erratic confidence-stratified behavior (small samples amplify variability).</li>
+          <li><strong>Feature-space separation explains it.</strong> Regimes occupy distinct regions in (ret5, vol20), so a single global decision rule effectively faces different operating conditions.</li>
+          <li><strong>Probabilities are compressed.</strong> Outputs stay near the unconditional mean; probabilities work better as low-amplitude signals than as literal calibrated forecasts.</li>
+          <li><strong>Deployment rules change the risk profile.</strong> Confidence filtering plus deactivating the high-risk regime primarily reduces drawdown depth and return volatility rather than magically increasing raw accuracy.</li>
+        </ul>
+
+        <h3>Regime-Level Strategy Sharpe (OOS)</h3>
+        <table>
+          <thead>
+            <tr><th>Regime</th><th>Sharpe</th><th>Interpretation</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>0</td><td>1.38</td><td>Strongest contribution in this regime.</td></tr>
+            <tr><td>1</td><td>0.41</td><td>Positive but modest.</td></tr>
+            <tr><td>2</td><td>0.22</td><td>Low but positive.</td></tr>
+            <tr><td>3</td><td>NaN</td><td>Unstable / adverse high-volatility state.</td></tr>
+          </tbody>
+        </table>
+        <div class="callout" style="margin-top: 1rem;">
+          <p>Confidence filter: trade only when <strong>|p−0.5| &gt; 0.02</strong>, and deactivate execution during the high-risk regime.</p>
+        </div>
+      </div>
+
+      <!-- Right: figures -->
+      <div class="reveal">
+        <div class="figure">
+          <div class="figure-header">
+            <span class="figure-label">Regime Timeline</span>
+            <span class="figure-num">Figure 1</span>
+          </div>
+          <img class="zoom-img" src="assets/images/1.png" alt="Inferred market regimes over time">
+          <p class="figure-caption">High-vol regime clusters around prolonged stress episodes, supporting interpretation as persistent market states.</p>
+        </div>
+
+        <div class="figure">
+          <div class="figure-header">
+            <span class="figure-label">Accuracy vs Confidence, by Regime</span>
+            <span class="figure-num">Figure 2</span>
+          </div>
+          <img class="zoom-img" src="assets/images/2.png" alt="Out-of-sample accuracy versus confidence by regime">
+          <p class="figure-caption">Confidence is not universally monotonic. High-vol regime shows degraded stability (and smaller bin counts).</p>
+        </div>
+
+        <div class="figure">
+          <div class="figure-header">
+            <span class="figure-label">Equity Curve (OOS)</span>
+            <span class="figure-num">Figure 3</span>
+          </div>
+          <img class="zoom-img" src="assets/images/3.png" alt="Out-of-sample strategy equity curve">
+          <p class="figure-caption">Selective deployment changes drawdowns/volatility more than it changes raw predictive metrics. Gross of costs.</p>
+        </div>
+
+        <div class="figure">
+          <div class="figure-header">
+            <span class="figure-label">Probability Field + Regimes</span>
+            <span class="figure-num">Figure 4</span>
+          </div>
+          <img class="zoom-img" src="assets/images/4.png" alt="Logistic probability field with inferred regimes">
+          <p class="figure-caption">Regimes occupy distinct areas of (ret5, vol20), providing a geometric explanation for state-dependent behavior.</p>
+        </div>
+
+        <div class="figure">
+          <div class="figure-header">
+            <span class="figure-label">Probability Compression</span>
+            <span class="figure-num">Figure 5</span>
+          </div>
+          <img class="zoom-img" src="assets/images/5.png" alt="Distribution of predicted probabilities">
+          <p class="figure-caption">Predicted probabilities concentrate near the unconditional mean, motivating thresholded deployment.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTERPRETATION -->
+    <h2 class="reveal">Interpretation &amp; Limitations</h2>
+    <ul class="reveal">
+      <li><strong>Diagnostic, not "alpha claims."</strong> The point is to map failure modes and decide when not to trade.</li>
+      <li><strong>Costs not modeled.</strong> Results are gross of transaction costs, slippage, and financing/short constraints.</li>
+      <li><strong>Small samples in extreme regimes.</strong> High-volatility regime bins can be thin; interpret bin-level spikes cautiously.</li>
+      <li><strong>Next steps.</strong> Richer features, alternative regime definitions, and explicit execution costs would make the deployment test more realistic.</li>
+    </ul>
+
+  </div>
+
+  <footer>&copy; 2026 Hannah Attar</footer>
+
+  <!-- LIGHTBOX -->
   <div class="lb" id="lb" aria-hidden="true">
     <div class="lb-x" id="lbClose" aria-label="Close">×</div>
     <div class="lb-inner">
@@ -628,30 +553,32 @@
   </div>
 
   <script>
-    // Footer year
-    const y = document.getElementById("y");
-    if (y) y.textContent = new Date().getFullYear();
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Minimal lightbox for figures
+    // Lightbox
     const lb = document.getElementById("lb");
     const lbImg = document.getElementById("lbImg");
     const lbClose = document.getElementById("lbClose");
 
-    function openLB(src, alt){
+    function openLB(src, alt) {
       lbImg.src = src;
       lbImg.alt = alt || "Expanded figure";
       lb.classList.add("open");
       lb.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
     }
-    function closeLB(){
+    function closeLB() {
       lb.classList.remove("open");
       lb.setAttribute("aria-hidden", "true");
       lbImg.src = "";
       document.body.style.overflow = "";
     }
 
-    document.querySelectorAll("[data-zoom]").forEach(img => {
+    document.querySelectorAll(".zoom-img").forEach(img => {
       img.addEventListener("click", () => openLB(img.src, img.alt));
       img.addEventListener("keypress", (e) => {
         if (e.key === "Enter" || e.key === " ") openLB(img.src, img.alt);
